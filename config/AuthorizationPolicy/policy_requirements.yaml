@@ -1,0 +1,35 @@
+authorization_policies:
+  - name: "Block MSol PowerShell"
+    description: "Ensure that legacy MSol PowerShell access is blocked"
+    setting: "blockMsolPowerShell"
+    expected_value: true
+
+  - name: "Prevent Users from Creating Applications"
+    description: "Ensure that users cannot create applications"
+    setting: "defaultUserRolePermissions.allowedToCreateApps"
+    expected_value: false
+
+  - name: "Prevent User Consent for Risky Apps"
+    description: "Ensure that users cannot consent to risky applications"
+    setting: "allowUserConsentForRiskyApps"
+    expected_value: true  
+    
+  - name: "Restrict Guest Invitations"
+    description: "Ensure guest invitations are restricted appropriately"
+    setting: "allowInvitesFrom"
+    expected_value: ["none", "adminsAndGuestInviters", "adminsGuestInvitersAndAllMembers"]
+
+  - name: "Restrict Guest User Permissions"
+    description: "Ensure guest users have restricted permissions (Restricted Guest User role)"
+    setting: "guestUserRoleId"
+    expected_value: "2af84b1e-32c8-42b7-82bc-daa82404023b"
+
+  - name: "Prevent Users from Creating Tenants"
+    description: "Ensure that users cannot create new tenants"
+    setting: "defaultUserRolePermissions.allowedToCreateTenants"
+    expected_value: false
+
+  - name: "Prevent BitLocker Key Reading"
+    description: "Ensure that users cannot read BitLocker keys for owned devices"
+    setting: "defaultUserRolePermissions.allowedToReadBitlockerKeysForOwnedDevice"
+    expected_value: false

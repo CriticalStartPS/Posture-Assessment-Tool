@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Azure Security Compliance Report</title>
+    <style>
+        :root {
+            --primary-color: #0078d4;
+            --success-color: #107c10;
+            --warning-color: #ff8c00;
+            --danger-color: #d13438;
+            --background-color: #f8f9fa;
+        }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+        .timestamp {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+        }
+        .summary-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        .summary-card h2 {
+            color: var(--primary-color);
+            margin-top: 0;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        .compliance-indicator {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+        }
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        .compliant {
+            background-color: var(--success-color);
+            color: white;
+        }
+        .non-compliant {
+            background-color: var(--danger-color);
+            color: white;
+        }
+        .policy-section {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        .policy-section h2 {
+            color: var(--primary-color);
+            margin-top: 0;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        .policy-item {
+            border-left: 4px solid #ddd;
+            margin: 15px 0;
+            padding: 10px 15px;
+            background: #fafafa;
+        }
+        .policy-item.pass {
+            border-left-color: var(--success-color);
+        }
+        .policy-item.fail {
+            border-left-color: var(--danger-color);
+        }
+        .policy-item h3 {
+            margin: 0 0 10px 0;
+            color: #444;
+        }
+        .status-text {
+            font-weight: 600;
+        }
+        .status-text.pass {
+            color: var(--success-color);
+        }
+        .status-text.fail {
+            color: var(--danger-color);
+        }
+        .overall-score {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        .compliance-details {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            margin: 5px 0;
+        }
+        .compliance-fraction {
+            font-size: 16px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <h1>Azure Security Compliance Report</h1>
+            <div class="timestamp">Generated: {{ timestamp }}</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="summary-card">
+            <h2>Executive Summary</h2>
+            <div class="overall-score">Overall Compliance: {{ compliance_percentage }}% ({{ ca_compliance.passed + auth_compliance.passed }}/{{ ca_compliance.total + auth_compliance.total }} Policies)</div>
+            
+            <div class="compliance-indicator">
+                <span>Conditional Access Policies:</span>
+                <span class="status-badge {% if ca_compliance.is_compliant %}compliant{% else %}non-compliant{% endif %}">
+                    {% if ca_compliance.is_compliant %}Compliant{% else %}Non-Compliant{% endif %}
+                </span>
+                <div class="compliance-details">
+                    <span class="compliance-fraction">({{ ca_compliance.passed }}/{{ ca_compliance.total }} Passed)</span>
+                    <span>{{ ca_compliance.percentage }}%</span>
+                </div>
+            </div>
+
+            <div class="compliance-indicator">
+                <span>Authorization Policies:</span>
+                <span class="status-badge {% if auth_compliance.is_compliant %}compliant{% else %}non-compliant{% endif %}">
+                    {% if auth_compliance.is_compliant %}Compliant{% else %}Non-Compliant{% endif %}
+                </span>
+                <div class="compliance-details">
+                    <span class="compliance-fraction">({{ auth_compliance.passed }}/{{ auth_compliance.total }} Passed)</span>
+                    <span>{{ auth_compliance.percentage }}%</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="policy-section">
+            <h2>Conditional Access Policies</h2>
+            {% for result in ca_results %}
+            {% set status = result.status | string | upper %}
+            <div class="policy-item {% if status == 'PASS' or (not status.startswith('MISSING') and not status.startswith('PRESENT') and 'FAIL' not in status) %}pass{% else %}fail{% endif %}">
+                <h3>{{ result.requirement_name }}</h3>
+                <p>Configuration Status: <span class="status-text {% if status == 'PASS' or (not status.startswith('MISSING') and not status.startswith('PRESENT') and 'FAIL' not in status) %}pass{% else %}fail{% endif %}">
+                    {{ result.status }}
+                </span></p>
+                <p>Policy Found: {{ result.found }}</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="policy-section">
+            <h2>Authorization Policies</h2>
+            {% for result in auth_results %}
+            {% set status = result.status | string | upper %}
+            <div class="policy-item {% if status == 'PASS' or (not status.startswith('MISSING') and not status.startswith('PRESENT') and 'FAIL' not in status) %}pass{% else %}fail{% endif %}">
+                <h3>{{ result.requirement_name }}</h3>
+                <p>Configuration Status: <span class="status-text {% if status == 'PASS' or (not status.startswith('MISSING') and not status.startswith('PRESENT') and 'FAIL' not in status) %}pass{% else %}fail{% endif %}">
+                    {{ result.status }}
+                </span></p>
+                <p>Policy Found: {{ result.found }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

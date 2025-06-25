@@ -1,0 +1,48 @@
+antispam_policies:
+  - name: "Bulk Email Threshold"
+    description: "Set bulk email threshold to 7 or lower"
+    policy_name: "Default"
+    setting: "BulkThreshold"
+    expected_value: 7
+
+  - name: "Enable Quarantine Phishing"
+    description: "Quarantine phishing emails"
+    policy_name: "Default"
+    setting: "PhishSpamAction"
+    expected_value: "Quarantine"
+
+  - name: "Enable Quarantine High Confidence Phishing"
+    description: "Quarantine high confidence phishing emails"
+    policy_name: "Default"
+    setting: "HighConfidencePhishAction"
+    expected_value: "Quarantine"
+
+  - name: "Enable Quarantine Spam"
+    description: "Quarantine spam emails"
+    policy_name: "Default"
+    setting: "SpamAction"
+    expected_value: "Quarantine"
+
+  - name: "Enable Quarantine High Confidence Spam"
+    description: "Quarantine high confidence spam emails"
+    policy_name: "Default"
+    setting: "HighConfidenceSpamAction"
+    expected_value: "Quarantine"
+
+  - name: "Enable Safety Tips"
+    description: "Enable safety tips for phishing"
+    policy_name: "Default"
+    setting: "EnableSafetyTips"
+    expected_value: true
+
+  - name: "Enable Zero Hour Auto Purge for Spam"
+    description: "Enable ZAP for spam messages"
+    policy_name: "Default"
+    setting: "SpamZapEnabled"
+    expected_value: true
+
+  - name: "Enable Zero Hour Auto Purge for Phishing"
+    description: "Enable ZAP for phishing messages"
+    policy_name: "Default"
+    setting: "PhishZapEnabled"
+    expected_value: true

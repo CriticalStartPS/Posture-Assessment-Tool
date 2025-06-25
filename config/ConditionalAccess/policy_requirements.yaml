@@ -1,0 +1,294 @@
+# Example structure for required policies
+conditional_access_policies:
+  - name: "MFA for All Users (Base Policy)"
+    description: "Require MFA for all users"
+    required_conditions:
+      users:
+        includeUsers: ["All"]
+      applications:
+        includeApplications: ["All"]
+      clientAppTypes: ["all"]
+    required_controls:
+      operator: "OR"
+      builtInControls: ["mfa"]
+
+  - name: "Entra ID User Risk Policy for High Risk Users"
+    description: "Block high risk users"
+    required_conditions:
+      users:
+        includeUsers: ["All"]
+      applications:
+        includeApplications: ["All"]
+      userRiskLevels: ["high"]
+      clientAppTypes: ["all"]
+    required_controls:
+      builtInControls: ["passwordChange"]
+
+  - name: "Entra ID Sign-in Risk Policy for Medium and High Risk Users"
+    description: "Block medium and high risk sign-ins"
+    required_conditions:
+      users:
+        includeUsers: ["All"]
+      applications:
+        includeApplications: ["All"]
+      signInRiskLevels: ["high", "medium"]
+      clientAppTypes: ["all"]
+    required_controls:
+      operator: "OR"
+      builtInControls: ["mfa"]
+    required_session_controls:
+      signInFrequency:
+        authenticationType: "primaryAndSecondaryAuthentication"
+        frequencyInterval: "everyTime"
+        isEnabled: true
+
+  - name: "Block Legacy Authentication"
+    description: "Block legacy authentication protocols"
+    required_conditions:
+      users:
+        includeUsers: ["All"]
+      applications:
+        includeApplications: ["All"]
+      clientAppTypes: ["exchangeActiveSync", "other"]
+    required_controls:
+      operator: "OR"
+      builtInControls: ["block"]
+
+  - name: "Block access for unknown or unsupported device platform"
+    description: "Block access from unknown or unsupported device platforms"
+    required_conditions:
+      users:
+        includeUsers: ["All"]
+      applications:
+        includeApplications: ["All"]
+      clientAppTypes: ["all"]
+      platforms:
+        includePlatforms: ["all"]
+        excludePlatforms: ["android", "iOS", "windows", "macOS", "linux", "windowsPhone"]
+    required_controls:
+      grantControls:
+        operator: "OR"
+        builtInControls: ["block"]
+
+  - name: "Securing Security Info Registration"
+    description: "Require MFA when registering security information"
+    required_conditions:
+      users:
+        includeUsers: ["All"]
+        excludeUsers: ["GuestsOrExternalUsers"]
+        excludeRoles: ["62e90394-69f5-4237-9190-012177145e10"]
+      applications:
+        includeUserActions: ["urn:user:registersecurityinfo"]
+      clientAppTypes: ["all"]
+      locations:
+        includeLocations: ["All"]
+        excludeLocations: ["AllTrusted"]
+    required_controls:
+      operator: "OR"
+      builtInControls: ["mfa"]
+
+  - name: "Block Graph Command Line Tools and Explorer"
+    description: "Block access to Graph Command Line Tools and Graph Explorer"
+    required_conditions:
+      users:
+        includeUsers: ["all"]
+      applications:
+        includeApplications: [
+          "de8bc8b5-d9f9-48b1-a8ad-b748da725064",  # Microsoft Graph Command Line Tools
+          "14d82eec-204b-4c2f-b7e8-296a70dab67e"   # Microsoft Graph Explorer
+        ]
+      clientAppTypes: ["all"]
+    required_controls:
+      operator: "OR"
+      builtInControls: ["block"]
+
+  - name: "Block Device Code Authentication"
+    description: "Block access via device code flow authentication"
+    required_conditions:
+      users:
+        includeUsers: ["All"]
+      applications:
+        includeApplications: ["All"]
+      clientAppTypes: ["all"]
+      authenticationFlows:
+        transferMethods: "deviceCodeFlow"
+    required_controls:
+      operator: "OR"
+      builtInControls: ["block"]
+
+  - name: "Block Azure Management for Non-Admins"
+    description: "Block access to Azure Management for non-administrative users"
+    required_conditions:
+      users:
+        includeUsers: ["All"]
+      applications:
+        includeApplications: ["797f4846-ba00-4fd7-ba43-dac1f8f63013"]  # Azure Management
+      clientAppTypes: ["all"]
+    required_controls:
+      operator: "OR"
+      builtInControls: ["block"]
+
+  - name: "Block Authentication Transfers"
+    description: "Block authentication transfer methods"
+    required_conditions:
+      users:
+        includeUsers: ["All"]
+      applications:
+        includeApplications: ["None"]
+      clientAppTypes: ["all"]
+      authenticationFlows:
+        transferMethods: "authenticationTransfer"
+    required_controls:
+      operator: "OR"
+      builtInControls: ["block"]
+
+  - name: "Require Phishing-Resistant MFA for Admins"
+    description: "Require phishing-resistant authentication methods for administrative roles"
+    required_conditions:
+      users:
+        includeRoles: [
+          "62e90394-69f5-4237-9190-012177145e10",  # Global Administrator
+          "194ae4cb-b126-40b2-bd5b-6091b380977d",  # Privileged Role Administrator
+          "f28a1f50-f6e7-4571-818b-6a12f2af6b6c",  # Security Administrator
+          "29232cdf-9323-42fd-ade2-1d097af3e4de",  # Authentication Administrator
+          "b1be1c3e-b65d-4f19-8427-f6fa0d97feb9",  # Exchange Administrator
+          "729827e3-9c14-49f7-bb1b-9608f156bbb8",  # SharePoint Administrator
+          "b0f54661-2d74-4c50-afa3-1ec803f12efe",  # Application Administrator
+          "fe930be7-5e62-47db-91af-98c3a49a38b1",  # User Administrator
+          "c4e39bd9-1100-46d3-8c65-fb160da0071f",  # Cloud Application Administrator
+          "9b895d92-2cd3-44c7-9d02-a6ac2d5ea5c3",  # Application Developer
+          "158c047a-c907-4556-b7ef-446551a6b5f7",  # Security Reader
+          "966707d0-3269-4727-9be2-8c3a10f19b9d",  # Reports Reader
+          "7be44c8a-adaf-4e2a-84d6-ab2649e08a13",  # Authentication Administrator
+          "e8611ab8-c189-46e8-94e1-60213ab1f814"   # Conditional Access Administrator
+        ]
+      applications:
+        includeApplications: ["All"]
+      clientAppTypes: ["all"]
+    required_controls:
+      operator: "OR"
+      authenticationStrength:
+        id: "00000000-0000-0000-0000-000000000004"
+        allowedCombinations: [
+          "windowsHelloForBusiness",
+          "fido2",
+          "x509CertificateMultiFactor"
+        ]
+
+  - name: "No Persistent Browser Session on Unmanaged Devices"
+    description: "Prevent persistent browser sessions on unmanaged or non-compliant devices"
+    required_conditions:
+      users:
+        includeUsers: ["All"]
+      applications:
+        includeApplications: ["All"]
+      clientAppTypes: ["all"]
+      devices:
+        deviceFilter:
+          mode: "include"
+          rule: "device.trustType -ne \"ServerAD\" -or device.isCompliant -ne True"
+    required_session_controls:
+      signInFrequency:
+        value: 1
+        type: "hours"
+        authenticationType: "primaryAndSecondaryAuthentication"
+        frequencyInterval: "timeBased"
+        isEnabled: true
+      persistentBrowser:
+        mode: "never"
+        isEnabled: true
+
+  - name: "Require Session Control for Admin Roles"
+    description: "Enforce sign-in frequency control for administrative roles"
+    required_conditions:
+      users:
+        includeRoles: [
+          "62e90394-69f5-4237-9190-012177145e10",  # Global Administrator
+          "194ae4cb-b126-40b2-bd5b-6091b380977d",  # Privileged Role Administrator
+          "f28a1f50-f6e7-4571-818b-6a12f2af6b6c",  # Security Administrator
+          "29232cdf-9323-42fd-ade2-1d097af3e4de",  # Authentication Administrator
+          "b1be1c3e-b65d-4f19-8427-f6fa0d97feb9",  # Exchange Administrator
+          "729827e3-9c14-49f7-bb1b-9608f156bbb8",  # SharePoint Administrator
+          "b0f54661-2d74-4c50-afa3-1ec803f12efe",  # Application Administrator
+          "fe930be7-5e62-47db-91af-98c3a49a38b1",  # User Administrator
+          "c4e39bd9-1100-46d3-8c65-fb160da0071f",  # Cloud Application Administrator
+          "9b895d92-2cd3-44c7-9d02-a6ac2d5ea5c3",  # Application Developer
+          "158c047a-c907-4556-b7ef-446551a6b5f7",  # Security Reader
+          "966707d0-3269-4727-9be2-8c3a10f19b9d",  # Reports Reader
+          "7be44c8a-adaf-4e2a-84d6-ab2649e08a13",  # Authentication Administrator
+          "e8611ab8-c189-46e8-94e1-60213ab1f814"   # Conditional Access Administrator
+        ]
+      applications:
+        includeApplications: ["All"]
+      clientAppTypes: ["all"]
+    required_session_controls:
+      signInFrequency:
+        authenticationType: "primaryAndSecondaryAuthentication"
+        frequencyInterval: "timeBased"
+        isEnabled: true
+
+  - name: "Block Offline Autopilot Profile Enrollment"
+    description: "Block devices using offline Autopilot profile enrollment"
+    required_conditions:
+      applications:
+        includeApplications: ["All"]
+      clientAppTypes: ["all"]
+      platforms:
+        includePlatforms: ["windows"]
+      devices:
+        deviceFilter:
+          mode: "include"
+          rule: "device.enrollmentProfileName -contains \"OfflineAutopilotprofile-\""
+    required_controls:
+      operator: "OR"
+      builtInControls: ["block"]
+
+  - name: "Force MFA on Device Registration"
+    description: "Require MFA when registering devices"
+    required_conditions:
+      users:
+        includeUsers: ["All"]
+      applications:
+        includeUserActions: ["urn:user:registerdevice"]
+      clientAppTypes: ["all"]
+    required_controls:
+      operator: "OR"
+      builtInControls: ["mfa"]
+
+  - name: "Require Approved Apps on Mobile Devices"
+    description: "Require approved client apps or app protection policies on mobile platforms"
+    required_conditions:
+      users:
+        includeUsers: ["All"]
+      applications:
+        includeApplications: ["All"]
+      clientAppTypes: ["all"]
+      platforms:
+        includePlatforms: ["android", "iOS"]
+    required_controls:
+      operator: "OR"
+      builtInControls: ["approvedApplication", "compliantApplication"]
+
+  - name: "Block SharePoint Access on Unmanaged Devices"
+    description: "Block access to SharePoint from unmanaged devices"
+    required_conditions:
+      users:
+        includeUsers: ["All"]
+      applications:
+        includeApplications: ["00000003-0000-0ff1-ce00-000000000000"]  # SharePoint Online
+      clientAppTypes: ["mobileAppsAndDesktopClients"]
+    required_controls:
+      operator: "OR"
+      builtInControls: ["compliantDevice", "domainJoinedDevice"]
+
+  - name: "Enforce SharePoint Browser App Restrictions"
+    description: "Enable application enforced restrictions for SharePoint browser access"
+    required_conditions:
+      users:
+        includeUsers: ["All"]
+      applications:
+        includeApplications: ["00000003-0000-0ff1-ce00-000000000000"]  # SharePoint Online
+      clientAppTypes: ["browser"]
+    required_session_controls:
+      applicationEnforcedRestrictions:
+        isEnabled: true
