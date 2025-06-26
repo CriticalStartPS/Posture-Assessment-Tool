@@ -147,8 +147,8 @@ class ReportGenerator:
         if not os.path.exists(reports_dir):
             os.makedirs(reports_dir)
             
-        # Write the report
+        # Write the report with UTF-8 encoding to support Unicode characters (emojis)
         report_path = os.path.join(reports_dir, f'report_{datetime.now().strftime("%Y%m%d_%H%M%S")}.html')
-        with open(report_path, 'w') as f:
+        with open(report_path, 'w', encoding='utf-8') as f:
             f.write(output)
         print(f"Report generated: {report_path}")

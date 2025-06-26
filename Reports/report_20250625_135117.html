@@ -128,23 +128,23 @@
     <div class="header">
         <div class="container">
             <h1>Azure Security Compliance Report</h1>
-            <div class="timestamp">Generated: 2025-05-13 14:15:32</div>
+            <div class="timestamp">Generated: 2025-06-25 13:51:17</div>
         </div>
     </div>
 
     <div class="container">
         <div class="summary-card">
             <h2>Executive Summary</h2>
-            <div class="overall-score">Overall Compliance: 80% (20/25 Policies)</div>
+            <div class="overall-score">Overall Compliance: 73% (19/26 Policies)</div>
             
             <div class="compliance-indicator">
                 <span>Conditional Access Policies:</span>
-                <span class="status-badge compliant">
-                    Compliant
+                <span class="status-badge non-compliant">
+                    Non-Compliant
                 </span>
                 <div class="compliance-details">
-                    <span class="compliance-fraction">(18/18 Passed)</span>
-                    <span>100%</span>
+                    <span class="compliance-fraction">(17/18 Passed)</span>
+                    <span>94%</span>
                 </div>
             </div>
 
@@ -158,6 +158,19 @@
                     <span>29%</span>
                 </div>
             </div>
+
+            
+            <div class="compliance-indicator">
+                <span>Defender for Office 365 Anti-Spam:</span>
+                <span class="status-badge non-compliant">
+                    Non-Compliant
+                </span>
+                <div class="compliance-details">
+                    <span class="compliance-fraction">(0/1 Passed)</span>
+                    <span>0%</span>
+                </div>
+            </div>
+            
         </div>
 
         <div class="policy-section">
@@ -212,9 +225,9 @@
             <div class="policy-item fail">
                 <h3>Securing Security Info Registration</h3>
                 <p>Configuration Status: <span class="status-text fail">
-                    PRESENT - Current: true (Matched Policy: Securing security info registration)
+                    MISSING - Current: false, Expected: true (No matching policy found)
                 </span></p>
-                <p>Policy Found: True</p>
+                <p>Policy Found: False</p>
             </div>
             
             
@@ -230,7 +243,7 @@
             <div class="policy-item fail">
                 <h3>Block Device Code Authentication</h3>
                 <p>Configuration Status: <span class="status-text fail">
-                    PRESENT - Current: true (Matched Policy: Block Graph Runner)
+                    PRESENT - Current: true (Matched Policy: Block Device Code Auth)
                 </span></p>
                 <p>Policy Found: True</p>
             </div>
@@ -257,7 +270,7 @@
             <div class="policy-item fail">
                 <h3>Require Phishing-Resistant MFA for Admins</h3>
                 <p>Configuration Status: <span class="status-text fail">
-                    PRESENT - Current: true (Matched Policies: SvN - Require multifactor authentication for admins - CS Demo, Require phishing-resistant multifactor authentication for admins)
+                    PRESENT - Current: false (Matched Policy: SvN - Require multifactor authentication for admins - CS Demo)
                 </span></p>
                 <p>Policy Found: True</p>
             </div>
@@ -394,6 +407,24 @@
             </div>
             
         </div>
+
+        
+        <div class="policy-section">
+            <h2>Defender for Office 365 - Anti-Spam Policies</h2>
+            
+            
+            <div class="policy-item fail">
+                <h3>Module Missing</h3>
+                <p>Configuration Status: <span class="status-text fail">
+                    MISSING - Exchange Online PowerShell module not installed
+                </span></p>
+                <p>Policy Found: False</p>
+                
+                
+            </div>
+            
+        </div>
+        
     </div>
 </body>
 </html>

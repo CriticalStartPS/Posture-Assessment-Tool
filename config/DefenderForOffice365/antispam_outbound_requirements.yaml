@@ -1,0 +1,48 @@
+antispam_outbound_policies:
+  - name: "Outbound Spam Action"
+    description: "Action to take when outbound spam is detected"
+    policy_type: "outbound"
+    setting: "ActionWhenThresholdReached"
+    expected_value: "BlockUser"
+
+  - name: "Daily Message Limit"
+    description: "Maximum number of messages a user can send per day"
+    policy_type: "outbound"
+    setting: "RecipientLimitExternalPerHour"
+    expected_value: 500
+
+  - name: "Internal Message Limit"
+    description: "Maximum number of internal messages per hour"
+    policy_type: "outbound"
+    setting: "RecipientLimitInternalPerHour"
+    expected_value: 1000
+
+  - name: "External Message Limit"
+    description: "Maximum number of external messages per hour"
+    policy_type: "outbound"
+    setting: "RecipientLimitPerDay"
+    expected_value: 1000
+
+  - name: "Enable Outbound Spam Notifications"
+    description: "Send notifications when outbound spam is detected"
+    policy_type: "outbound"
+    setting: "NotifyOutboundSpam"
+    expected_value: true
+
+  - name: "Auto Forwarding Policy"
+    description: "Control automatic forwarding to external domains"
+    policy_type: "outbound"
+    setting: "AutoForwardingMode"
+    expected_value: "Off"
+
+  - name: "BCC Suspicious Outbound Mail"
+    description: "BCC suspicious outbound messages for monitoring"
+    policy_type: "outbound"
+    setting: "BccSuspiciousOutboundMail"
+    expected_value: true
+
+  - name: "Copy To Sent Items"
+    description: "Ensure outbound messages are saved to sent items"
+    policy_type: "outbound"
+    setting: "BccSuspiciousOutboundAdditionalRecipients"
+    expected_value: ""

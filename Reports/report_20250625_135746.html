@@ -128,23 +128,23 @@
     <div class="header">
         <div class="container">
             <h1>Azure Security Compliance Report</h1>
-            <div class="timestamp">Generated: 2025-05-13 14:05:40</div>
+            <div class="timestamp">Generated: 2025-06-25 13:57:46</div>
         </div>
     </div>
 
     <div class="container">
         <div class="summary-card">
             <h2>Executive Summary</h2>
-            <div class="overall-score">Overall Compliance: 78% (18/23 Policies)</div>
+            <div class="overall-score">Overall Compliance: 67% (22/33 Policies)</div>
             
             <div class="compliance-indicator">
                 <span>Conditional Access Policies:</span>
-                <span class="status-badge compliant">
-                    Compliant
+                <span class="status-badge non-compliant">
+                    Non-Compliant
                 </span>
                 <div class="compliance-details">
-                    <span class="compliance-fraction">(16/16 Passed)</span>
-                    <span>100%</span>
+                    <span class="compliance-fraction">(17/18 Passed)</span>
+                    <span>94%</span>
                 </div>
             </div>
 
@@ -158,6 +158,19 @@
                     <span>29%</span>
                 </div>
             </div>
+
+            
+            <div class="compliance-indicator">
+                <span>Defender for Office 365 Anti-Spam:</span>
+                <span class="status-badge non-compliant">
+                    Non-Compliant
+                </span>
+                <div class="compliance-details">
+                    <span class="compliance-fraction">(3/8 Passed)</span>
+                    <span>38%</span>
+                </div>
+            </div>
+            
         </div>
 
         <div class="policy-section">
@@ -212,9 +225,9 @@
             <div class="policy-item fail">
                 <h3>Securing Security Info Registration</h3>
                 <p>Configuration Status: <span class="status-text fail">
-                    PRESENT - Current: true (Matched Policy: Securing security info registration)
+                    MISSING - Current: false, Expected: true (No matching policy found)
                 </span></p>
-                <p>Policy Found: True</p>
+                <p>Policy Found: False</p>
             </div>
             
             
@@ -230,7 +243,7 @@
             <div class="policy-item fail">
                 <h3>Block Device Code Authentication</h3>
                 <p>Configuration Status: <span class="status-text fail">
-                    PRESENT - Current: true (Matched Policy: Block Graph Runner)
+                    PRESENT - Current: true (Matched Policy: Block Device Code Auth)
                 </span></p>
                 <p>Policy Found: True</p>
             </div>
@@ -257,7 +270,7 @@
             <div class="policy-item fail">
                 <h3>Require Phishing-Resistant MFA for Admins</h3>
                 <p>Configuration Status: <span class="status-text fail">
-                    PRESENT - Current: true (Matched Policies: SvN - Require multifactor authentication for admins - CS Demo, Require phishing-resistant multifactor authentication for admins)
+                    PRESENT - Current: false (Matched Policy: SvN - Require multifactor authentication for admins - CS Demo)
                 </span></p>
                 <p>Policy Found: True</p>
             </div>
@@ -303,6 +316,24 @@
                 <h3>Require Approved Apps on Mobile Devices</h3>
                 <p>Configuration Status: <span class="status-text fail">
                     PRESENT - Current: true (Matched Policy: Require approved client apps or app protection policies)
+                </span></p>
+                <p>Policy Found: True</p>
+            </div>
+            
+            
+            <div class="policy-item fail">
+                <h3>Block SharePoint Access on Unmanaged Devices</h3>
+                <p>Configuration Status: <span class="status-text fail">
+                    PRESENT - Current: true (Matched Policy: [SharePoint admin center]Block access from apps on unmanaged devices - 2023/07/27)
+                </span></p>
+                <p>Policy Found: True</p>
+            </div>
+            
+            
+            <div class="policy-item fail">
+                <h3>Enforce SharePoint Browser App Restrictions</h3>
+                <p>Configuration Status: <span class="status-text fail">
+                    PRESENT - Current: true (Matched Policy: [SharePoint admin center]Use app-enforced Restrictions for browser access - 2023/07/27)
                 </span></p>
                 <p>Policy Found: True</p>
             </div>
@@ -376,6 +407,131 @@
             </div>
             
         </div>
+
+        
+        <div class="policy-section">
+            <h2>Defender for Office 365 - Anti-Spam Policies</h2>
+            
+            
+            <div class="policy-item fail">
+                <h3>Bulk Email Threshold</h3>
+                <p>Configuration Status: <span class="status-text fail">
+                    MISSING - Current: 6, Expected: 7
+                </span></p>
+                <p>Policy Found: True</p>
+                
+                <p>Current Value: 6</p>
+                
+                
+                <p>Expected Value: 7</p>
+                
+            </div>
+            
+            
+            <div class="policy-item fail">
+                <h3>Enable Quarantine Phishing</h3>
+                <p>Configuration Status: <span class="status-text fail">
+                    MISSING - Current: MoveToJmf, Expected: Quarantine
+                </span></p>
+                <p>Policy Found: True</p>
+                
+                <p>Current Value: MoveToJmf</p>
+                
+                
+                <p>Expected Value: Quarantine</p>
+                
+            </div>
+            
+            
+            <div class="policy-item pass">
+                <h3>Enable Quarantine High Confidence Phishing</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    PRESENT - Current: Quarantine
+                </span></p>
+                <p>Policy Found: True</p>
+                
+                <p>Current Value: Quarantine</p>
+                
+                
+                <p>Expected Value: Quarantine</p>
+                
+            </div>
+            
+            
+            <div class="policy-item fail">
+                <h3>Enable Quarantine Spam</h3>
+                <p>Configuration Status: <span class="status-text fail">
+                    MISSING - Current: MoveToJmf, Expected: Quarantine
+                </span></p>
+                <p>Policy Found: True</p>
+                
+                <p>Current Value: MoveToJmf</p>
+                
+                
+                <p>Expected Value: Quarantine</p>
+                
+            </div>
+            
+            
+            <div class="policy-item fail">
+                <h3>Enable Quarantine High Confidence Spam</h3>
+                <p>Configuration Status: <span class="status-text fail">
+                    MISSING - Current: MoveToJmf, Expected: Quarantine
+                </span></p>
+                <p>Policy Found: True</p>
+                
+                <p>Current Value: MoveToJmf</p>
+                
+                
+                <p>Expected Value: Quarantine</p>
+                
+            </div>
+            
+            
+            <div class="policy-item fail">
+                <h3>Enable Safety Tips</h3>
+                <p>Configuration Status: <span class="status-text fail">
+                    MISSING - Current: False, Expected: True
+                </span></p>
+                <p>Policy Found: True</p>
+                
+                
+                <p>Expected Value: True</p>
+                
+            </div>
+            
+            
+            <div class="policy-item pass">
+                <h3>Enable Zero Hour Auto Purge for Spam</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    PRESENT - Current: True
+                </span></p>
+                <p>Policy Found: True</p>
+                
+                <p>Current Value: True</p>
+                
+                
+                <p>Expected Value: True</p>
+                
+            </div>
+            
+            
+            <div class="policy-item pass">
+                <h3>Enable Zero Hour Auto Purge for Phishing</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    PRESENT - Current: True
+                </span></p>
+                <p>Policy Found: True</p>
+                
+                <p>Current Value: True</p>
+                
+                
+                <p>Expected Value: True</p>
+                
+            </div>
+            
+        </div>
+        
     </div>
 </body>
 </html>

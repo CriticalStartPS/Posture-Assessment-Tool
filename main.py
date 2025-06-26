@@ -3,6 +3,7 @@ from EntraID.ConditionalAccess.ConditionalAccessPolicyHandler import Conditional
 from EntraID.AuthorizationPolicy.AuthorizationPolicyHandler import AuthorizationPolicyHandler
 from DefenderForOffice365.AntiSpamPolicyHandler import AntiSpamPolicyHandler
 from ReportGenerator import ReportGenerator
+import os
 
 def main():
     auth = GraphAuthenticator()
@@ -79,12 +80,47 @@ if ($module) {
                 }]
             else:
                 print(f"Exchange Online module found: {module_check.stdout.strip()}")
-                # Remove token parameter - now uses interactive auth
-                antispam_handler = AntiSpamPolicyHandler('config/DefenderForOffice365/antispam_requirements.yaml')
+                
+                # Initialize with Standard, Strict, and Outbound requirements files
+                inbound_standard_file = 'config/DefenderForOffice365/antispam_inbound_standard_requirements.yaml'
+                inbound_strict_file = 'config/DefenderForOffice365/antispam_inbound_strict_requirements.yaml'
+                outbound_file = 'config/DefenderForOffice365/antispam_outbound_requirements.yaml'
+                
+                # Check which files exist
+                standard_exists = os.path.exists(inbound_standard_file)
+                strict_exists = os.path.exists(inbound_strict_file)
+                outbound_exists = os.path.exists(outbound_file)
+                
+                print(f"Standard inbound requirements file exists: {standard_exists}")
+                print(f"Strict inbound requirements file exists: {strict_exists}")
+                print(f"Outbound requirements file exists: {outbound_exists}")
+                
+                if not standard_exists and not strict_exists and not outbound_exists:
+                    print("No anti-spam requirements files found. Checking for legacy files...")
+                    
+                    # Check for legacy single inbound file
+                    legacy_inbound_file = 'config/DefenderForOffice365/antispam_inbound_requirements.yaml'
+                    legacy_general_file = 'config/DefenderForOffice365/antispam_requirements.yaml'
+                    
+                    if os.path.exists(legacy_inbound_file):
+                        print("Using legacy antispam_inbound_requirements.yaml file")
+                        antispam_handler = AntiSpamPolicyHandler(legacy_inbound_file=legacy_inbound_file)
+                    elif os.path.exists(legacy_general_file):
+                        print("Using legacy antispam_requirements.yaml file")
+                        antispam_handler = AntiSpamPolicyHandler(legacy_inbound_file=legacy_general_file)
+                    else:
+                        raise FileNotFoundError("No anti-spam requirements files found")
+                else:
+                    antispam_handler = AntiSpamPolicyHandler(
+                        inbound_standard_file=inbound_standard_file if standard_exists else None,
+                        inbound_strict_file=inbound_strict_file if strict_exists else None,
+                        outbound_requirements_file=outbound_file if outbound_exists else None
+                    )
+                
                 antispam_results = antispam_handler.check_policies()
         
-        except FileNotFoundError:
-            print("Anti-spam requirements file not found. Skipping Defender checks.")
+        except FileNotFoundError as e:
+            print(f"Anti-spam requirements file not found: {str(e)}. Skipping Defender checks.")
             antispam_results = []
         except Exception as e:
             print(f"Error checking anti-spam policies: {str(e)}")

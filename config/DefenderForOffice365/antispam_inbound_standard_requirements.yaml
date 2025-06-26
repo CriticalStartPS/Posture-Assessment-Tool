@@ -1,0 +1,72 @@
+antispam_inbound_standard_policies:
+  - name: "Bulk Email Threshold (Standard)"
+    description: "Set bulk email threshold to 7 or lower for standard protection"
+    policy_type: "inbound_standard"
+    setting: "BulkThreshold"
+    expected_value: 7
+
+  - name: "Phishing Action (Standard)"
+    description: "Move phishing emails to Junk folder for standard protection"
+    policy_type: "inbound_standard"
+    setting: "PhishSpamAction"
+    expected_value: "MoveToJmf"
+
+  - name: "High Confidence Phishing Action (Standard)"
+    description: "Quarantine high confidence phishing emails for standard protection"
+    policy_type: "inbound_standard"
+    setting: "HighConfidencePhishAction"
+    expected_value: "Quarantine"
+
+  - name: "Spam Action (Standard)"
+    description: "Move spam emails to Junk folder for standard protection"
+    policy_type: "inbound_standard"
+    setting: "SpamAction"
+    expected_value: "MoveToJmf"
+
+  - name: "High Confidence Spam Action (Standard)"
+    description: "Move high confidence spam to Junk folder for standard protection"
+    policy_type: "inbound_standard"
+    setting: "HighConfidenceSpamAction"
+    expected_value: "MoveToJmf"
+
+  - name: "Enable Safety Tips (Standard)"
+    description: "Enable safety tips for phishing on inbound messages"
+    policy_type: "inbound_standard"
+    setting: "EnableSafetyTips"
+    expected_value: true
+
+  - name: "Zero Hour Auto Purge for Spam (Standard)"
+    description: "Enable ZAP for spam messages with standard settings"
+    policy_type: "inbound_standard"
+    setting: "SpamZapEnabled"
+    expected_value: true
+
+  - name: "Zero Hour Auto Purge for Phishing (Standard)"
+    description: "Enable ZAP for phishing messages with standard settings"
+    policy_type: "inbound_standard"
+    setting: "PhishZapEnabled"
+    expected_value: true
+
+  - name: "Enhanced Filtering for Connectors (Standard)"
+    description: "Enable enhanced filtering for mail flow connectors"
+    policy_type: "inbound_standard"
+    setting: "IncreaseScoreWithImageLinks"
+    expected_value: "On"
+
+  - name: "Bulk Email Detection (Standard)"
+    description: "Mark bulk email appropriately for standard filtering"
+    policy_type: "inbound_standard"
+    setting: "MarkAsSpamBulkMail"
+    expected_value: "On"
+
+  - name: "Image Links Spam Detection (Standard)"
+    description: "Enable image link spam detection for standard protection"
+    policy_type: "inbound_standard"
+    setting: "IncreaseScoreWithImageLinks"
+    expected_value: "On"
+
+  - name: "Redirect to Recipients (Standard)"
+    description: "Allow redirect to recipients for standard protection"
+    policy_type: "inbound_standard"
+    setting: "IncreaseScoreWithRedirectToOtherPort"
+    expected_value: "Off"

@@ -122,6 +122,29 @@
             font-size: 16px;
             color: #666;
         }
+        .policy-breakdown {
+            margin-top: 10px;
+            padding-left: 20px;
+            border-left: 2px solid #0078d4;
+        }
+        .policy-breakdown h4 {
+            font-size: 16px;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        .policy-breakdown ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+        .policy-summary {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #555;
+        }
+        .non-compliant-warning {
+            color: var(--danger-color);
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -135,7 +158,7 @@
     <div class="container">
         <div class="summary-card">
             <h2>Executive Summary</h2>
-            <div class="overall-score">Overall Compliance: {{ compliance_percentage }}% ({{ ca_compliance.passed + auth_compliance.passed }}/{{ ca_compliance.total + auth_compliance.total }} Policies)</div>
+            <div class="overall-score">Overall Compliance: {{ compliance_percentage }}% ({{ ca_compliance.passed + auth_compliance.passed + (antispam_compliance.passed if antispam_compliance else 0) }}/{{ ca_compliance.total + auth_compliance.total + (antispam_compliance.total if antispam_compliance else 0) }} Policies)</div>
             
             <div class="compliance-indicator">
                 <span>Conditional Access Policies:</span>
@@ -158,6 +181,19 @@
                     <span>{{ auth_compliance.percentage }}%</span>
                 </div>
             </div>
+
+            {% if antispam_compliance %}
+            <div class="compliance-indicator">
+                <span>Defender for Office 365 Anti-Spam:</span>
+                <span class="status-badge {% if antispam_compliance.is_compliant %}compliant{% else %}non-compliant{% endif %}">
+                    {% if antispam_compliance.is_compliant %}Compliant{% else %}Non-Compliant{% endif %}
+                </span>
+                <div class="compliance-details">
+                    <span class="compliance-fraction">({{ antispam_compliance.passed }}/{{ antispam_compliance.total }} Passed)</span>
+                    <span>{{ antispam_compliance.percentage }}%</span>
+                </div>
+            </div>
+            {% endif %}
         </div>
 
         <div class="policy-section">
@@ -187,6 +223,223 @@
             </div>
             {% endfor %}
         </div>
+
+        {% if antispam_results %}
+        <div class="policy-section">
+            <h2>Defender for Office 365 - Anti-Spam Policies</h2>
+            
+            {% set inbound_standard_results = antispam_results | selectattr("policy_type", "equalto", "antispam_inbound_standard") | list %}
+            {% set inbound_strict_results = antispam_results | selectattr("policy_type", "equalto", "antispam_inbound_strict") | list %}
+            {% set inbound_general_results = antispam_results | selectattr("policy_type", "equalto", "antispam_inbound") | list %}
+            {% set outbound_results = antispam_results | selectattr("policy_type", "equalto", "antispam_outbound") | list %}
+            {% set general_results = antispam_results | rejectattr("policy_type", "in", ["antispam_inbound_standard", "antispam_inbound_strict", "antispam_inbound", "antispam_outbound"]) | list %}
+            
+            {% if inbound_standard_results %}
+            <div style="margin-bottom: 30px;">
+                <h3 style="color: #0078d4; border-bottom: 1px solid #ddd; padding-bottom: 5px;">📋 Inbound Anti-Spam Policies (Standard Protection)</h3>
+                <p style="color: #666; font-style: italic; margin-bottom: 15px;">Balanced security settings suitable for most organizations</p>
+                {% for result in inbound_standard_results %}
+                {% set status = result.status | string | upper %}
+                <div class="policy-item {% if status.startswith('PRESENT') or (result.found and not status.startswith('MISSING') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">
+                    <h3>{{ result.requirement_name }}</h3>
+                    <p>Configuration Status: <span class="status-text {% if status.startswith('PRESENT') or (result.found and not status.startswith('MISSING') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">
+                        {{ result.status }}
+                    </span></p>
+                    <p>Policy Found: {{ result.found }}</p>
+                    {% if result.current_value %}
+                    <p>Current Value: {{ result.current_value }}</p>
+                    {% endif %}
+                    {% if result.expected_value %}
+                    <p>Expected Value: {{ result.expected_value }}</p>
+                    {% endif %}
+                    {% if result.policy_breakdown %}
+                    <div class="policy-breakdown">
+                        <h4>Policy Details:</h4>
+                        <ul>
+                        {% for breakdown in result.policy_breakdown %}
+                            <li>{{ breakdown }}</li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                    {% if result.total_policies %}
+                    <p class="policy-summary">
+                        Summary: {{ result.compliant_policies }}/{{ result.total_policies }} policies compliant
+                        {% if result.non_compliant_policies > 0 %}
+                        <span class="non-compliant-warning">({{ result.non_compliant_policies }} need attention)</span>
+                        {% endif %}
+                    </p>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            
+            {% if inbound_strict_results %}
+            <div style="margin-bottom: 30px;">
+                <h3 style="color: #d13438; border-bottom: 1px solid #ddd; padding-bottom: 5px;">🔒 Inbound Anti-Spam Policies (Strict Protection)</h3>
+                <p style="color: #666; font-style: italic; margin-bottom: 15px;">Enhanced security settings for high-security environments</p>
+                {% for result in inbound_strict_results %}
+                {% set status = result.status | string | upper %}
+                <div class="policy-item {% if status.startswith('PRESENT') or (result.found and not status.startswith('MISSING') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">
+                    <h3>{{ result.requirement_name }}</h3>
+                    <p>Configuration Status: <span class="status-text {% if status.startswith('PRESENT') or (result.found and not status.startswith('MISSING') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">
+                        {{ result.status }}
+                    </span></p>
+                    <p>Policy Found: {{ result.found }}</p>
+                    {% if result.current_value %}
+                    <p>Current Value: {{ result.current_value }}</p>
+                    {% endif %}
+                    {% if result.expected_value %}
+                    <p>Expected Value: {{ result.expected_value }}</p>
+                    {% endif %}
+                    {% if result.policy_breakdown %}
+                    <div class="policy-breakdown">
+                        <h4>Policy Details:</h4>
+                        <ul>
+                        {% for breakdown in result.policy_breakdown %}
+                            <li>{{ breakdown }}</li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                    {% if result.total_policies %}
+                    <p class="policy-summary">
+                        Summary: {{ result.compliant_policies }}/{{ result.total_policies }} policies compliant
+                        {% if result.non_compliant_policies > 0 %}
+                        <span class="non-compliant-warning">({{ result.non_compliant_policies }} need attention)</span>
+                        {% endif %}
+                    </p>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            
+            {% if inbound_general_results %}
+            <div style="margin-bottom: 30px;">
+                <h3 style="color: #0078d4; border-bottom: 1px solid #ddd; padding-bottom: 5px;">📥 Inbound Anti-Spam Policies (General)</h3>
+                {% for result in inbound_general_results %}
+                {% set status = result.status | string | upper %}
+                <div class="policy-item {% if status.startswith('PRESENT') or (result.found and not status.startswith('MISSING') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">
+                    <h3>{{ result.requirement_name }}</h3>
+                    <p>Configuration Status: <span class="status-text {% if status.startswith('PRESENT') or (result.found and not status.startswith('MISSING') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">
+                        {{ result.status }}
+                    </span></p>
+                    <p>Policy Found: {{ result.found }}</p>
+                    {% if result.current_value %}
+                    <p>Current Value: {{ result.current_value }}</p>
+                    {% endif %}
+                    {% if result.expected_value %}
+                    <p>Expected Value: {{ result.expected_value }}</p>
+                    {% endif %}
+                    {% if result.policy_breakdown %}
+                    <div class="policy-breakdown">
+                        <h4>Policy Details:</h4>
+                        <ul>
+                        {% for breakdown in result.policy_breakdown %}
+                            <li>{{ breakdown }}</li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                    {% if result.total_policies %}
+                    <p class="policy-summary">
+                        Summary: {{ result.compliant_policies }}/{{ result.total_policies }} policies compliant
+                        {% if result.non_compliant_policies > 0 %}
+                        <span class="non-compliant-warning">({{ result.non_compliant_policies }} need attention)</span>
+                        {% endif %}
+                    </p>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            
+            {% if outbound_results %}
+            <div style="margin-bottom: 30px;">
+                <h3 style="color: #ff8c00; border-bottom: 1px solid #ddd; padding-bottom: 5px;">📤 Outbound Anti-Spam Policies</h3>
+                <p style="color: #666; font-style: italic; margin-bottom: 15px;">Controls for outbound email to prevent spam and maintain reputation</p>
+                {% for result in outbound_results %}
+                {% set status = result.status | string | upper %}
+                <div class="policy-item {% if status.startswith('PRESENT') or (result.found and not status.startswith('MISSING') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">
+                    <h3>{{ result.requirement_name }}</h3>
+                    <p>Configuration Status: <span class="status-text {% if status.startswith('PRESENT') or (result.found and not status.startswith('MISSING') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">
+                        {{ result.status }}
+                    </span></p>
+                    <p>Policy Found: {{ result.found }}</p>
+                    {% if result.current_value %}
+                    <p>Current Value: {{ result.current_value }}</p>
+                    {% endif %}
+                    {% if result.expected_value %}
+                    <p>Expected Value: {{ result.expected_value }}</p>
+                    {% endif %}
+                    {% if result.policy_breakdown %}
+                    <div class="policy-breakdown">
+                        <h4>Policy Details:</h4>
+                        <ul>
+                        {% for breakdown in result.policy_breakdown %}
+                            <li>{{ breakdown }}</li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                    {% if result.total_policies %}
+                    <p class="policy-summary">
+                        Summary: {{ result.compliant_policies }}/{{ result.total_policies }} policies compliant
+                        {% if result.non_compliant_policies > 0 %}
+                        <span class="non-compliant-warning">({{ result.non_compliant_policies }} need attention)</span>
+                        {% endif %}
+                    </p>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            
+            {% if general_results %}
+            <div style="margin-bottom: 30px;">
+                {% if inbound_standard_results or inbound_strict_results or inbound_general_results or outbound_results %}
+                <h3 style="color: #666; border-bottom: 1px solid #ddd; padding-bottom: 5px;">⚠️ General Anti-Spam Status</h3>
+                {% endif %}
+                {% for result in general_results %}
+                {% set status = result.status | string | upper %}
+                <div class="policy-item {% if status.startswith('PRESENT') or (result.found and not status.startswith('MISSING') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">
+                    <h3>{{ result.requirement_name }}</h3>
+                    <p>Configuration Status: <span class="status-text {% if status.startswith('PRESENT') or (result.found and not status.startswith('MISSING') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">
+                        {{ result.status }}
+                    </span></p>
+                    <p>Policy Found: {{ result.found }}</p>
+                    {% if result.current_value %}
+                    <p>Current Value: {{ result.current_value }}</p>
+                    {% endif %}
+                    {% if result.expected_value %}
+                    <p>Expected Value: {{ result.expected_value }}</p>
+                    {% endif %}
+                    {% if result.policy_breakdown %}
+                    <div class="policy-breakdown">
+                        <h4>Policy Details:</h4>
+                        <ul>
+                        {% for breakdown in result.policy_breakdown %}
+                            <li>{{ breakdown }}</li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                    {% if result.total_policies %}
+                    <p class="policy-summary">
+                        Summary: {{ result.compliant_policies }}/{{ result.total_policies }} policies compliant
+                        {% if result.non_compliant_policies > 0 %}
+                        <span class="non-compliant-warning">({{ result.non_compliant_policies }} need attention)</span>
+                        {% endif %}
+                    </p>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
     </div>
 </body>
 </html>

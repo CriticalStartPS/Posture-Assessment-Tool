@@ -1,0 +1,90 @@
+antispam_inbound_strict_policies:
+  - name: "Bulk Email Threshold (Strict)"
+    description: "Set bulk email threshold to 4 or lower for strict protection"
+    policy_type: "inbound_strict"
+    setting: "BulkThreshold"
+    expected_value: 4
+
+  - name: "Phishing Action (Strict)"
+    description: "Quarantine phishing emails for strict protection"
+    policy_type: "inbound_strict"
+    setting: "PhishSpamAction"
+    expected_value: "Quarantine"
+
+  - name: "High Confidence Phishing Action (Strict)"
+    description: "Delete high confidence phishing emails for strict protection"
+    policy_type: "inbound_strict"
+    setting: "HighConfidencePhishAction"
+    expected_value: "Delete"
+
+  - name: "Spam Action (Strict)"
+    description: "Quarantine spam emails for strict protection"
+    policy_type: "inbound_strict"
+    setting: "SpamAction"
+    expected_value: "Quarantine"
+
+  - name: "High Confidence Spam Action (Strict)"
+    description: "Quarantine high confidence spam for strict protection"
+    policy_type: "inbound_strict"
+    setting: "HighConfidenceSpamAction"
+    expected_value: "Quarantine"
+
+  - name: "Enable Safety Tips (Strict)"
+    description: "Enable safety tips for phishing on inbound messages"
+    policy_type: "inbound_strict"
+    setting: "EnableSafetyTips"
+    expected_value: true
+
+  - name: "Zero Hour Auto Purge for Spam (Strict)"
+    description: "Enable ZAP for spam messages with strict settings"
+    policy_type: "inbound_strict"
+    setting: "SpamZapEnabled"
+    expected_value: true
+
+  - name: "Zero Hour Auto Purge for Phishing (Strict)"
+    description: "Enable ZAP for phishing messages with strict settings"
+    policy_type: "inbound_strict"
+    setting: "PhishZapEnabled"
+    expected_value: true
+
+  - name: "Enhanced Filtering for Connectors (Strict)"
+    description: "Enable enhanced filtering for mail flow connectors"
+    policy_type: "inbound_strict"
+    setting: "IncreaseScoreWithImageLinks"
+    expected_value: "On"
+
+  - name: "Bulk Email Detection (Strict)"
+    description: "Mark bulk email appropriately for strict filtering"
+    policy_type: "inbound_strict"
+    setting: "MarkAsSpamBulkMail"
+    expected_value: "On"
+
+  - name: "Image Links Spam Detection (Strict)"
+    description: "Enable aggressive image link spam detection for strict protection"
+    policy_type: "inbound_strict"
+    setting: "IncreaseScoreWithImageLinks"
+    expected_value: "On"
+
+  - name: "Redirect to Recipients (Strict)"
+    description: "Block redirect to recipients for strict protection"
+    policy_type: "inbound_strict"
+    setting: "IncreaseScoreWithRedirectToOtherPort"
+    expected_value: "On"
+
+  - name: "SPF Record Check (Strict)"
+    description: "Enable strict SPF record checking"
+    policy_type: "inbound_strict"
+    setting: "MarkAsSpamSpfRecordHardFail"
+    expected_value: "On"
+
+  - name: "Empty Messages (Strict)"
+    description: "Mark empty messages as spam for strict protection"
+    policy_type: "inbound_strict"
+    setting: "MarkAsSpamEmptyMessages"
+    expected_value: "On"
+
+  - name: "JavaScript in HTML (Strict)"
+    description: "Mark JavaScript in HTML as spam for strict protection"
+    policy_type: "inbound_strict"
+    setting: "MarkAsSpamJavaScriptInHtml"
+    expected_value: "On"
