@@ -127,18 +127,38 @@ class ReportGenerator:
         ca_compliance = self.calculate_compliance_details(ca_results, is_conditional_access=True)
         auth_compliance = self.calculate_compliance_details(auth_results, is_conditional_access=False)
         
-        # Calculate anti-spam compliance if provided
+        # Calculate separate anti-spam compliance metrics by category
         antispam_compliance = None
+        antispam_inbound_standard_compliance = {'percentage': 0, 'passed': 0, 'total': 0, 'is_compliant': False}
+        antispam_inbound_strict_compliance = {'percentage': 0, 'passed': 0, 'total': 0, 'is_compliant': False}
+        antispam_outbound_compliance = {'percentage': 0, 'passed': 0, 'total': 0, 'is_compliant': False}
+        
         if antispam_results:
+            # Filter results by policy type
+            inbound_standard_results = [r for r in antispam_results if r.get('policy_type') == 'antispam_inbound_standard']
+            inbound_strict_results = [r for r in antispam_results if r.get('policy_type') == 'antispam_inbound_strict']
+            outbound_results = [r for r in antispam_results if r.get('policy_type') == 'antispam_outbound']
+            
+            # Calculate compliance for each category
+            if inbound_standard_results:
+                antispam_inbound_standard_compliance = self.calculate_compliance_details(inbound_standard_results, is_conditional_access=False)
+            if inbound_strict_results:
+                antispam_inbound_strict_compliance = self.calculate_compliance_details(inbound_strict_results, is_conditional_access=False)
+            if outbound_results:
+                antispam_outbound_compliance = self.calculate_compliance_details(outbound_results, is_conditional_access=False)
+            
+            # Calculate overall anti-spam compliance for backward compatibility
             antispam_compliance = self.calculate_compliance_details(antispam_results, is_conditional_access=False)
         
-        # Calculate overall compliance
-        total_passed = ca_compliance['passed'] + auth_compliance['passed']
-        total_policies = ca_compliance['total'] + auth_compliance['total']
-        
-        if antispam_compliance:
-            total_passed += antispam_compliance['passed']
-            total_policies += antispam_compliance['total']
+        # Calculate overall compliance using the separate anti-spam categories
+        total_passed = (ca_compliance['passed'] + auth_compliance['passed'] + 
+                       antispam_inbound_standard_compliance['passed'] + 
+                       antispam_inbound_strict_compliance['passed'] + 
+                       antispam_outbound_compliance['passed'])
+        total_policies = (ca_compliance['total'] + auth_compliance['total'] + 
+                         antispam_inbound_standard_compliance['total'] + 
+                         antispam_inbound_strict_compliance['total'] + 
+                         antispam_outbound_compliance['total'])
         
         overall_compliance = round((total_passed / total_policies) * 100) if total_policies > 0 else 0
 
@@ -151,7 +171,10 @@ class ReportGenerator:
             compliance_percentage=overall_compliance,
             ca_compliance=ca_compliance,
             auth_compliance=auth_compliance,
-            antispam_compliance=antispam_compliance
+            antispam_compliance=antispam_compliance,
+            antispam_inbound_standard_compliance=antispam_inbound_standard_compliance,
+            antispam_inbound_strict_compliance=antispam_inbound_strict_compliance,
+            antispam_outbound_compliance=antispam_outbound_compliance
         )
         
         # Create reports directory if it doesn't exist

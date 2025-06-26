@@ -215,13 +215,35 @@
 
             {% if antispam_compliance %}
             <div class="compliance-indicator">
-                <span>Defender for Office 365 Anti-Spam:</span>
-                <span class="status-badge {% if antispam_compliance.is_compliant %}compliant{% else %}non-compliant{% endif %}">
-                    {% if antispam_compliance.is_compliant %}Compliant{% else %}Non-Compliant{% endif %}
+                <span>📋 Defender for Office 365 - Inbound Standard:</span>
+                <span class="status-badge {% if antispam_inbound_standard_compliance.is_compliant %}compliant{% else %}non-compliant{% endif %}">
+                    {% if antispam_inbound_standard_compliance.is_compliant %}Compliant{% else %}Non-Compliant{% endif %}
                 </span>
                 <div class="compliance-details">
-                    <span class="compliance-fraction">({{ antispam_compliance.passed }}/{{ antispam_compliance.total }} Passed)</span>
-                    <span>{{ antispam_compliance.percentage }}%</span>
+                    <span class="compliance-fraction">({{ antispam_inbound_standard_compliance.passed }}/{{ antispam_inbound_standard_compliance.total }} Passed)</span>
+                    <span>{{ antispam_inbound_standard_compliance.percentage }}%</span>
+                </div>
+            </div>
+            
+            <div class="compliance-indicator">
+                <span>🔒 Defender for Office 365 - Inbound Strict:</span>
+                <span class="status-badge {% if antispam_inbound_strict_compliance.is_compliant %}compliant{% else %}non-compliant{% endif %}">
+                    {% if antispam_inbound_strict_compliance.is_compliant %}Compliant{% else %}Non-Compliant{% endif %}
+                </span>
+                <div class="compliance-details">
+                    <span class="compliance-fraction">({{ antispam_inbound_strict_compliance.passed }}/{{ antispam_inbound_strict_compliance.total }} Passed)</span>
+                    <span>{{ antispam_inbound_strict_compliance.percentage }}%</span>
+                </div>
+            </div>
+            
+            <div class="compliance-indicator">
+                <span>📤 Defender for Office 365 - Outbound:</span>
+                <span class="status-badge {% if antispam_outbound_compliance.is_compliant %}compliant{% else %}non-compliant{% endif %}">
+                    {% if antispam_outbound_compliance.is_compliant %}Compliant{% else %}Non-Compliant{% endif %}
+                </span>
+                <div class="compliance-details">
+                    <span class="compliance-fraction">({{ antispam_outbound_compliance.passed }}/{{ antispam_outbound_compliance.total }} Passed)</span>
+                    <span>{{ antispam_outbound_compliance.percentage }}%</span>
                 </div>
             </div>
             {% endif %}

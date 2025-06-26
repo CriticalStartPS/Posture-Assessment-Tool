@@ -1,21 +1,10 @@
 antispam_inbound_standard_policies:
+  # Core Anti-Spam Actions
   - name: "Bulk Email Threshold (Standard)"
     description: "Set bulk email threshold to 7 or lower for standard protection"
     policy_type: "inbound_standard"
     setting: "BulkThreshold"
     expected_value: 7
-
-  - name: "Phishing Action (Standard)"
-    description: "Move phishing emails to Junk folder for standard protection"
-    policy_type: "inbound_standard"
-    setting: "PhishSpamAction"
-    expected_value: "MoveToJmf"
-
-  - name: "High Confidence Phishing Action (Standard)"
-    description: "Quarantine high confidence phishing emails for standard protection"
-    policy_type: "inbound_standard"
-    setting: "HighConfidencePhishAction"
-    expected_value: "Quarantine"
 
   - name: "Spam Action (Standard)"
     description: "Move spam emails to Junk folder for standard protection"
@@ -24,15 +13,34 @@ antispam_inbound_standard_policies:
     expected_value: "MoveToJmf"
 
   - name: "High Confidence Spam Action (Standard)"
-    description: "Move high confidence spam to Junk folder for standard protection"
+    description: "Quarantine high confidence spam emails for standard protection"
     policy_type: "inbound_standard"
     setting: "HighConfidenceSpamAction"
+    expected_value: "Quarantine"
+
+  - name: "Phishing Action (Standard)"
+    description: "Quarantine phishing emails for standard protection"
+    policy_type: "inbound_standard"
+    setting: "PhishSpamAction"
+    expected_value: "Quarantine"
+
+  - name: "High Confidence Phishing Action (Standard)"
+    description: "Quarantine high confidence phishing emails for standard protection"
+    policy_type: "inbound_standard"
+    setting: "HighConfidencePhishAction"
+    expected_value: "Quarantine"
+
+  - name: "Bulk Spam Action (Standard)"
+    description: "Move bulk spam to Junk folder for standard protection"
+    policy_type: "inbound_standard"
+    setting: "BulkSpamAction"
     expected_value: "MoveToJmf"
 
-  - name: "Enable Safety Tips (Standard)"
-    description: "Enable safety tips for phishing on inbound messages"
+  # Zero Hour Auto Purge (ZAP) Settings
+  - name: "Zero Hour Auto Purge Enabled (Standard)"
+    description: "Enable ZAP functionality for standard protection"
     policy_type: "inbound_standard"
-    setting: "EnableSafetyTips"
+    setting: "ZapEnabled"
     expected_value: true
 
   - name: "Zero Hour Auto Purge for Spam (Standard)"
@@ -47,26 +55,149 @@ antispam_inbound_standard_policies:
     setting: "PhishZapEnabled"
     expected_value: true
 
-  - name: "Enhanced Filtering for Connectors (Standard)"
-    description: "Enable enhanced filtering for mail flow connectors"
+  # Safety and User Experience
+  - name: "Inline Safety Tips Enabled (Standard)"
+    description: "Enable inline safety tips for phishing protection"
     policy_type: "inbound_standard"
-    setting: "IncreaseScoreWithImageLinks"
-    expected_value: "On"
+    setting: "InlineSafetyTipsEnabled"
+    expected_value: true
 
-  - name: "Bulk Email Detection (Standard)"
-    description: "Mark bulk email appropriately for standard filtering"
-    policy_type: "inbound_standard"
-    setting: "MarkAsSpamBulkMail"
-    expected_value: "On"
-
+  # Enhanced Filtering Settings
   - name: "Image Links Spam Detection (Standard)"
     description: "Enable image link spam detection for standard protection"
     policy_type: "inbound_standard"
     setting: "IncreaseScoreWithImageLinks"
     expected_value: "On"
 
-  - name: "Redirect to Recipients (Standard)"
-    description: "Allow redirect to recipients for standard protection"
+  - name: "Numeric IPs Spam Detection (Standard)"
+    description: "Enable numeric IP spam detection for standard protection"
+    policy_type: "inbound_standard"
+    setting: "IncreaseScoreWithNumericIps"
+    expected_value: "On"
+
+  - name: "Redirect to Other Port Detection (Standard)"
+    description: "Enable redirect to other port spam detection"
     policy_type: "inbound_standard"
     setting: "IncreaseScoreWithRedirectToOtherPort"
+    expected_value: "On"
+
+  - name: "Business/Info URLs Detection (Standard)"
+    description: "Enable business/info URLs spam detection"
+    policy_type: "inbound_standard"
+    setting: "IncreaseScoreWithBizOrInfoUrls"
+    expected_value: "On"
+
+  # HTML Content Filtering
+  - name: "Empty Messages Detection (Standard)"
+    description: "Mark empty messages as spam for standard protection"
+    policy_type: "inbound_standard"
+    setting: "MarkAsSpamEmptyMessages"
+    expected_value: "On"
+
+  - name: "JavaScript in HTML Detection (Standard)"
+    description: "Mark JavaScript in HTML as spam for standard protection"
+    policy_type: "inbound_standard"
+    setting: "MarkAsSpamJavaScriptInHtml"
+    expected_value: "On"
+
+  - name: "Frames in HTML Detection (Standard)"
+    description: "Mark frames in HTML as spam for standard protection"
+    policy_type: "inbound_standard"
+    setting: "MarkAsSpamFramesInHtml"
+    expected_value: "On"
+
+  - name: "Object Tags in HTML Detection (Standard)"
+    description: "Mark object tags in HTML as spam for standard protection"
+    policy_type: "inbound_standard"
+    setting: "MarkAsSpamObjectTagsInHtml"
+    expected_value: "On"
+
+  - name: "Embed Tags in HTML Detection (Standard)"
+    description: "Mark embed tags in HTML as spam for standard protection"
+    policy_type: "inbound_standard"
+    setting: "MarkAsSpamEmbedTagsInHtml"
+    expected_value: "On"
+
+  - name: "Form Tags in HTML Detection (Standard)"
+    description: "Form tags in HTML detection disabled for standard protection"
+    policy_type: "inbound_standard"
+    setting: "MarkAsSpamFormTagsInHtml"
     expected_value: "Off"
+
+  - name: "Web Bugs in HTML Detection (Standard)"
+    description: "Web bugs in HTML detection disabled for standard protection"
+    policy_type: "inbound_standard"
+    setting: "MarkAsSpamWebBugsInHtml"
+    expected_value: "Off"
+
+  # Authentication and Reputation
+  - name: "SPF Record Hard Fail Detection (Standard)"
+    description: "SPF record hard fail detection disabled for standard protection"
+    policy_type: "inbound_standard"
+    setting: "MarkAsSpamSpfRecordHardFail"
+    expected_value: "Off"
+
+  - name: "From Address Auth Fail Detection (Standard)"
+    description: "Mark from address authentication failures as spam"
+    policy_type: "inbound_standard"
+    setting: "MarkAsSpamFromAddressAuthFail"
+    expected_value: "On"
+
+  - name: "Bulk Mail Detection (Standard)"
+    description: "Mark bulk email appropriately for standard filtering"
+    policy_type: "inbound_standard"
+    setting: "MarkAsSpamBulkMail"
+    expected_value: "On"
+
+  - name: "NDR Backscatter Detection (Standard)"
+    description: "Mark NDR backscatter as spam for standard protection"
+    policy_type: "inbound_standard"
+    setting: "MarkAsSpamNdrBackscatter"
+    expected_value: "On"
+
+  - name: "Sensitive Word List Detection (Standard)"
+    description: "Sensitive word list detection disabled for standard protection"
+    policy_type: "inbound_standard"
+    setting: "MarkAsSpamSensitiveWordList"
+    expected_value: "Off"
+
+  # Regional and Language Filtering
+  - name: "Region Block List Enabled (Standard)"
+    description: "Enable region block list for standard protection"
+    policy_type: "inbound_standard"
+    setting: "EnableRegionBlockList"
+    expected_value: true
+
+  - name: "Language Block List Enabled (Standard)"
+    description: "Language block list disabled for standard protection"
+    policy_type: "inbound_standard"
+    setting: "EnableLanguageBlockList"
+    expected_value: false
+
+  # Intra-Organization Filtering
+  - name: "Intra-Organization Filter State (Standard)"
+    description: "Set intra-organization filtering to Phish only for standard protection"
+    policy_type: "inbound_standard"
+    setting: "IntraOrgFilterState"
+    expected_value: "Phish"
+
+  # Quarantine Retention
+  - name: "Quarantine Retention Period (Standard)"
+    description: "Set quarantine retention period to 30 days for standard protection"
+    policy_type: "inbound_standard"
+    setting: "QuarantineRetentionPeriod"
+    expected_value: 30
+
+  # Test Mode Settings
+  - name: "Test Mode Action (Standard)"
+    description: "Test mode action disabled for standard protection"
+    policy_type: "inbound_standard"
+    setting: "TestModeAction"
+    expected_value: "None"
+
+  # Download Link Settings
+  - name: "Download Link Scanning (Standard)"
+    description: "Download link scanning disabled for standard protection"
+    policy_type: "inbound_standard"
+    setting: "DownloadLink"
+    expected_value: false

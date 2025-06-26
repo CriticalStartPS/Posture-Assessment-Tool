@@ -1,21 +1,10 @@
 antispam_inbound_strict_policies:
+  # Core Anti-Spam Actions (Strict - More Aggressive)
   - name: "Bulk Email Threshold (Strict)"
-    description: "Set bulk email threshold to 4 or lower for strict protection"
+    description: "Set bulk email threshold to 5 or lower for strict protection"
     policy_type: "inbound_strict"
     setting: "BulkThreshold"
-    expected_value: 4
-
-  - name: "Phishing Action (Strict)"
-    description: "Quarantine phishing emails for strict protection"
-    policy_type: "inbound_strict"
-    setting: "PhishSpamAction"
-    expected_value: "Quarantine"
-
-  - name: "High Confidence Phishing Action (Strict)"
-    description: "Delete high confidence phishing emails for strict protection"
-    policy_type: "inbound_strict"
-    setting: "HighConfidencePhishAction"
-    expected_value: "Delete"
+    expected_value: 5
 
   - name: "Spam Action (Strict)"
     description: "Quarantine spam emails for strict protection"
@@ -24,15 +13,34 @@ antispam_inbound_strict_policies:
     expected_value: "Quarantine"
 
   - name: "High Confidence Spam Action (Strict)"
-    description: "Quarantine high confidence spam for strict protection"
+    description: "Quarantine high confidence spam emails for strict protection"
     policy_type: "inbound_strict"
     setting: "HighConfidenceSpamAction"
     expected_value: "Quarantine"
 
-  - name: "Enable Safety Tips (Strict)"
-    description: "Enable safety tips for phishing on inbound messages"
+  - name: "Phishing Action (Strict)"
+    description: "Quarantine phishing emails for strict protection"
     policy_type: "inbound_strict"
-    setting: "EnableSafetyTips"
+    setting: "PhishSpamAction"
+    expected_value: "Quarantine"
+
+  - name: "High Confidence Phishing Action (Strict)"
+    description: "Quarantine high confidence phishing emails for strict protection"
+    policy_type: "inbound_strict"
+    setting: "HighConfidencePhishAction"
+    expected_value: "Quarantine"
+
+  - name: "Bulk Spam Action (Strict)"
+    description: "Quarantine bulk spam for strict protection"
+    policy_type: "inbound_strict"
+    setting: "BulkSpamAction"
+    expected_value: "Quarantine"
+
+  # Zero Hour Auto Purge (ZAP) Settings
+  - name: "Zero Hour Auto Purge Enabled (Strict)"
+    description: "Enable ZAP functionality for strict protection"
+    policy_type: "inbound_strict"
+    setting: "ZapEnabled"
     expected_value: true
 
   - name: "Zero Hour Auto Purge for Spam (Strict)"
@@ -47,44 +55,162 @@ antispam_inbound_strict_policies:
     setting: "PhishZapEnabled"
     expected_value: true
 
-  - name: "Enhanced Filtering for Connectors (Strict)"
-    description: "Enable enhanced filtering for mail flow connectors"
+  # Safety and User Experience
+  - name: "Inline Safety Tips Enabled (Strict)"
+    description: "Enable inline safety tips for phishing protection"
     policy_type: "inbound_strict"
-    setting: "IncreaseScoreWithImageLinks"
-    expected_value: "On"
+    setting: "InlineSafetyTipsEnabled"
+    expected_value: true
 
-  - name: "Bulk Email Detection (Strict)"
-    description: "Mark bulk email appropriately for strict filtering"
-    policy_type: "inbound_strict"
-    setting: "MarkAsSpamBulkMail"
-    expected_value: "On"
-
+  # Enhanced Filtering Settings (All Enabled for Strict)
   - name: "Image Links Spam Detection (Strict)"
-    description: "Enable aggressive image link spam detection for strict protection"
+    description: "Enable image link spam detection for strict protection"
     policy_type: "inbound_strict"
     setting: "IncreaseScoreWithImageLinks"
     expected_value: "On"
 
-  - name: "Redirect to Recipients (Strict)"
-    description: "Block redirect to recipients for strict protection"
+  - name: "Numeric IPs Spam Detection (Strict)"
+    description: "Enable numeric IP spam detection for strict protection"
+    policy_type: "inbound_strict"
+    setting: "IncreaseScoreWithNumericIps"
+    expected_value: "On"
+
+  - name: "Redirect to Other Port Detection (Strict)"
+    description: "Enable redirect to other port spam detection"
     policy_type: "inbound_strict"
     setting: "IncreaseScoreWithRedirectToOtherPort"
     expected_value: "On"
 
-  - name: "SPF Record Check (Strict)"
-    description: "Enable strict SPF record checking"
+  - name: "Business/Info URLs Detection (Strict)"
+    description: "Enable business/info URLs spam detection"
     policy_type: "inbound_strict"
-    setting: "MarkAsSpamSpfRecordHardFail"
+    setting: "IncreaseScoreWithBizOrInfoUrls"
     expected_value: "On"
 
-  - name: "Empty Messages (Strict)"
+  # HTML Content Filtering (More Aggressive for Strict)
+  - name: "Empty Messages Detection (Strict)"
     description: "Mark empty messages as spam for strict protection"
     policy_type: "inbound_strict"
     setting: "MarkAsSpamEmptyMessages"
     expected_value: "On"
 
-  - name: "JavaScript in HTML (Strict)"
+  - name: "JavaScript in HTML Detection (Strict)"
     description: "Mark JavaScript in HTML as spam for strict protection"
     policy_type: "inbound_strict"
     setting: "MarkAsSpamJavaScriptInHtml"
     expected_value: "On"
+
+  - name: "Frames in HTML Detection (Strict)"
+    description: "Mark frames in HTML as spam for strict protection"
+    policy_type: "inbound_strict"
+    setting: "MarkAsSpamFramesInHtml"
+    expected_value: "On"
+
+  - name: "Object Tags in HTML Detection (Strict)"
+    description: "Mark object tags in HTML as spam for strict protection"
+    policy_type: "inbound_strict"
+    setting: "MarkAsSpamObjectTagsInHtml"
+    expected_value: "On"
+
+  - name: "Embed Tags in HTML Detection (Strict)"
+    description: "Mark embed tags in HTML as spam for strict protection"
+    policy_type: "inbound_strict"
+    setting: "MarkAsSpamEmbedTagsInHtml"
+    expected_value: "On"
+
+  - name: "Form Tags in HTML Detection (Strict)"
+    description: "Enable form tags in HTML detection for strict protection"
+    policy_type: "inbound_strict"
+    setting: "MarkAsSpamFormTagsInHtml"
+    expected_value: "On"
+
+  - name: "Web Bugs in HTML Detection (Strict)"
+    description: "Enable web bugs in HTML detection for strict protection"
+    policy_type: "inbound_strict"
+    setting: "MarkAsSpamWebBugsInHtml"
+    expected_value: "On"
+
+  # Authentication and Reputation (Strict Settings)
+  - name: "SPF Record Hard Fail Detection (Strict)"
+    description: "Enable SPF record hard fail detection for strict protection"
+    policy_type: "inbound_strict"
+    setting: "MarkAsSpamSpfRecordHardFail"
+    expected_value: "On"
+
+  - name: "From Address Auth Fail Detection (Strict)"
+    description: "Mark from address authentication failures as spam"
+    policy_type: "inbound_strict"
+    setting: "MarkAsSpamFromAddressAuthFail"
+    expected_value: "On"
+
+  - name: "Bulk Mail Detection (Strict)"
+    description: "Mark bulk email appropriately for strict filtering"
+    policy_type: "inbound_strict"
+    setting: "MarkAsSpamBulkMail"
+    expected_value: "On"
+
+  - name: "NDR Backscatter Detection (Strict)"
+    description: "Mark NDR backscatter as spam for strict protection"
+    policy_type: "inbound_strict"
+    setting: "MarkAsSpamNdrBackscatter"
+    expected_value: "On"
+
+  - name: "Sensitive Word List Detection (Strict)"
+    description: "Sensitive word list detection disabled for strict protection"
+    policy_type: "inbound_strict"
+    setting: "MarkAsSpamSensitiveWordList"
+    expected_value: "Off"
+
+  # Regional and Language Filtering
+  - name: "Region Block List Enabled (Strict)"
+    description: "Enable region block list for strict protection"
+    policy_type: "inbound_strict"
+    setting: "EnableRegionBlockList"
+    expected_value: true
+
+  - name: "Language Block List Enabled (Strict)"
+    description: "Language block list disabled for strict protection"
+    policy_type: "inbound_strict"
+    setting: "EnableLanguageBlockList"
+    expected_value: false
+
+  # Intra-Organization Filtering (Stricter)
+  - name: "Intra-Organization Filter State (Strict)"
+    description: "Set intra-organization filtering to Spam for strict protection"
+    policy_type: "inbound_strict"
+    setting: "IntraOrgFilterState"
+    expected_value: "Spam"
+
+  # Quarantine Retention
+  - name: "Quarantine Retention Period (Strict)"
+    description: "Set quarantine retention period to 30 days for strict protection"
+    policy_type: "inbound_strict"
+    setting: "QuarantineRetentionPeriod"
+    expected_value: 30
+
+  # Test Mode Settings
+  - name: "Test Mode Action (Strict)"
+    description: "Test mode action disabled for strict protection"
+    policy_type: "inbound_strict"
+    setting: "TestModeAction"
+    expected_value: "None"
+
+  # Download Link Settings
+  - name: "Download Link Scanning (Strict)"
+    description: "Download link scanning disabled for strict protection"
+    policy_type: "inbound_strict"
+    setting: "DownloadLink"
+    expected_value: false
+
+  # Additional Header and Notification Settings
+  - name: "Add X-Header Value (Strict)"
+    description: "No additional X-header value for strict protection"
+    policy_type: "inbound_strict"
+    setting: "AddXHeaderValue"
+    expected_value: ""
+
+  - name: "Modify Subject Value (Strict)"
+    description: "No subject modification for strict protection"
+    policy_type: "inbound_strict"
+    setting: "ModifySubjectValue"
+    expected_value: ""
