@@ -10,7 +10,7 @@ class ReportGenerator:
         self.env = Environment(loader=FileSystemLoader(self.template_dir))
         
     def parse_policy_status(self, result):
-        """Parse policy status and determine if it passes requirements"""
+        """Parse policy status and determine if it passes requirements - FIXED VERSION"""
         status = str(result.get('status', '')).lower()
         current_value = result.get('current_value')
         expected_value = result.get('expected_value')
@@ -25,42 +25,54 @@ class ReportGenerator:
         print(f"Found: {found}")
         print(f"Policy Type: {policy_type}")
 
-        # For conditional access policies, consider found policies as passed
-        # since the matching logic already verified conditions and controls
-        if policy_type == 'conditional_access' and found:
-            print("Policy found and conditions/controls matched -> PASS")
-            return True
-
-        # For policies that aren't found
+        # If policy is not found, it's automatically non-compliant
         if not found:
             print("Failed: Policy not found")
             return False
 
-        # For anti-spam and authorization policies, check if status indicates compliance
-        if policy_type in ['antispam', 'authorization']:
-            # Check if status starts with "PRESENT" (meaning current matches expected)
-            is_compliant = status.startswith('present')
-            print(f"Policy type {policy_type} - Status compliance check: {is_compliant}")
-            return is_compliant
-
-        # Fallback to value comparison for other policy types
-        current_value_str = str(current_value).lower() if current_value is not None else ''
+        # For all policy types, check if status indicates compliance
+        # Status format: "PRESENT - Current: X (matched policies...)" or "MISSING - ..."
+        if status.startswith('present'):
+            print("Status indicates PRESENT -> PASS")
+            return True
+        elif status.startswith('missing'):
+            print("Status indicates MISSING -> FAIL")
+            return False
         
-        # Handle different expected value types
-        if isinstance(expected_value, list):
-            is_passed = current_value_str in [str(v).lower() for v in expected_value]
-            print(f"List comparison: {current_value_str} in {expected_value} -> {is_passed}")
-            return is_passed
-        elif isinstance(expected_value, bool):
-            is_passed = current_value_str == str(expected_value).lower()
-            print(f"Boolean comparison: {current_value_str} == {expected_value} -> {is_passed}")
-            return is_passed
-        else:
-            # String comparison
-            expected_value_str = str(expected_value).lower() if expected_value is not None else ''
-            is_passed = current_value_str == expected_value_str
-            print(f"String comparison: {current_value_str} == {expected_value_str} -> {is_passed}")
-            return is_passed
+        # For policies where status doesn't start with PRESENT/MISSING, 
+        # check if current value matches expected value
+        if current_value is not None and expected_value is not None:
+            # Handle boolean comparison
+            if isinstance(expected_value, bool):
+                if isinstance(current_value, bool):
+                    is_passed = current_value == expected_value
+                else:
+                    # Convert string to boolean for comparison
+                    current_bool = str(current_value).lower() in ['true', '1', 'yes', 'on']
+                    is_passed = current_bool == expected_value
+                print(f"Boolean comparison: {current_value} == {expected_value} -> {is_passed}")
+                return is_passed
+            
+            # Handle list comparison (expected value is one of multiple options)
+            elif isinstance(expected_value, list):
+                current_str = str(current_value).lower()
+                expected_strs = [str(v).lower() for v in expected_value]
+                is_passed = current_str in expected_strs
+                print(f"List comparison: {current_str} in {expected_strs} -> {is_passed}")
+                return is_passed
+            
+            # Handle string/numeric comparison
+            else:
+                current_str = str(current_value).lower()
+                expected_str = str(expected_value).lower()
+                is_passed = current_str == expected_str
+                print(f"String comparison: {current_str} == {expected_str} -> {is_passed}")
+                return is_passed
+        
+        # If we can't determine compliance from status or values, 
+        # assume non-compliant for safety
+        print("Unable to determine compliance -> FAIL (safety default)")
+        return False
 
     def is_policy_passed(self, result, is_conditional_access=True):
         """Unified policy checking for both types"""

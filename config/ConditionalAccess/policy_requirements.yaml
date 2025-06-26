@@ -73,16 +73,9 @@ conditional_access_policies:
   - name: "Securing Security Info Registration"
     description: "Require MFA when registering security information"
     required_conditions:
-      users:
-        includeUsers: ["All"]
-        excludeUsers: ["GuestsOrExternalUsers"]
-        excludeRoles: ["62e90394-69f5-4237-9190-012177145e10"]
       applications:
         includeUserActions: ["urn:user:registersecurityinfo"]
       clientAppTypes: ["all"]
-      locations:
-        includeLocations: ["All"]
-        excludeLocations: ["AllTrusted"]
     required_controls:
       operator: "OR"
       builtInControls: ["mfa"]

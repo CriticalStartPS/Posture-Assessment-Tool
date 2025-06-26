@@ -345,7 +345,7 @@ class ConditionalAccessPolicyHandler:
         for requirement in self.requirements:
             found = False
             status = "MISSING"
-            current_value = "False"
+            current_value = "false"  # Default to false
             matching_policies = []
             
             print(f"\nDebug - Checking requirement: {requirement.get('name')}")
@@ -354,14 +354,15 @@ class ConditionalAccessPolicyHandler:
                 # Check if policy matches requirements
                 if self._policy_matches_requirements(policy, requirement):
                     found = True
-                    enabled = policy.get('state', '').lower() == 'enabled'
+                    # If ANY policy matches all requirements, the requirement is met
+                    current_value = "true"  # Set to true when requirements are met
                     matching_policies.append(policy.get('displayName', 'Unnamed Policy'))
-                    current_value = str(enabled).lower()
                     
                     print(f"Policy Match Details:")
                     print(f"- Required Policy Type: {requirement.get('name')}")
                     print(f"- Matched Policy Name: {policy.get('displayName', 'Unnamed Policy')}")
-                    print(f"- Enabled: {enabled}")
+                    print(f"- All Requirements Met: True")
+                    # Continue checking other policies instead of breaking
             
             if found:
                 if len(matching_policies) == 1:
