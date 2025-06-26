@@ -222,6 +222,9 @@
                 <div class="compliance-details">
                     <span class="compliance-fraction">({{ antispam_inbound_standard_compliance.passed }}/{{ antispam_inbound_standard_compliance.total }} Passed)</span>
                     <span>{{ antispam_inbound_standard_compliance.percentage }}%</span>
+                    {% if antispam_inbound_standard_compliance.is_compliant and antispam_inbound_standard_compliance.compliant_policy %}
+                    <br><span style="font-size: 12px; color: #107c10; font-style: italic;">✓ Policy "{{ antispam_inbound_standard_compliance.compliant_policy }}" meets all requirements</span>
+                    {% endif %}
                 </div>
             </div>
             
@@ -233,6 +236,9 @@
                 <div class="compliance-details">
                     <span class="compliance-fraction">({{ antispam_inbound_strict_compliance.passed }}/{{ antispam_inbound_strict_compliance.total }} Passed)</span>
                     <span>{{ antispam_inbound_strict_compliance.percentage }}%</span>
+                    {% if antispam_inbound_strict_compliance.is_compliant and antispam_inbound_strict_compliance.compliant_policy %}
+                    <br><span style="font-size: 12px; color: #107c10; font-style: italic;">✓ Policy "{{ antispam_inbound_strict_compliance.compliant_policy }}" meets all requirements</span>
+                    {% endif %}
                 </div>
             </div>
             
@@ -244,6 +250,9 @@
                 <div class="compliance-details">
                     <span class="compliance-fraction">({{ antispam_outbound_compliance.passed }}/{{ antispam_outbound_compliance.total }} Passed)</span>
                     <span>{{ antispam_outbound_compliance.percentage }}%</span>
+                    {% if antispam_outbound_compliance.is_compliant and antispam_outbound_compliance.compliant_policy %}
+                    <br><span style="font-size: 12px; color: #107c10; font-style: italic;">✓ Policy "{{ antispam_outbound_compliance.compliant_policy }}" meets all requirements</span>
+                    {% endif %}
                 </div>
             </div>
             {% endif %}
@@ -365,9 +374,11 @@
                     {% endif %}
                     {% if result.total_policies %}
                     <p class="policy-summary">
-                        Summary: {{ result.compliant_policies }}/{{ result.total_policies }} policies compliant
-                        {% if result.non_compliant_policies > 0 %}
-                        <span class="non-compliant-warning">({{ result.non_compliant_policies }} need attention)</span>
+                        Summary: {{ result.current_value }} 
+                        {% if result.compliant_policies == result.total_policies %}
+                        (✓ All policies compliant)
+                        {% elif result.non_compliant_policies > 0 %}
+                        <span class="non-compliant-warning">({{ result.non_compliant_policies }} policies need attention)</span>
                         {% endif %}
                     </p>
                     {% endif %}
@@ -406,9 +417,11 @@
                     {% endif %}
                     {% if result.total_policies %}
                     <p class="policy-summary">
-                        Summary: {{ result.compliant_policies }}/{{ result.total_policies }} policies compliant
-                        {% if result.non_compliant_policies > 0 %}
-                        <span class="non-compliant-warning">({{ result.non_compliant_policies }} need attention)</span>
+                        Summary: {{ result.current_value }} 
+                        {% if result.compliant_policies == result.total_policies %}
+                        (✓ All policies compliant)
+                        {% elif result.non_compliant_policies > 0 %}
+                        <span class="non-compliant-warning">({{ result.non_compliant_policies }} policies need attention)</span>
                         {% endif %}
                     </p>
                     {% endif %}
@@ -446,9 +459,11 @@
                     {% endif %}
                     {% if result.total_policies %}
                     <p class="policy-summary">
-                        Summary: {{ result.compliant_policies }}/{{ result.total_policies }} policies compliant
-                        {% if result.non_compliant_policies > 0 %}
-                        <span class="non-compliant-warning">({{ result.non_compliant_policies }} need attention)</span>
+                        Summary: {{ result.current_value }} 
+                        {% if result.compliant_policies == result.total_policies %}
+                        (✓ All policies compliant)
+                        {% elif result.non_compliant_policies > 0 %}
+                        <span class="non-compliant-warning">({{ result.non_compliant_policies }} policies need attention)</span>
                         {% endif %}
                     </p>
                     {% endif %}
@@ -487,9 +502,11 @@
                     {% endif %}
                     {% if result.total_policies %}
                     <p class="policy-summary">
-                        Summary: {{ result.compliant_policies }}/{{ result.total_policies }} policies compliant
-                        {% if result.non_compliant_policies > 0 %}
-                        <span class="non-compliant-warning">({{ result.non_compliant_policies }} need attention)</span>
+                        Summary: {{ result.current_value }} 
+                        {% if result.compliant_policies == result.total_policies %}
+                        (✓ All policies compliant)
+                        {% elif result.non_compliant_policies > 0 %}
+                        <span class="non-compliant-warning">({{ result.non_compliant_policies }} policies need attention)</span>
                         {% endif %}
                     </p>
                     {% endif %}
@@ -529,9 +546,11 @@
                     {% endif %}
                     {% if result.total_policies %}
                     <p class="policy-summary">
-                        Summary: {{ result.compliant_policies }}/{{ result.total_policies }} policies compliant
-                        {% if result.non_compliant_policies > 0 %}
-                        <span class="non-compliant-warning">({{ result.non_compliant_policies }} need attention)</span>
+                        Summary: {{ result.current_value }} 
+                        {% if result.compliant_policies == result.total_policies %}
+                        (✓ All policies compliant)
+                        {% elif result.non_compliant_policies > 0 %}
+                        <span class="non-compliant-warning">({{ result.non_compliant_policies }} policies need attention)</span>
                         {% endif %}
                     </p>
                     {% endif %}

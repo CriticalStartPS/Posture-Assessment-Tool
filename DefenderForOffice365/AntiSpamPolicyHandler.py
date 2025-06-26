@@ -392,7 +392,7 @@ exit 0
         for policy in policies:
             # Include default policies and enabled custom policies
             if (policy.get('IsDefault', False) or 
-                policy.get('IsValid', True)):  # IsValid typically indicates the policy is enabled
+                policy.get('IsValid', True) ):  # IsValid typically indicates the policy is enabled
                 enabled_policies.append(policy)
                 print(f"  - {policy_type.title()} Policy: {policy.get('Name', 'Unknown')} (Default: {policy.get('IsDefault', False)})")
         
@@ -428,10 +428,10 @@ exit 0
                     is_compliant = current_bool == expected_value
                 elif isinstance(expected_value, (int, float)):
                     if setting == "BulkThreshold":
-                        # For bulk threshold, compliant if current value is <= expected
+                        # For bulk threshold, compliant if current value exactly matches expected (exact match required)
                         is_compliant = (current_value is not None and 
                                       isinstance(current_value, (int, float)) and 
-                                      current_value <= expected_value)
+                                      current_value == expected_value)
                     else:
                         # For other numeric values, check if they meet or exceed expected
                         is_compliant = (current_value is not None and 
@@ -480,7 +480,7 @@ exit 0
             result_entry = {
                 'requirement_name': f"{requirement_name} ({policy_type.title()})",
                 'found': len(policy_results) > 0,
-                'current_value': f"{len(compliant_policies)}/{len(policy_results)} policies compliant",
+                'current_value': self._format_current_value_display(policy_results, expected_value, setting),
                 'expected_value': expected_value,
                 'policy_type': f'antispam_{policy_type}',
                 'status': status,
@@ -754,6 +754,58 @@ exit 0
                 print(f"Cleaned up temp file: {script_path}")
             except Exception as cleanup_error:
                 print(f"Warning: Could not clean up temp file: {cleanup_error}")
+
+    def _format_current_value_display(self, policy_results: List[Dict], expected_value: Any, setting: str) -> str:
+        """Format the current value display for the report, showing actual policy values instead of policy counts"""
+        try:
+            if not policy_results or len(policy_results) == 0:
+                return "No policies found"
+            
+            # Get actual current values from policies, not policy_results which are the result objects
+            current_values = []
+            compliant_count = 0
+            
+            for result in policy_results:
+                if result.get('current_value') is not None:
+                    current_values.append(result['current_value'])
+                    if result.get('is_compliant', False):
+                        compliant_count += 1
+            
+            if not current_values:
+                return "No values configured"
+            
+            # For BulkThreshold and other numeric settings, show the range or specific values
+            if setting == "BulkThreshold" and all(isinstance(v, (int, float)) for v in current_values):
+                unique_values = list(set(current_values))
+                if len(unique_values) == 1:
+                    return f"{unique_values[0]} (all policies)"
+                else:
+                    min_val = min(current_values)
+                    max_val = max(current_values)
+                    return f"Range: {min_val}-{max_val} (across {len(policy_results)} policies)"
+            
+            # For boolean settings
+            elif isinstance(expected_value, bool):
+                true_count = sum(1 for v in current_values if v)
+                false_count = len(current_values) - true_count
+                if true_count == len(current_values):
+                    return "True (all policies)"
+                elif false_count == len(current_values):
+                    return "False (all policies)"
+                else:
+                    return f"Mixed: {true_count} True, {false_count} False"
+            
+            # For string/other settings
+            else:
+                unique_values = list(set(str(v) for v in current_values))
+                if len(unique_values) == 1:
+                    return f"{unique_values[0]} (all policies)"
+                else:
+                    return f"Mixed values: {', '.join(unique_values[:3])}{'...' if len(unique_values) > 3 else ''}"
+                    
+        except Exception as e:
+            print(f"Error formatting current value display: {e}")
+            return f"{compliant_count}/{len(policy_results)} policies compliant"
 
     def check_policies(self) -> List[Dict[str, Any]]:
         """Check both inbound and outbound anti-spam policies against requirements using single authentication session"""
