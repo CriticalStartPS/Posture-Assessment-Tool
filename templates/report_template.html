@@ -215,7 +215,7 @@
 
             {% if antispam_compliance %}
             <div class="compliance-indicator">
-                <span>📋 Defender for Office 365 - Inbound Standard:</span>
+                <span>Defender for Office 365 - Inbound Anti-Spam Standard:</span>
                 <span class="status-badge {% if antispam_inbound_standard_compliance.is_compliant %}compliant{% else %}non-compliant{% endif %}">
                     {% if antispam_inbound_standard_compliance.is_compliant %}Compliant{% else %}Non-Compliant{% endif %}
                 </span>
@@ -226,7 +226,7 @@
             </div>
             
             <div class="compliance-indicator">
-                <span>🔒 Defender for Office 365 - Inbound Strict:</span>
+                <span>Defender for Office 365 - Inbound Anti-Spam Strict:</span>
                 <span class="status-badge {% if antispam_inbound_strict_compliance.is_compliant %}compliant{% else %}non-compliant{% endif %}">
                     {% if antispam_inbound_strict_compliance.is_compliant %}Compliant{% else %}Non-Compliant{% endif %}
                 </span>
@@ -237,7 +237,7 @@
             </div>
             
             <div class="compliance-indicator">
-                <span>📤 Defender for Office 365 - Outbound:</span>
+                <span>Defender for Office 365 - Outbound Anti-Spam:</span>
                 <span class="status-badge {% if antispam_outbound_compliance.is_compliant %}compliant{% else %}non-compliant{% endif %}">
                     {% if antispam_outbound_compliance.is_compliant %}Compliant{% else %}Non-Compliant{% endif %}
                 </span>
