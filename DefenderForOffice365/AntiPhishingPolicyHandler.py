@@ -6,84 +6,57 @@ import tempfile
 from typing import Dict, List, Any
 from .ExchangeOnlineSessionManager import ExchangeOnlineSessionManager
 
-class AntiSpamPolicyHandler:
-    def __init__(self, inbound_standard_file: str = None, inbound_strict_file: str = None, outbound_requirements_file: str = None, legacy_inbound_file: str = None, session_manager: ExchangeOnlineSessionManager = None):
-        self.inbound_standard_requirements = None
-        self.inbound_strict_requirements = None
-        self.outbound_requirements = None
+class AntiPhishingPolicyHandler:
+    def __init__(self, standard_file: str = None, strict_file: str = None, session_manager: ExchangeOnlineSessionManager = None):
+        self.standard_requirements = None
+        self.strict_requirements = None
         
         # Use provided session manager or create a new one
         self.session_manager = session_manager if session_manager else ExchangeOnlineSessionManager()
         
-        if inbound_standard_file and os.path.exists(inbound_standard_file):
-            with open(inbound_standard_file, 'r') as file:
-                self.inbound_standard_requirements = yaml.safe_load(file)
+        if standard_file and os.path.exists(standard_file):
+            with open(standard_file, 'r') as file:
+                self.standard_requirements = yaml.safe_load(file)
                 
-        if inbound_strict_file and os.path.exists(inbound_strict_file):
-            with open(inbound_strict_file, 'r') as file:
-                self.inbound_strict_requirements = yaml.safe_load(file)
-                
-        if outbound_requirements_file and os.path.exists(outbound_requirements_file):
-            with open(outbound_requirements_file, 'r') as file:
-                self.outbound_requirements = yaml.safe_load(file)
-                
-        # Backward compatibility with legacy single inbound file
-        if legacy_inbound_file and os.path.exists(legacy_inbound_file):
-            with open(legacy_inbound_file, 'r') as file:
-                legacy_requirements = yaml.safe_load(file)
-                # Convert legacy format to standard format if no standard file is provided
-                if not self.inbound_standard_requirements:
-                    self.inbound_standard_requirements = legacy_requirements
+        if strict_file and os.path.exists(strict_file):
+            with open(strict_file, 'r') as file:
+                self.strict_requirements = yaml.safe_load(file)
 
     def check_policies(self) -> List[Dict[str, Any]]:
-        """Check both inbound and outbound anti-spam policies against requirements using shared session manager"""
+        """Check anti-phishing policies against requirements using shared session manager"""
         all_results = []
         
-        print("\n=== Starting Defender for Office 365 Anti-Spam Policy Check ===")
+        print("\n=== Starting Defender for Office 365 Anti-Phishing Policy Check ===")
         
-        # Determine which policy types we need based on loaded requirements
-        required_policy_types = []
-        if self.inbound_standard_requirements or self.inbound_strict_requirements:
-            required_policy_types.append('antispam_inbound')
-        if self.outbound_requirements:
-            required_policy_types.append('antispam_outbound')
-        
-        if not required_policy_types:
-            print("No anti-spam requirements files provided")
+        # Check if any requirements are provided
+        if not (self.standard_requirements or self.strict_requirements):
+            print("No anti-phishing requirements files provided")
             return [{
                 'requirement_name': 'No Requirements',
                 'found': False,
-                'status': 'MISSING - No anti-spam requirements files provided',
-                'policy_type': 'antispam'
+                'status': 'MISSING - No anti-phishing requirements files provided',
+                'policy_type': 'antiphishing'
             }]
         
-        print(f"Retrieving anti-spam policies using shared session manager: {required_policy_types}")
+        print("Retrieving anti-phishing policies using shared session manager...")
         
-        # Use shared session manager to get all required policies
-        all_policies = self.session_manager.get_all_defender_policies(required_policy_types)
+        # Use shared session manager to get anti-phishing policies
+        all_policies = self.session_manager.get_all_defender_policies(['antiphishing'])
+        policies = all_policies.get("antiphishing", [])
         
-        inbound_policies = all_policies.get("antispam_inbound", [])
-        outbound_policies = all_policies.get("antispam_outbound", [])
+        print(f"Retrieved {len(policies)} anti-phishing policies")
         
-        print(f"Retrieved {len(inbound_policies)} inbound policies and {len(outbound_policies)} outbound policies")
+        # Check standard policies if requirements are provided
+        if self.standard_requirements:
+            print("\n--- Checking Anti-Phishing Policies (Standard) ---")
+            standard_results = self._check_policy_requirements(policies, self.standard_requirements, "standard")
+            all_results.extend(standard_results)
         
-        # Check inbound standard policies if requirements are provided
-        if self.inbound_standard_requirements:
-            print("\n--- Checking Inbound Anti-Spam Policies (Standard) ---")
-            inbound_standard_results = self._check_policy_requirements(inbound_policies, self.inbound_standard_requirements, "inbound_standard")
-            all_results.extend(inbound_standard_results)
-        
-        # Check inbound strict policies if requirements are provided
-        if self.inbound_strict_requirements:
-            print("\n--- Checking Inbound Anti-Spam Policies (Strict) ---")
-            inbound_strict_results = self._check_policy_requirements(inbound_policies, self.inbound_strict_requirements, "inbound_strict")
-            all_results.extend(inbound_strict_results)
-        
-        # Check outbound policies if requirements are provided  
-        if self.outbound_requirements:
-            print("\n--- Checking Outbound Anti-Spam Policies ---")
-            outbound_results = self._check_policy_requirements(outbound_policies, self.outbound_requirements, "outbound")
-            all_results.extend(outbound_results)
+        # Check strict policies if requirements are provided
+        if self.strict_requirements:
+            print("\n--- Checking Anti-Phishing Policies (Strict) ---")
+            strict_results = self._check_policy_requirements(policies, self.strict_requirements, "strict")
+            all_results.extend(strict_results)
         
         return all_results
 
@@ -95,11 +68,11 @@ class AntiSpamPolicyHandler:
             return [{
                 'requirement_name': f'{policy_type.title()} Connection Error',
                 'found': False,
-                'status': f'MISSING - Could not connect to Exchange Online or retrieve {policy_type} policies',
-                'policy_type': f'antispam_{policy_type}'
+                'status': f'MISSING - Could not connect to Exchange Online or retrieve {policy_type} anti-phishing policies',
+                'policy_type': f'antiphishing_{policy_type}'
             }]
         
-        print(f"Successfully retrieved {len(policies)} {policy_type} anti-spam policies")
+        print(f"Successfully retrieved {len(policies)} {policy_type} anti-phishing policies")
         
         # Filter to only enabled policies (policies that are actually in use)
         enabled_policies = []
@@ -114,10 +87,10 @@ class AntiSpamPolicyHandler:
             enabled_policies = policies  # Fallback to all policies if none marked as enabled
             print(f"No enabled {policy_type} policies found via IsDefault/IsValid, evaluating all policies")
         
-        print(f"Evaluating {len(enabled_policies)} enabled {policy_type} anti-spam policies")
+        print(f"Evaluating {len(enabled_policies)} enabled {policy_type} anti-phishing policies")
         
         # Get the appropriate requirements key
-        requirements_key = f'antispam_{policy_type}_policies'
+        requirements_key = f'antiphishing_{policy_type}_policies'
         policy_requirements = requirements.get(requirements_key, [])
         
         # Evaluate each requirement against ALL enabled policies
@@ -141,16 +114,10 @@ class AntiSpamPolicyHandler:
                     current_bool = bool(current_value) if current_value is not None else False
                     is_compliant = current_bool == expected_value
                 elif isinstance(expected_value, (int, float)):
-                    if setting == "BulkThreshold":
-                        # For bulk threshold, compliant if current value exactly matches expected (exact match required)
-                        is_compliant = (current_value is not None and 
-                                      isinstance(current_value, (int, float)) and 
-                                      current_value == expected_value)
-                    else:
-                        # For other numeric values, check if they meet or exceed expected
-                        is_compliant = (current_value is not None and 
-                                      isinstance(current_value, (int, float)) and 
-                                      current_value >= expected_value)
+                    # For numeric values, check if they meet or exceed expected
+                    is_compliant = (current_value is not None and 
+                                  isinstance(current_value, (int, float)) and 
+                                  current_value >= expected_value)
                 else:
                     is_compliant = str(current_value).lower() == str(expected_value).lower()
                 
@@ -196,7 +163,7 @@ class AntiSpamPolicyHandler:
                 'found': len(policy_results) > 0,
                 'current_value': self._format_current_value_display(policy_results, expected_value, setting),
                 'expected_value': expected_value,
-                'policy_type': f'antispam_{policy_type}',
+                'policy_type': f'antiphishing_{policy_type}',
                 'status': status,
                 'policy_breakdown': policy_breakdown,
                 'total_policies': len(policy_results),
@@ -233,18 +200,8 @@ class AntiSpamPolicyHandler:
             if not current_values:
                 return "No values configured"
             
-            # For BulkThreshold and other numeric settings, show the range or specific values
-            if setting == "BulkThreshold" and all(isinstance(v, (int, float)) for v in current_values):
-                unique_values = list(set(current_values))
-                if len(unique_values) == 1:
-                    return f"{unique_values[0]} (all policies)"
-                else:
-                    min_val = min(current_values)
-                    max_val = max(current_values)
-                    return f"Range: {min_val}-{max_val} (across {len(policy_results)} policies)"
-            
             # For boolean settings
-            elif isinstance(expected_value, bool):
+            if isinstance(expected_value, bool):
                 true_count = sum(1 for v in current_values if v)
                 false_count = len(current_values) - true_count
                 if true_count == len(current_values):
@@ -253,6 +210,16 @@ class AntiSpamPolicyHandler:
                     return "False (all policies)"
                 else:
                     return f"Mixed: {true_count} True, {false_count} False"
+            
+            # For numeric settings
+            elif isinstance(expected_value, (int, float)):
+                unique_values = list(set(current_values))
+                if len(unique_values) == 1:
+                    return f"{unique_values[0]} (all policies)"
+                else:
+                    min_val = min(current_values)
+                    max_val = max(current_values)
+                    return f"Range: {min_val}-{max_val} (across {len(policy_results)} policies)"
             
             # For string/other settings
             else:
@@ -265,3 +232,97 @@ class AntiSpamPolicyHandler:
         except Exception as e:
             print(f"Error formatting current value display: {e}")
             return f"{compliant_count}/{len(policy_results)} policies compliant"
+
+    def calculate_antiphishing_compliance_by_policy(self, policies: List[Dict], requirements: Dict, policy_type: str) -> Dict[str, Any]:
+        """Calculate compliance at the policy level - checks if any single policy meets ALL requirements"""
+        if not policies or not requirements:
+            return {
+                'percentage': 0,
+                'passed': 0,
+                'total': 0,
+                'is_compliant': False,
+                'compliant_policy': None,
+                'compliant_policies': []
+            }
+        
+        requirements_key = f'antiphishing_{policy_type}_policies'
+        policy_requirements = requirements.get(requirements_key, [])
+        total_requirements = len(policy_requirements)
+        
+        if total_requirements == 0:
+            return {
+                'percentage': 0,
+                'passed': 0,
+                'total': 0,
+                'is_compliant': False,
+                'compliant_policy': None,
+                'compliant_policies': []
+            }
+        
+        print(f"Calculating policy-level compliance for antiphishing_{policy_type}:")
+        
+        # Filter to enabled policies
+        enabled_policies = []
+        for policy in policies:
+            if (policy.get('IsDefault', False) or policy.get('IsValid', True)):
+                enabled_policies.append(policy)
+        
+        if not enabled_policies:
+            enabled_policies = policies
+        
+        policy_names = [p.get('Name', 'Unknown') for p in enabled_policies]
+        print(f"Found policies: {policy_names}")
+        
+        compliant_policies = []
+        
+        # Check each policy to see if it meets ALL requirements
+        for policy in enabled_policies:
+            policy_name = policy.get('Name', 'Unknown')
+            print(f"Checking policy: {policy_name}")
+            
+            requirements_met = 0
+            
+            # Check each requirement for this policy
+            for requirement in policy_requirements:
+                setting = requirement['setting']
+                expected_value = requirement['expected_value']
+                requirement_name = requirement['name']
+                
+                current_value = policy.get(setting)
+                
+                # Determine compliance for this requirement
+                is_compliant = False
+                if isinstance(expected_value, bool):
+                    current_bool = bool(current_value) if current_value is not None else False
+                    is_compliant = current_bool == expected_value
+                elif isinstance(expected_value, (int, float)):
+                    is_compliant = (current_value is not None and 
+                                  isinstance(current_value, (int, float)) and 
+                                  current_value >= expected_value)
+                else:
+                    is_compliant = str(current_value).lower() == str(expected_value).lower()
+                
+                if is_compliant:
+                    requirements_met += 1
+                    print(f"  ✓ {requirement_name} ({f'antiphishing_{policy_type}'.title()}): COMPLIANT")
+                else:
+                    print(f"  ✗ {requirement_name} ({f'antiphishing_{policy_type}'.title()}): NON-COMPLIANT")
+            
+            # Check if this policy meets ALL requirements
+            if requirements_met == total_requirements:
+                compliant_policies.append(policy_name)
+                print(f"  ✅ Policy '{policy_name}' meets ALL {total_requirements} requirements")
+            else:
+                print(f"  ❌ Policy '{policy_name}' meets {requirements_met}/{total_requirements} requirements")
+        
+        # Determine overall compliance
+        is_compliant = len(compliant_policies) > 0
+        
+        return {
+            'percentage': 100 if is_compliant else 0,
+            'passed': total_requirements if is_compliant else 0,
+            'total': total_requirements,
+            'is_compliant': is_compliant,
+            'compliant_policy': compliant_policies[0] if compliant_policies else None,
+            'compliant_policies': compliant_policies
+        }

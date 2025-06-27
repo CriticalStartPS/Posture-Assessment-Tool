@@ -1,0 +1,117 @@
+antiphishing_standard_policies:
+  # Core Anti-Phishing Protection
+  - name: "Enable Anti-Phishing Protection (Standard)"
+    description: "Enable basic anti-phishing protection for standard security"
+    policy_type: "standard"
+    setting: "Enabled"
+    expected_value: true
+
+  # Impersonation Protection
+  - name: "Enable User Impersonation Protection (Standard)"
+    description: "Enable protection against user impersonation attacks"
+    policy_type: "standard"
+    setting: "EnableTargetedUserProtection"
+    expected_value: true
+
+  - name: "Enable Domain Impersonation Protection (Standard)"
+    description: "Enable protection against domain impersonation attacks"
+    policy_type: "standard"
+    setting: "EnableTargetedDomainsProtection"
+    expected_value: true
+
+  - name: "Enable Organization Domains Protection (Standard)"
+    description: "Enable protection for organization domains"
+    policy_type: "standard"
+    setting: "EnableOrganizationDomainsProtection"
+    expected_value: true
+
+  # Action Settings for Standard Protection
+  - name: "User Impersonation Action (Standard)"
+    description: "Set action for user impersonation to Quarantine for standard protection"
+    policy_type: "standard"
+    setting: "TargetedUserProtectionAction"
+    expected_value: "Quarantine"
+
+  - name: "Domain Impersonation Action (Standard)"
+    description: "Set action for domain impersonation to Quarantine for standard protection"
+    policy_type: "standard"
+    setting: "TargetedDomainProtectionAction"
+    expected_value: "Quarantine"
+
+  # Mailbox Intelligence
+  - name: "Enable Mailbox Intelligence (Standard)"
+    description: "Enable mailbox intelligence for better phishing detection"
+    policy_type: "standard"
+    setting: "EnableMailboxIntelligence"
+    expected_value: true
+
+  - name: "Enable Intelligence for Impersonation Protection (Standard)"
+    description: "Enable mailbox intelligence for impersonation protection"
+    policy_type: "standard"
+    setting: "EnableMailboxIntelligenceProtection"
+    expected_value: true
+
+  - name: "Mailbox Intelligence Protection Action (Standard)"
+    description: "Set mailbox intelligence protection action to Quarantine"
+    policy_type: "standard"
+    setting: "MailboxIntelligenceProtectionAction"
+    expected_value: "Quarantine"
+
+  # Spoofing Protection
+  - name: "Enable Anti-Spoofing Protection (Standard)"
+    description: "Enable anti-spoofing protection for standard security"
+    policy_type: "standard"
+    setting: "EnableAntispoofEnforcement"
+    expected_value: true
+
+  - name: "Spoofing Protection Action (Standard)"
+    description: "Set action for spoofing detection to Quarantine"
+    policy_type: "standard"
+    setting: "AuthenticationFailAction"
+    expected_value: "Quarantine"
+
+  # Safety Tips
+  - name: "Enable First Contact Safety Tip (Standard)"
+    description: "Enable safety tip for first contact emails"
+    policy_type: "standard"
+    setting: "EnableFirstContactSafetyTips"
+    expected_value: true
+
+  - name: "Enable Via Tag in Address Bar (Standard)"
+    description: "Enable via tag in address bar for external emails"
+    policy_type: "standard"
+    setting: "EnableViaTag"
+    expected_value: true
+
+  - name: "Enable Unverified Sender Indication (Standard)"
+    description: "Enable indication for unverified senders"
+    policy_type: "standard"
+    setting: "EnableUnverifiedSender"
+    expected_value: true
+
+  # Similarity Protection
+  - name: "Enable Similar User Safety Tips (Standard)"
+    description: "Enable safety tips for similar user impersonation"
+    policy_type: "standard"
+    setting: "EnableSimilarUsersSafetyTips"
+    expected_value: true
+
+  - name: "Enable Similar Domain Safety Tips (Standard)"
+    description: "Enable safety tips for similar domain impersonation"
+    policy_type: "standard"
+    setting: "EnableSimilarDomainsSafetyTips"
+    expected_value: true
+
+  # Unusual Characters Protection
+  - name: "Enable Unusual Characters Safety Tips (Standard)"
+    description: "Enable safety tips for unusual characters in emails"
+    policy_type: "standard"
+    setting: "EnableUnusualCharactersSafetyTips"
+    expected_value: true
+
+  # Phishing Thresholds
+  - name: "Phishing Email Threshold (Standard)"
+    description: "Set phishing email threshold for standard protection"
+    policy_type: "standard"
+    setting: "PhishThresholdLevel"
+    expected_value: 2

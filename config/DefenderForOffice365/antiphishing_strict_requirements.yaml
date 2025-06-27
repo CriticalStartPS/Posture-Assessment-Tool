@@ -1,0 +1,144 @@
+antiphishing_strict_policies:
+  # Core Anti-Phishing Protection
+  - name: "Enable Anti-Phishing Protection (Strict)"
+    description: "Enable comprehensive anti-phishing protection for strict security"
+    policy_type: "strict"
+    setting: "Enabled"
+    expected_value: true
+
+  # Impersonation Protection - Enhanced
+  - name: "Enable User Impersonation Protection (Strict)"
+    description: "Enable protection against user impersonation attacks with strict settings"
+    policy_type: "strict"
+    setting: "EnableTargetedUserProtection"
+    expected_value: true
+
+  - name: "Enable Domain Impersonation Protection (Strict)"
+    description: "Enable protection against domain impersonation attacks with strict settings"
+    policy_type: "strict"
+    setting: "EnableTargetedDomainsProtection"
+    expected_value: true
+
+  - name: "Enable Organization Domains Protection (Strict)"
+    description: "Enable protection for organization domains with strict settings"
+    policy_type: "strict"
+    setting: "EnableOrganizationDomainsProtection"
+    expected_value: true
+
+  # Action Settings for Strict Protection - More Aggressive
+  - name: "User Impersonation Action (Strict)"
+    description: "Set action for user impersonation to Quarantine for strict protection"
+    policy_type: "strict"
+    setting: "TargetedUserProtectionAction"
+    expected_value: "Quarantine"
+
+  - name: "Domain Impersonation Action (Strict)"
+    description: "Set action for domain impersonation to Quarantine for strict protection"
+    policy_type: "strict"
+    setting: "TargetedDomainProtectionAction"
+    expected_value: "Quarantine"
+
+  # Mailbox Intelligence - Enhanced
+  - name: "Enable Mailbox Intelligence (Strict)"
+    description: "Enable mailbox intelligence for enhanced phishing detection"
+    policy_type: "strict"
+    setting: "EnableMailboxIntelligence"
+    expected_value: true
+
+  - name: "Enable Intelligence for Impersonation Protection (Strict)"
+    description: "Enable mailbox intelligence for enhanced impersonation protection"
+    policy_type: "strict"
+    setting: "EnableMailboxIntelligenceProtection"
+    expected_value: true
+
+  - name: "Mailbox Intelligence Protection Action (Strict)"
+    description: "Set mailbox intelligence protection action to Quarantine for strict security"
+    policy_type: "strict"
+    setting: "MailboxIntelligenceProtectionAction"
+    expected_value: "Quarantine"
+
+  # Spoofing Protection - Enhanced
+  - name: "Enable Anti-Spoofing Protection (Strict)"
+    description: "Enable comprehensive anti-spoofing protection for strict security"
+    policy_type: "strict"
+    setting: "EnableAntispoofEnforcement"
+    expected_value: true
+
+  - name: "Spoofing Protection Action (Strict)"
+    description: "Set action for spoofing detection to Quarantine for strict protection"
+    policy_type: "strict"
+    setting: "AuthenticationFailAction"
+    expected_value: "Quarantine"
+
+  # Safety Tips - All Enabled for Maximum Protection
+  - name: "Enable First Contact Safety Tip (Strict)"
+    description: "Enable safety tip for first contact emails with strict settings"
+    policy_type: "strict"
+    setting: "EnableFirstContactSafetyTips"
+    expected_value: true
+
+  - name: "Enable Via Tag in Address Bar (Strict)"
+    description: "Enable via tag in address bar for external emails with strict settings"
+    policy_type: "strict"
+    setting: "EnableViaTag"
+    expected_value: true
+
+  - name: "Enable Unverified Sender Indication (Strict)"
+    description: "Enable indication for unverified senders with strict settings"
+    policy_type: "strict"
+    setting: "EnableUnverifiedSender"
+    expected_value: true
+
+  # Similarity Protection - Enhanced Detection
+  - name: "Enable Similar User Safety Tips (Strict)"
+    description: "Enable safety tips for similar user impersonation with strict detection"
+    policy_type: "strict"
+    setting: "EnableSimilarUsersSafetyTips"
+    expected_value: true
+
+  - name: "Enable Similar Domain Safety Tips (Strict)"
+    description: "Enable safety tips for similar domain impersonation with strict detection"
+    policy_type: "strict"
+    setting: "EnableSimilarDomainsSafetyTips"
+    expected_value: true
+
+  # Unusual Characters Protection - Enhanced
+  - name: "Enable Unusual Characters Safety Tips (Strict)"
+    description: "Enable safety tips for unusual characters in emails with strict detection"
+    policy_type: "strict"
+    setting: "EnableUnusualCharactersSafetyTips"
+    expected_value: true
+
+  # Phishing Thresholds - More Aggressive
+  - name: "Phishing Email Threshold (Strict)"
+    description: "Set phishing email threshold to most aggressive level for strict protection"
+    policy_type: "strict"
+    setting: "PhishThresholdLevel"
+    expected_value: 3
+
+  # Advanced Threat Protection - Strict Only
+  - name: "Enable Advanced Phishing Thresholds (Strict)"
+    description: "Enable advanced phishing detection thresholds for maximum protection"
+    policy_type: "strict"
+    setting: "EnableAdvancedPhishingDetection"
+    expected_value: true
+
+  # User Education and Warnings - Enhanced
+  - name: "Show User Impersonation Safety Tip (Strict)"
+    description: "Show safety tips for user impersonation with strict visibility"
+    policy_type: "strict"
+    setting: "EnableTargetedUsersSafetyTips"
+    expected_value: true
+
+  - name: "Show Domain Impersonation Safety Tip (Strict)"
+    description: "Show safety tips for domain impersonation with strict visibility"
+    policy_type: "strict"
+    setting: "EnableTargetedDomainsSafetyTips"
+    expected_value: true
+
+  # Trusted Senders Bypass - Restricted in Strict Mode
+  - name: "Honor DMARC Record Policy (Strict)"
+    description: "Honor DMARC record policy for strict authentication enforcement"
+    policy_type: "strict"
+    setting: "HonorDmarcPolicy"
+    expected_value: true
