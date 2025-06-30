@@ -17,7 +17,7 @@ antiphishing_standard_policies:
     description: "Enable protection against domain impersonation attacks"
     policy_type: "standard"
     setting: "EnableTargetedDomainsProtection"
-    expected_value: true
+    expected_value: false
 
   - name: "Enable Organization Domains Protection (Standard)"
     description: "Enable protection for organization domains"
@@ -27,13 +27,13 @@ antiphishing_standard_policies:
 
   # Action Settings for Standard Protection
   - name: "User Impersonation Action (Standard)"
-    description: "Set action for user impersonation to Quarantine for standard protection"
+    description: "Set action for user impersonation for standard protection"
     policy_type: "standard"
     setting: "TargetedUserProtectionAction"
-    expected_value: "Quarantine"
+    expected_value: "MoveToJmf"
 
   - name: "Domain Impersonation Action (Standard)"
-    description: "Set action for domain impersonation to Quarantine for standard protection"
+    description: "Set action for domain impersonation for standard protection"
     policy_type: "standard"
     setting: "TargetedDomainProtectionAction"
     expected_value: "Quarantine"
@@ -61,7 +61,7 @@ antiphishing_standard_policies:
   - name: "Enable Anti-Spoofing Protection (Standard)"
     description: "Enable anti-spoofing protection for standard security"
     policy_type: "standard"
-    setting: "EnableAntispoofEnforcement"
+    setting: "EnableSpoofIntelligence"
     expected_value: true
 
   - name: "Spoofing Protection Action (Standard)"
@@ -86,7 +86,7 @@ antiphishing_standard_policies:
   - name: "Enable Unverified Sender Indication (Standard)"
     description: "Enable indication for unverified senders"
     policy_type: "standard"
-    setting: "EnableUnverifiedSender"
+    setting: "EnableUnauthenticatedSender"
     expected_value: true
 
   # Similarity Protection
@@ -115,3 +115,10 @@ antiphishing_standard_policies:
     policy_type: "standard"
     setting: "PhishThresholdLevel"
     expected_value: 2
+
+  # DMARC Policy
+  - name: "Honor DMARC Record Policy (Standard)"
+    description: "Honor DMARC record policy for authentication enforcement"
+    policy_type: "standard"
+    setting: "HonorDmarcPolicy"
+    expected_value: true

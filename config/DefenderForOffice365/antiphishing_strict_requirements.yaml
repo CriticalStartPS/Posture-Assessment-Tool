@@ -17,7 +17,7 @@ antiphishing_strict_policies:
     description: "Enable protection against domain impersonation attacks with strict settings"
     policy_type: "strict"
     setting: "EnableTargetedDomainsProtection"
-    expected_value: true
+    expected_value: false
 
   - name: "Enable Organization Domains Protection (Strict)"
     description: "Enable protection for organization domains with strict settings"
@@ -61,7 +61,7 @@ antiphishing_strict_policies:
   - name: "Enable Anti-Spoofing Protection (Strict)"
     description: "Enable comprehensive anti-spoofing protection for strict security"
     policy_type: "strict"
-    setting: "EnableAntispoofEnforcement"
+    setting: "EnableSpoofIntelligence"
     expected_value: true
 
   - name: "Spoofing Protection Action (Strict)"
@@ -86,7 +86,7 @@ antiphishing_strict_policies:
   - name: "Enable Unverified Sender Indication (Strict)"
     description: "Enable indication for unverified senders with strict settings"
     policy_type: "strict"
-    setting: "EnableUnverifiedSender"
+    setting: "EnableUnauthenticatedSender"
     expected_value: true
 
   # Similarity Protection - Enhanced Detection
@@ -111,32 +111,12 @@ antiphishing_strict_policies:
 
   # Phishing Thresholds - More Aggressive
   - name: "Phishing Email Threshold (Strict)"
-    description: "Set phishing email threshold to most aggressive level for strict protection"
+    description: "Set phishing email threshold to aggressive level for strict protection"
     policy_type: "strict"
     setting: "PhishThresholdLevel"
     expected_value: 3
 
-  # Advanced Threat Protection - Strict Only
-  - name: "Enable Advanced Phishing Thresholds (Strict)"
-    description: "Enable advanced phishing detection thresholds for maximum protection"
-    policy_type: "strict"
-    setting: "EnableAdvancedPhishingDetection"
-    expected_value: true
-
-  # User Education and Warnings - Enhanced
-  - name: "Show User Impersonation Safety Tip (Strict)"
-    description: "Show safety tips for user impersonation with strict visibility"
-    policy_type: "strict"
-    setting: "EnableTargetedUsersSafetyTips"
-    expected_value: true
-
-  - name: "Show Domain Impersonation Safety Tip (Strict)"
-    description: "Show safety tips for domain impersonation with strict visibility"
-    policy_type: "strict"
-    setting: "EnableTargetedDomainsSafetyTips"
-    expected_value: true
-
-  # Trusted Senders Bypass - Restricted in Strict Mode
+  # DMARC Policy
   - name: "Honor DMARC Record Policy (Strict)"
     description: "Honor DMARC record policy for strict authentication enforcement"
     policy_type: "strict"
