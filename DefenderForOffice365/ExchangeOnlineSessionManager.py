@@ -37,14 +37,14 @@ class ExchangeOnlineSessionManager:
         
         Args:
             policy_types: List of policy types to retrieve. Options:
-                         ['antispam_inbound', 'antispam_outbound', 'antiphishing', 'safeattachments', 'safelinks']
+                         ['antispam_inbound', 'antispam_outbound', 'antiphishing', 'antimalware', 'safeattachments', 'safelinks']
                          If None, retrieves all available policy types.
         
         Returns:
             Dictionary with policy type as key and list of policies as value
         """
         if policy_types is None:
-            policy_types = ['antispam_inbound', 'antispam_outbound', 'antiphishing']
+            policy_types = ['antispam_inbound', 'antispam_outbound', 'antiphishing', 'antimalware']
         
         # Check if we already have cached results for these policy types
         cached_results = {}
@@ -246,6 +246,37 @@ try {
 }
 ''')
         
+        if 'antimalware' in policy_types:
+            policy_sections.append('''
+# Get anti-malware policies (MalwareFilterPolicy)
+Write-Output "Retrieving anti-malware policies..."
+try {
+    $antimalwarePolicies = Get-MalwareFilterPolicy -ErrorAction Stop | Select-Object *
+    
+    if ($antimalwarePolicies) {
+        Write-Output "Found $($antimalwarePolicies.Count) anti-malware policies"
+        
+        # Convert to JSON with proper depth
+        $antimalwareJsonOutput = $antimalwarePolicies | ConvertTo-Json -Depth 10 -Compress
+        Write-Output "ANTIMALWARE_DATA_START"
+        Write-Output $antimalwareJsonOutput
+        Write-Output "ANTIMALWARE_DATA_END"
+        
+        Write-Output "Anti-malware policy retrieval completed successfully"
+    } else {
+        Write-Warning "No anti-malware policies found"
+        Write-Output "ANTIMALWARE_DATA_START"
+        Write-Output "[]"
+        Write-Output "ANTIMALWARE_DATA_END"
+    }
+} catch {
+    Write-Error "Error retrieving anti-malware policies: $($_.Exception.Message)"
+    Write-Output "ANTIMALWARE_DATA_START"
+    Write-Output "[]"
+    Write-Output "ANTIMALWARE_DATA_END"
+}
+''')
+        
         if 'safeattachments' in policy_types:
             policy_sections.append('''
 # Get Safe Attachments policies
@@ -366,6 +397,7 @@ exit 0
                 policies.update(self._extract_policy_data(lines, 'antispam_inbound', 'ANTISPAM_INBOUND_DATA_START', 'ANTISPAM_INBOUND_DATA_END'))
                 policies.update(self._extract_policy_data(lines, 'antispam_outbound', 'ANTISPAM_OUTBOUND_DATA_START', 'ANTISPAM_OUTBOUND_DATA_END'))
                 policies.update(self._extract_policy_data(lines, 'antiphishing', 'ANTIPHISHING_DATA_START', 'ANTIPHISHING_DATA_END'))
+                policies.update(self._extract_policy_data(lines, 'antimalware', 'ANTIMALWARE_DATA_START', 'ANTIMALWARE_DATA_END'))
                 policies.update(self._extract_policy_data(lines, 'safeattachments', 'SAFEATTACHMENTS_DATA_START', 'SAFEATTACHMENTS_DATA_END'))
                 policies.update(self._extract_policy_data(lines, 'safelinks', 'SAFELINKS_DATA_START', 'SAFELINKS_DATA_END'))
                 

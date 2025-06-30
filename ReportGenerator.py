@@ -386,7 +386,7 @@ class ReportGenerator:
         print(f"Final {policy_type} anti-phishing compliance: {result_dict}")
         return result_dict
 
-    def generate_report(self, ca_results, auth_results, antispam_results=None, antiphishing_results=None):
+    def generate_report(self, ca_results, auth_results, antispam_results=None, antiphishing_results=None, antimalware_results=None):
         # Calculate detailed compliance metrics
         ca_compliance = self.calculate_compliance_details(ca_results, is_conditional_access=True)
         auth_compliance = self.calculate_compliance_details(auth_results, is_conditional_access=False)
@@ -424,6 +424,11 @@ class ReportGenerator:
             # Calculate overall anti-phishing compliance for backward compatibility
             antiphishing_compliance = self.calculate_compliance_details(antiphishing_results, is_conditional_access=False)
         
+        # Calculate anti-malware compliance
+        antimalware_compliance = None
+        if antimalware_results:
+            antimalware_compliance = self.calculate_compliance_details(antimalware_results, is_conditional_access=False)
+        
         # Calculate overall compliance using the separate categories
         total_passed = (ca_compliance['passed'] + auth_compliance['passed'] + 
                        antispam_inbound_standard_compliance['passed'] + 
@@ -438,6 +443,11 @@ class ReportGenerator:
                          antiphishing_standard_compliance['total'] +
                          antiphishing_strict_compliance['total'])
         
+        # Add anti-malware compliance to totals if present
+        if antimalware_compliance:
+            total_passed += antimalware_compliance['passed']
+            total_policies += antimalware_compliance['total']
+        
         overall_compliance = round((total_passed / total_policies) * 100) if total_policies > 0 else 0
 
         template = self.env.get_template('report_template.html')
@@ -446,6 +456,7 @@ class ReportGenerator:
             auth_results=auth_results,
             antispam_results=antispam_results or [],
             antiphishing_results=antiphishing_results or [],
+            antimalware_results=antimalware_results or [],
             timestamp=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             compliance_percentage=overall_compliance,
             ca_compliance=ca_compliance,
@@ -456,7 +467,8 @@ class ReportGenerator:
             antispam_outbound_compliance=antispam_outbound_compliance,
             antiphishing_compliance=antiphishing_compliance,
             antiphishing_standard_compliance=antiphishing_standard_compliance,
-            antiphishing_strict_compliance=antiphishing_strict_compliance
+            antiphishing_strict_compliance=antiphishing_strict_compliance,
+            antimalware_compliance=antimalware_compliance
         )
         
         # Create reports directory if it doesn't exist

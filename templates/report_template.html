@@ -189,7 +189,7 @@
     <div class="container">
         <div class="summary-card">
             <h2>Executive Summary</h2>
-            <div class="overall-score">Overall Compliance: {{ compliance_percentage }}% ({{ ca_compliance.passed + auth_compliance.passed + antispam_inbound_standard_compliance.passed + antispam_inbound_strict_compliance.passed + antispam_outbound_compliance.passed + antiphishing_standard_compliance.passed + antiphishing_strict_compliance.passed }}/{{ ca_compliance.total + auth_compliance.total + antispam_inbound_standard_compliance.total + antispam_inbound_strict_compliance.total + antispam_outbound_compliance.total + antiphishing_standard_compliance.total + antiphishing_strict_compliance.total }} Policies)</div>
+            <div class="overall-score">Overall Compliance: {{ compliance_percentage }}% ({{ ca_compliance.passed + auth_compliance.passed + antispam_inbound_standard_compliance.passed + antispam_inbound_strict_compliance.passed + antispam_outbound_compliance.passed + antiphishing_standard_compliance.passed + antiphishing_strict_compliance.passed + (antimalware_compliance.passed if antimalware_compliance else 0) }}/{{ ca_compliance.total + auth_compliance.total + antispam_inbound_standard_compliance.total + antispam_inbound_strict_compliance.total + antispam_outbound_compliance.total + antiphishing_standard_compliance.total + antiphishing_strict_compliance.total + (antimalware_compliance.total if antimalware_compliance else 0) }} Policies)</div>
             
             <div class="compliance-indicator">
                 <span>Conditional Access Policies:</span>
@@ -283,6 +283,19 @@
                     {% if antiphishing_strict_compliance.is_compliant and antiphishing_strict_compliance.compliant_policy %}
                     <br><span style="font-size: 12px; color: #107c10; font-style: italic;">✓ Policy "{{ antiphishing_strict_compliance.compliant_policy }}" meets all requirements</span>
                     {% endif %}
+                </div>
+            </div>
+            {% endif %}
+            
+            {% if antimalware_compliance %}
+            <div class="compliance-indicator">
+                <span>Anti-Malware Policies:</span>
+                <span class="status-badge {% if antimalware_compliance.is_compliant %}compliant{% else %}non-compliant{% endif %}">
+                    {% if antimalware_compliance.is_compliant %}Compliant{% else %}Non-Compliant{% endif %}
+                </span>
+                <div class="compliance-details">
+                    <span class="compliance-fraction">({{ antimalware_compliance.passed }}/{{ antimalware_compliance.total }} Passed)</span>
+                    <span>{{ antimalware_compliance.percentage }}%</span>
                 </div>
             </div>
             {% endif %}
@@ -728,6 +741,54 @@
                 {% endfor %}
             </div>
             {% endif %}
+        </div>
+        {% endif %}
+        
+        {% if antimalware_results %}
+        <div class="policy-section">
+            <h2>🦠 Defender for Office 365 - Anti-Malware Policies</h2>
+            <p style="color: #666; font-style: italic; margin-bottom: 20px;">Malware protection and file filtering controls</p>
+            
+            {% for result in antimalware_results %}
+            {% set status = result.status | string | upper %}
+            <div class="policy-item {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">
+                <h3>{{ result.requirement_name }}</h3>
+                <p>Configuration Status: <span class="status-text {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">
+                    {{ result.status }}
+                </span></p>
+                <p>Policy Found: {{ result.found }}</p>
+                {% if result.expected_value is defined %}
+                <p>Expected Value: 
+                    {% if result.expected_value is iterable and result.expected_value is not string %}
+                        {% if result.expected_value|length > 5 %}
+                            [{{ result.expected_value[:5]|join(', ') }}, ... ({{ result.expected_value|length - 5 }} more)]
+                        {% else %}
+                            {{ result.expected_value|join(', ') }}
+                        {% endif %}
+                    {% else %}
+                        {{ result.expected_value }}
+                    {% endif %}
+                </p>
+                {% endif %}
+                {% if result.policy_results %}
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    {% for policy_result in result.policy_results %}
+                        <li>{{ policy_result.policy_name }}: 
+                            {% if policy_result.is_compliant %}
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            {% else %}
+                                <span style="color: #d13438;">✗ NON-COMPLIANT</span>
+                            {% endif %}
+                            (Current: {{ policy_result.current_value }})
+                        </li>
+                    {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
         </div>
         {% endif %}
     </div>

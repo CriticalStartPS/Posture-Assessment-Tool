@@ -3,6 +3,7 @@ from EntraID.ConditionalAccess.ConditionalAccessPolicyHandler import Conditional
 from EntraID.AuthorizationPolicy.AuthorizationPolicyHandler import AuthorizationPolicyHandler
 from DefenderForOffice365.AntiSpamPolicyHandler import AntiSpamPolicyHandler
 from DefenderForOffice365.AntiPhishingPolicyHandler import AntiPhishingPolicyHandler
+from DefenderForOffice365.AntiMalwarePolicyHandler import AntiMalwarePolicyHandler
 from DefenderForOffice365.ExchangeOnlineSessionManager import ExchangeOnlineSessionManager
 from ReportGenerator import ReportGenerator
 import os
@@ -43,6 +44,7 @@ def main():
         defender_policy_types = []
         antispam_results = []
         antiphishing_results = []
+        antimalware_results = []
         
         try:
             print("\n=== Checking Defender for Office 365 Anti-Spam Policies ===")
@@ -92,6 +94,12 @@ if ($module) {
                     'status': 'MISSING - Exchange Online PowerShell module not installed',
                     'policy_type': 'antiphishing'
                 }]
+                antimalware_results = [{
+                    'requirement_name': 'Module Missing',
+                    'found': False,
+                    'status': 'MISSING - Exchange Online PowerShell module not installed',
+                    'policy_type': 'antimalware'
+                }]
             else:
                 print(f"Exchange Online module found: {module_check.stdout.strip()}")
                 
@@ -133,15 +141,25 @@ if ($module) {
                 print(f"Standard antiphishing requirements file exists: {antiphishing_standard_exists}")
                 print(f"Strict antiphishing requirements file exists: {antiphishing_strict_exists}")
                 
+                # Check which anti-malware files exist
+                antimalware_file = 'config/DefenderForOffice365/antimalware_requirements.yaml'
+                antimalware_exists = os.path.exists(antimalware_file)
+                
+                print(f"Anti-malware requirements file exists: {antimalware_exists}")
+                
                 # Determine which policy types we need
                 need_antispam = (standard_exists or strict_exists or outbound_exists or legacy_inbound_file)
                 need_antiphishing = (antiphishing_standard_exists or antiphishing_strict_exists)
+                need_antimalware = antimalware_exists
                 
                 if need_antispam:
                     defender_policy_types.extend(['antispam_inbound', 'antispam_outbound'])
                 
                 if need_antiphishing:
                     defender_policy_types.append('antiphishing')
+                
+                if need_antimalware:
+                    defender_policy_types.append('antimalware')
                 
                 # Retrieve all needed Defender policies in a single authentication session
                 if defender_policy_types:
@@ -198,6 +216,29 @@ if ($module) {
                 else:
                     print("No anti-phishing requirements files found. Skipping anti-phishing checks.")
 
+                # Process anti-malware policies if needed
+                if need_antimalware:
+                    try:
+                        print("\n=== Checking Defender for Office 365 Anti-Malware Policies ===")
+                        
+                        antimalware_handler = AntiMalwarePolicyHandler(
+                            requirements_file=antimalware_file,
+                            session_manager=exchange_session_manager  # Use the same shared session manager
+                        )
+                        
+                        antimalware_results = antimalware_handler.check_policies()
+                    except Exception as e:
+                        print(f"Error processing anti-malware policies: {str(e)}")
+                        antimalware_results = [{
+                            'requirement_name': 'Error',
+                            'found': False,
+                            'status': f'ERROR - {str(e)}',
+                            'policy_type': 'antimalware'
+                        }]
+                else:
+                    antimalware_results = []
+                    print("No anti-malware requirements file found. Skipping anti-malware checks.")
+
         except Exception as e:
             print(f"Error in Defender for Office 365 policy checks: {str(e)}")
             if not antispam_results:
@@ -214,13 +255,20 @@ if ($module) {
                     'status': f'ERROR - {str(e)}',
                     'policy_type': 'antiphishing'
                 }]
+            if not antimalware_results:
+                antimalware_results = [{
+                    'requirement_name': 'Error',
+                    'found': False,
+                    'status': f'ERROR - {str(e)}',
+                    'policy_type': 'antimalware'
+                }]
 
         # Clear the session cache after all Defender policies are retrieved
         print(f"\nSession manager cached policies: {list(exchange_session_manager.get_cached_policies().keys())}")
         
-        # Update report generation to include anti-phishing results
+        # Update report generation to include anti-phishing and anti-malware results
         report = ReportGenerator()
-        report.generate_report(ca_results, auth_results, antispam_results, antiphishing_results)
+        report.generate_report(ca_results, auth_results, antispam_results, antiphishing_results, antimalware_results)
 
 if __name__ == '__main__':
     main()
