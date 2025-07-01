@@ -386,6 +386,99 @@ class ReportGenerator:
         print(f"Final {policy_type} anti-phishing compliance: {result_dict}")
         return result_dict
 
+    def calculate_antimalware_compliance_by_policy(self, results):
+        """Calculate compliance for anti-malware policies where one complete policy meeting all requirements = compliant"""
+        if not results:
+            return {
+                'percentage': 0,
+                'passed': 0,
+                'total': 0,
+                'is_compliant': False,
+                'compliant_policy': None
+            }
+        
+        # Filter anti-malware results
+        category_results = [r for r in results if r.get('policy_type') == 'antimalware']
+        
+        if not category_results:
+            return {
+                'percentage': 0,
+                'passed': 0,
+                'total': 0,
+                'is_compliant': False,
+                'compliant_policy': None
+            }
+        
+        print(f"\nCalculating policy-level compliance for anti-malware:")
+        
+        # Extract all unique policy names from the results
+        all_policy_names = set()
+        for result in category_results:
+            if 'policy_results' in result and result['policy_results']:
+                for policy_result in result['policy_results']:
+                    policy_name = policy_result.get('policy_name', 'Unknown')
+                    all_policy_names.add(policy_name)
+        
+        print(f"Found policies: {list(all_policy_names)}")
+        
+        # Check each policy to see if it meets ALL requirements
+        compliant_policies = []
+        total_requirements = len(category_results)
+        
+        for policy_name in all_policy_names:
+            policy_compliant_count = 0
+            policy_requirements_checked = 0
+            
+            print(f"\nChecking policy: {policy_name}")
+            
+            for result in category_results:
+                if 'policy_results' in result and result['policy_results']:
+                    # Look for this policy in the policy_results
+                    policy_found_in_requirement = False
+                    policy_compliant_in_requirement = False
+                    
+                    for policy_result in result['policy_results']:
+                        if policy_result.get('policy_name') == policy_name:
+                            policy_found_in_requirement = True
+                            policy_compliant_in_requirement = policy_result.get('is_compliant', False)
+                            break
+                    
+                    if policy_found_in_requirement:
+                        policy_requirements_checked += 1
+                        if policy_compliant_in_requirement:
+                            policy_compliant_count += 1
+                            print(f"  ✓ {result['requirement_name']}: COMPLIANT")
+                        else:
+                            print(f"  ✗ {result['requirement_name']}: NON-COMPLIANT")
+            
+            # A policy is fully compliant if it meets ALL requirements
+            if policy_requirements_checked == total_requirements and policy_compliant_count == total_requirements:
+                compliant_policies.append(policy_name)
+                print(f"  ✅ Policy '{policy_name}' meets ALL {total_requirements} requirements")
+            else:
+                print(f"  ❌ Policy '{policy_name}' meets {policy_compliant_count}/{total_requirements} requirements")
+        
+        # Category is compliant if ANY policy meets ALL requirements
+        is_compliant = len(compliant_policies) > 0
+        compliant_policy = compliant_policies[0] if compliant_policies else None
+        
+        # For display purposes, show how many requirements would be "passed" 
+        # If compliant: all requirements pass, if not: show actual pass count
+        passed_count = total_requirements if is_compliant else sum(1 for r in category_results if r.get('found', False))
+        percentage = 100 if is_compliant else round((passed_count / total_requirements) * 100)
+        
+        result_dict = {
+            'percentage': percentage,
+            'passed': passed_count,
+            'total': total_requirements,
+            'is_compliant': is_compliant,
+            'compliant_policy': compliant_policy,
+            'compliant_policies': compliant_policies
+        }
+        
+        print(f"Final anti-malware compliance: {result_dict}")
+        return result_dict
+
     def generate_report(self, ca_results, auth_results, antispam_results=None, antiphishing_results=None, antimalware_results=None):
         # Calculate detailed compliance metrics
         ca_compliance = self.calculate_compliance_details(ca_results, is_conditional_access=True)
@@ -425,9 +518,9 @@ class ReportGenerator:
             antiphishing_compliance = self.calculate_compliance_details(antiphishing_results, is_conditional_access=False)
         
         # Calculate anti-malware compliance
-        antimalware_compliance = None
+        antimalware_compliance = {'percentage': 0, 'passed': 0, 'total': 0, 'is_compliant': False}
         if antimalware_results:
-            antimalware_compliance = self.calculate_compliance_details(antimalware_results, is_conditional_access=False)
+            antimalware_compliance = self.calculate_antimalware_compliance_by_policy(antimalware_results)
         
         # Calculate overall compliance using the separate categories
         total_passed = (ca_compliance['passed'] + auth_compliance['passed'] + 
@@ -435,18 +528,15 @@ class ReportGenerator:
                        antispam_inbound_strict_compliance['passed'] + 
                        antispam_outbound_compliance['passed'] +
                        antiphishing_standard_compliance['passed'] +
-                       antiphishing_strict_compliance['passed'])
+                       antiphishing_strict_compliance['passed'] +
+                       antimalware_compliance['passed'])
         total_policies = (ca_compliance['total'] + auth_compliance['total'] + 
                          antispam_inbound_standard_compliance['total'] + 
                          antispam_inbound_strict_compliance['total'] + 
                          antispam_outbound_compliance['total'] +
                          antiphishing_standard_compliance['total'] +
-                         antiphishing_strict_compliance['total'])
-        
-        # Add anti-malware compliance to totals if present
-        if antimalware_compliance:
-            total_passed += antimalware_compliance['passed']
-            total_policies += antimalware_compliance['total']
+                         antiphishing_strict_compliance['total'] +
+                         antimalware_compliance['total'])
         
         overall_compliance = round((total_passed / total_policies) * 100) if total_policies > 0 else 0
 

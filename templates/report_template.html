@@ -189,7 +189,7 @@
     <div class="container">
         <div class="summary-card">
             <h2>Executive Summary</h2>
-            <div class="overall-score">Overall Compliance: {{ compliance_percentage }}% ({{ ca_compliance.passed + auth_compliance.passed + antispam_inbound_standard_compliance.passed + antispam_inbound_strict_compliance.passed + antispam_outbound_compliance.passed + antiphishing_standard_compliance.passed + antiphishing_strict_compliance.passed + (antimalware_compliance.passed if antimalware_compliance else 0) }}/{{ ca_compliance.total + auth_compliance.total + antispam_inbound_standard_compliance.total + antispam_inbound_strict_compliance.total + antispam_outbound_compliance.total + antiphishing_standard_compliance.total + antiphishing_strict_compliance.total + (antimalware_compliance.total if antimalware_compliance else 0) }} Policies)</div>
+            <div class="overall-score">Overall Compliance: {{ compliance_percentage }}% ({{ ca_compliance.passed + auth_compliance.passed + antispam_inbound_standard_compliance.passed + antispam_inbound_strict_compliance.passed + antispam_outbound_compliance.passed + antiphishing_standard_compliance.passed + antiphishing_strict_compliance.passed + antimalware_compliance.passed }}/{{ ca_compliance.total + auth_compliance.total + antispam_inbound_standard_compliance.total + antispam_inbound_strict_compliance.total + antispam_outbound_compliance.total + antiphishing_standard_compliance.total + antiphishing_strict_compliance.total + antimalware_compliance.total }} Policies)</div>
             
             <div class="compliance-indicator">
                 <span>Conditional Access Policies:</span>
@@ -287,7 +287,7 @@
             </div>
             {% endif %}
             
-            {% if antimalware_compliance %}
+            {% if antimalware_compliance.total > 0 %}
             <div class="compliance-indicator">
                 <span>Anti-Malware Policies:</span>
                 <span class="status-badge {% if antimalware_compliance.is_compliant %}compliant{% else %}non-compliant{% endif %}">
@@ -296,6 +296,9 @@
                 <div class="compliance-details">
                     <span class="compliance-fraction">({{ antimalware_compliance.passed }}/{{ antimalware_compliance.total }} Passed)</span>
                     <span>{{ antimalware_compliance.percentage }}%</span>
+                    {% if antimalware_compliance.is_compliant and antimalware_compliance.compliant_policy %}
+                    <br><span style="font-size: 12px; color: #107c10; font-style: italic;">✓ Policy "{{ antimalware_compliance.compliant_policy }}" meets all requirements</span>
+                    {% endif %}
                 </div>
             </div>
             {% endif %}
@@ -744,7 +747,7 @@
         </div>
         {% endif %}
         
-        {% if antimalware_results %}
+        {% if antimalware_results and antimalware_results|length > 0 %}
         <div class="policy-section">
             <h2>🦠 Defender for Office 365 - Anti-Malware Policies</h2>
             <p style="color: #666; font-style: italic; margin-bottom: 20px;">Malware protection and file filtering controls</p>
