@@ -37,7 +37,7 @@ class ExchangeOnlineSessionManager:
         
         Args:
             policy_types: List of policy types to retrieve. Options:
-                         ['antispam_inbound', 'antispam_outbound', 'antiphishing', 'antimalware', 'safeattachments', 'safelinks']
+                         ['antispam_inbound', 'antispam_outbound', 'antiphishing', 'antimalware', 'safeattachments', 'safelinks', 'atppolicy']
                          If None, retrieves all available policy types.
         
         Returns:
@@ -339,6 +339,36 @@ try {
 }
 ''')
         
+        # Add ATP Policy for O365 retrieval if requested
+        if 'atppolicy' in policy_types:
+            policy_sections.append('''
+# Retrieve ATP Policy for O365
+Write-Output "Retrieving ATP Policy for O365..."
+try {
+    $atpPolicies = Get-AtpPolicyForO365 -ErrorAction Stop | Select-Object *
+    
+    if ($atpPolicies) {
+        Write-Output "Found $($atpPolicies.Count) ATP Policy configurations"
+        
+        # Convert to JSON and output with markers
+        $atpPolicyJsonOutput = $atpPolicies | ConvertTo-Json -Depth 10 -Compress
+        Write-Output "ATPPOLICY_DATA_START"
+        Write-Output $atpPolicyJsonOutput
+        Write-Output "ATPPOLICY_DATA_END"
+    } else {
+        Write-Output "No ATP Policy configurations found"
+        Write-Output "ATPPOLICY_DATA_START"
+        Write-Output "[]"
+        Write-Output "ATPPOLICY_DATA_END"
+    }
+} catch {
+    Write-Error "Error retrieving ATP Policy for O365: $($_.Exception.Message)"
+    Write-Output "ATPPOLICY_DATA_START"
+    Write-Output "[]"
+    Write-Output "ATPPOLICY_DATA_END"
+}
+''')
+        
         # Script footer
         script_footer = '''
 # Disconnect from Exchange Online
@@ -400,6 +430,7 @@ exit 0
                 policies.update(self._extract_policy_data(lines, 'antimalware', 'ANTIMALWARE_DATA_START', 'ANTIMALWARE_DATA_END'))
                 policies.update(self._extract_policy_data(lines, 'safeattachments', 'SAFEATTACHMENTS_DATA_START', 'SAFEATTACHMENTS_DATA_END'))
                 policies.update(self._extract_policy_data(lines, 'safelinks', 'SAFELINKS_DATA_START', 'SAFELINKS_DATA_END'))
+                policies.update(self._extract_policy_data(lines, 'atppolicy', 'ATPPOLICY_DATA_START', 'ATPPOLICY_DATA_END'))
                 
             else:
                 print("✗ Failed to connect to Exchange Online or retrieve policies")

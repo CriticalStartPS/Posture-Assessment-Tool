@@ -1,0 +1,53 @@
+# Defender for Office 365 Safe Links Policy Requirements
+# Configuration-focused checks only (not tenant-specific values)
+
+safelinks_policies:
+  - name: "Safe Links for Email Enabled"
+    setting: "EnableSafeLinksForEmail"
+    expected_value: true
+    description: "Ensure Safe Links protection is enabled for email messages"
+    
+  - name: "Safe Links for Teams Enabled"
+    setting: "EnableSafeLinksForTeams"
+    expected_value: true
+    description: "Ensure Safe Links protection is enabled for Microsoft Teams"
+    
+  - name: "Safe Links for Office Enabled"
+    setting: "EnableSafeLinksForOffice"
+    expected_value: true
+    description: "Ensure Safe Links protection is enabled for Office applications"
+    
+  - name: "Track Clicks Enabled"
+    setting: "TrackClicks"
+    expected_value: true
+    description: "Ensure click tracking is enabled for security monitoring"
+    
+  - name: "Click Through Disabled"
+    setting: "AllowClickThrough"
+    expected_value: false
+    description: "Ensure users cannot click through warning pages for enhanced security"
+    
+  - name: "URL Scanning Enabled"
+    setting: "ScanUrls"
+    expected_value: true
+    description: "Ensure real-time URL scanning is enabled"
+    
+  - name: "Internal Senders Protection Disabled"
+    setting: "EnableForInternalSenders"
+    expected_value: false
+    description: "Ensure Safe Links is disabled for internal senders to reduce false positives"
+    
+  - name: "Deliver After Scan Enabled"
+    setting: "DeliverMessageAfterScan"
+    expected_value: true
+    description: "Ensure messages are delivered after scanning is complete"
+    
+  - name: "URL Rewrite Enabled"
+    setting: "DisableUrlRewrite"
+    expected_value: false
+    description: "Ensure URL rewriting is enabled for Safe Links protection"
+    
+  - name: "DoNotRewriteUrls Configured"
+    setting: "DoNotRewriteUrls"
+    expected_value: "list_present"
+    description: "Ensure DoNotRewriteUrls list is configured (can be empty or contain allowed URLs)"

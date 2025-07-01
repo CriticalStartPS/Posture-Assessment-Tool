@@ -4,6 +4,9 @@ from EntraID.AuthorizationPolicy.AuthorizationPolicyHandler import Authorization
 from DefenderForOffice365.AntiSpamPolicyHandler import AntiSpamPolicyHandler
 from DefenderForOffice365.AntiPhishingPolicyHandler import AntiPhishingPolicyHandler
 from DefenderForOffice365.AntiMalwarePolicyHandler import AntiMalwarePolicyHandler
+from DefenderForOffice365.SafeAttachmentsPolicyHandler import SafeAttachmentsPolicyHandler
+from DefenderForOffice365.SafeLinksPolicyHandler import SafeLinksPolicyHandler
+from DefenderForOffice365.AtpPolicyHandler import AtpPolicyHandler
 from DefenderForOffice365.ExchangeOnlineSessionManager import ExchangeOnlineSessionManager
 from ReportGenerator import ReportGenerator
 import os
@@ -45,6 +48,9 @@ def main():
         antispam_results = []
         antiphishing_results = []
         antimalware_results = []
+        safeattachments_results = []
+        safelinks_results = []
+        atppolicy_results = []
         
         try:
             print("\n=== Checking Defender for Office 365 Anti-Spam Policies ===")
@@ -100,6 +106,24 @@ if ($module) {
                     'status': 'MISSING - Exchange Online PowerShell module not installed',
                     'policy_type': 'antimalware'
                 }]
+                safeattachments_results = [{
+                    'requirement_name': 'Module Missing',
+                    'found': False,
+                    'status': 'MISSING - Exchange Online PowerShell module not installed',
+                    'policy_type': 'safeattachments'
+                }]
+                safelinks_results = [{
+                    'requirement_name': 'Module Missing',
+                    'found': False,
+                    'status': 'MISSING - Exchange Online PowerShell module not installed',
+                    'policy_type': 'safelinks'
+                }]
+                atppolicy_results = [{
+                    'requirement_name': 'Module Missing',
+                    'found': False,
+                    'status': 'MISSING - Exchange Online PowerShell module not installed',
+                    'policy_type': 'atppolicy'
+                }]
             else:
                 print(f"Exchange Online module found: {module_check.stdout.strip()}")
                 
@@ -147,10 +171,31 @@ if ($module) {
                 
                 print(f"Anti-malware requirements file exists: {antimalware_exists}")
                 
+                # Check which Safe Attachments files exist
+                safeattachments_file = 'config/DefenderForOffice365/safeattachments_requirements.yaml'
+                safeattachments_exists = os.path.exists(safeattachments_file)
+                
+                print(f"Safe Attachments requirements file exists: {safeattachments_exists}")
+                
+                # Check which Safe Links files exist
+                safelinks_file = 'config/DefenderForOffice365/safelinks_requirements.yaml'
+                safelinks_exists = os.path.exists(safelinks_file)
+                
+                print(f"Safe Links requirements file exists: {safelinks_exists}")
+                
+                # Check which ATP Policy files exist
+                atppolicy_file = 'config/DefenderForOffice365/atppolicy_requirements.yaml'
+                atppolicy_exists = os.path.exists(atppolicy_file)
+                
+                print(f"ATP Policy requirements file exists: {atppolicy_exists}")
+                
                 # Determine which policy types we need
                 need_antispam = (standard_exists or strict_exists or outbound_exists or legacy_inbound_file)
                 need_antiphishing = (antiphishing_standard_exists or antiphishing_strict_exists)
                 need_antimalware = antimalware_exists
+                need_safeattachments = safeattachments_exists
+                need_safelinks = safelinks_exists
+                need_atppolicy = atppolicy_exists
                 
                 if need_antispam:
                     defender_policy_types.extend(['antispam_inbound', 'antispam_outbound'])
@@ -160,6 +205,15 @@ if ($module) {
                 
                 if need_antimalware:
                     defender_policy_types.append('antimalware')
+                
+                if need_safeattachments:
+                    defender_policy_types.append('safeattachments')
+                
+                if need_safelinks:
+                    defender_policy_types.append('safelinks')
+                
+                if need_atppolicy:
+                    defender_policy_types.append('atppolicy')
                 
                 # Retrieve all needed Defender policies in a single authentication session
                 if defender_policy_types:
@@ -239,6 +293,75 @@ if ($module) {
                     antimalware_results = []
                     print("No anti-malware requirements file found. Skipping anti-malware checks.")
 
+                # Process Safe Attachments policies if needed
+                if need_safeattachments:
+                    try:
+                        print("\n=== Checking Defender for Office 365 Safe Attachments Policies ===")
+                        
+                        safeattachments_handler = SafeAttachmentsPolicyHandler(
+                            requirements_file=safeattachments_file,
+                            session_manager=exchange_session_manager  # Use the same shared session manager
+                        )
+                        
+                        safeattachments_results = safeattachments_handler.check_policies()
+                    except Exception as e:
+                        print(f"Error processing Safe Attachments policies: {str(e)}")
+                        safeattachments_results = [{
+                            'requirement_name': 'Error',
+                            'found': False,
+                            'status': f'ERROR - {str(e)}',
+                            'policy_type': 'safeattachments'
+                        }]
+                else:
+                    safeattachments_results = []
+                    print("No Safe Attachments requirements file found. Skipping Safe Attachments checks.")
+
+                # Process Safe Links policies if needed
+                if need_safelinks:
+                    try:
+                        print("\n=== Checking Defender for Office 365 Safe Links Policies ===")
+                        
+                        safelinks_handler = SafeLinksPolicyHandler(
+                            requirements_file=safelinks_file,
+                            session_manager=exchange_session_manager  # Use the same shared session manager
+                        )
+                        
+                        safelinks_results = safelinks_handler.check_policies()
+                    except Exception as e:
+                        print(f"Error processing Safe Links policies: {str(e)}")
+                        safelinks_results = [{
+                            'requirement_name': 'Error',
+                            'found': False,
+                            'status': f'ERROR - {str(e)}',
+                            'policy_type': 'safelinks'
+                        }]
+                else:
+                    safelinks_results = []
+                    print("No Safe Links requirements file found. Skipping Safe Links checks.")
+
+                # Process ATP Policy if needed
+                if need_atppolicy:
+                    try:
+                        print("\n=== Checking Defender for Office 365 ATP Policy ===")
+                        
+                        atppolicy_handler = AtpPolicyHandler(
+                            requirements_file=atppolicy_file,
+                            session_manager=exchange_session_manager  # Use the same shared session manager
+                        )
+                        
+                        atppolicy_results = atppolicy_handler.check_policies()
+                    except Exception as e:
+                        print(f"Error processing ATP Policy: {str(e)}")
+                        atppolicy_results = [{
+                            'requirement_name': 'Error',
+                            'found': False,
+                            'status': f'ERROR - {str(e)}',
+                            'policy_type': 'atppolicy'
+                        }]
+                else:
+                    atppolicy_results = []
+                    print("No ATP Policy requirements file found. Skipping ATP Policy checks.")
+
         except Exception as e:
             print(f"Error in Defender for Office 365 policy checks: {str(e)}")
             if not antispam_results:
@@ -262,13 +385,34 @@ if ($module) {
                     'status': f'ERROR - {str(e)}',
                     'policy_type': 'antimalware'
                 }]
+            if not safeattachments_results:
+                safeattachments_results = [{
+                    'requirement_name': 'Error',
+                    'found': False,
+                    'status': f'ERROR - {str(e)}',
+                    'policy_type': 'safeattachments'
+                }]
+            if not safelinks_results:
+                safelinks_results = [{
+                    'requirement_name': 'Error',
+                    'found': False,
+                    'status': f'ERROR - {str(e)}',
+                    'policy_type': 'safelinks'
+                }]
+            if not atppolicy_results:
+                atppolicy_results = [{
+                    'requirement_name': 'Error',
+                    'found': False,
+                    'status': f'ERROR - {str(e)}',
+                    'policy_type': 'atppolicy'
+                }]
 
         # Clear the session cache after all Defender policies are retrieved
         print(f"\nSession manager cached policies: {list(exchange_session_manager.get_cached_policies().keys())}")
         
-        # Update report generation to include anti-phishing and anti-malware results
+        # Update report generation to include all Defender for Office 365 policy results
         report = ReportGenerator()
-        report.generate_report(ca_results, auth_results, antispam_results, antiphishing_results, antimalware_results)
+        report.generate_report(ca_results, auth_results, antispam_results, antiphishing_results, antimalware_results, safeattachments_results, safelinks_results, atppolicy_results)
 
 if __name__ == '__main__':
     main()

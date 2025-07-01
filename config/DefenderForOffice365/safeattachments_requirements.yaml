@@ -1,0 +1,28 @@
+# Defender for Office 365 Safe Attachments Policy Requirements
+# Configuration-focused checks only (not tenant-specific values)
+
+safeattachments_policies:
+  - name: "Safe Attachments Action - Block"
+    setting: "Action"
+    expected_value: "Block"
+    description: "Ensure Safe Attachments action is set to Block for maximum protection"
+    
+  - name: "Safe Attachments Enabled"
+    setting: "Enable"
+    expected_value: true
+    description: "Ensure Safe Attachments protection is enabled"
+    
+  - name: "Redirect Enabled"
+    setting: "Redirect"
+    expected_value: true
+    description: "Ensure redirect is enabled to send notifications when attachments are blocked"
+    
+  - name: "Redirect Address Configured"
+    setting: "RedirectAddress"
+    expected_value: "email_present"
+    description: "Ensure a redirect email address is configured for notifications"
+    
+  - name: "Quarantine Tag with Notifications"
+    setting: "QuarantineTag"
+    expected_value: "NotificationEnabledPolicy"
+    description: "Ensure quarantine tag is set to enable notifications for quarantined items"
