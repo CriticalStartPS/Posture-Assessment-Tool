@@ -665,8 +665,8 @@ class ReportGenerator:
         print(f"Final Safe Links compliance: {result_dict}")
         return result_dict
 
-    def calculate_atppolicy_compliance_by_policy(self, results):
-        """Calculate compliance for ATP Policy where one complete policy meeting all requirements = compliant"""
+    def calculate_exchangeonline_compliance_by_policy(self, results):
+        """Calculate compliance for Exchange Online configurations where one complete policy meeting all requirements = compliant"""
         if not results:
             return {
                 'percentage': 0,
@@ -676,89 +676,255 @@ class ReportGenerator:
                 'compliant_policy': None
             }
         
-        # Filter ATP Policy results
-        category_results = [r for r in results if r.get('policy_type') == 'atppolicy']
+        # Group results by policy type (atppolicy, externalinoutlook, organizationconfig)
+        compliance_by_type = {}
         
-        if not category_results:
-            return {
-                'percentage': 0,
-                'passed': 0,
-                'total': 0,
-                'is_compliant': False,
-                'compliant_policy': None
-            }
+        # Get all unique policy types
+        policy_types = list(set(r.get('policy_type', 'unknown') for r in results))
         
-        print(f"\nCalculating policy-level compliance for ATP Policy:")
-        
-        # Extract all unique policy names from the results
-        all_policy_names = set()
-        for result in category_results:
-            if 'policy_results' in result and result['policy_results']:
-                for policy_result in result['policy_results']:
-                    policy_name = policy_result.get('policy_name', 'Unknown')
-                    all_policy_names.add(policy_name)
-        
-        print(f"Found policies: {list(all_policy_names)}")
-        
-        # Check each policy to see if it meets ALL requirements
-        compliant_policies = []
-        total_requirements = len(category_results)
-        
-        for policy_name in all_policy_names:
-            policy_compliant_count = 0
-            policy_requirements_checked = 0
+        for policy_type in policy_types:
+            category_results = [r for r in results if r.get('policy_type') == policy_type]
             
-            print(f"\nChecking policy: {policy_name}")
+            if not category_results:
+                compliance_by_type[policy_type] = {
+                    'percentage': 0,
+                    'passed': 0,
+                    'total': 0,
+                    'is_compliant': False,
+                    'compliant_policy': None
+                }
             
+            print(f"\nCalculating policy-level compliance for {policy_type}:")
+            
+            # Extract all unique policy names from the results
+            all_policy_names = set()
             for result in category_results:
                 if 'policy_results' in result and result['policy_results']:
-                    # Look for this policy in the policy_results
-                    policy_found_in_requirement = False
-                    policy_compliant_in_requirement = False
-                    
                     for policy_result in result['policy_results']:
-                        if policy_result.get('policy_name') == policy_name:
-                            policy_found_in_requirement = True
-                            policy_compliant_in_requirement = policy_result.get('is_compliant', False)
-                            break
-                    
-                    if policy_found_in_requirement:
-                        policy_requirements_checked += 1
-                        if policy_compliant_in_requirement:
-                            policy_compliant_count += 1
-                            print(f"  ✓ {result['requirement_name']}: COMPLIANT")
-                        else:
-                            print(f"  ✗ {result['requirement_name']}: NON-COMPLIANT")
+                        policy_name = policy_result.get('policy_name', 'Unknown')
+                        all_policy_names.add(policy_name)
             
-            # A policy is fully compliant if it meets ALL requirements
-            if policy_requirements_checked == total_requirements and policy_compliant_count == total_requirements:
-                compliant_policies.append(policy_name)
-                print(f"  ✅ Policy '{policy_name}' meets ALL {total_requirements} requirements")
-            else:
-                print(f"  ❌ Policy '{policy_name}' meets {policy_compliant_count}/{total_requirements} requirements")
+            print(f"Found policies: {list(all_policy_names)}")
+            
+            # Check each policy to see if it meets ALL requirements
+            compliant_policies = []
+            total_requirements = len(category_results)
+            
+            for policy_name in all_policy_names:
+                policy_compliant_count = 0
+                policy_requirements_checked = 0
+                
+                print(f"\nChecking policy: {policy_name}")
+                
+                for result in category_results:
+                    if 'policy_results' in result and result['policy_results']:
+                        # Look for this policy in the policy_results
+                        policy_found_in_requirement = False
+                        policy_compliant_in_requirement = False
+                        
+                        for policy_result in result['policy_results']:
+                            if policy_result.get('policy_name') == policy_name:
+                                policy_found_in_requirement = True
+                                policy_compliant_in_requirement = policy_result.get('is_compliant', False)
+                                break
+                        
+                        if policy_found_in_requirement:
+                            policy_requirements_checked += 1
+                            if policy_compliant_in_requirement:
+                                policy_compliant_count += 1
+                                print(f"  ✓ {result['requirement_name']}: COMPLIANT")
+                            else:
+                                print(f"  ✗ {result['requirement_name']}: NON-COMPLIANT")
+                
+                # A policy is fully compliant if it meets ALL requirements
+                if policy_requirements_checked == total_requirements and policy_compliant_count == total_requirements:
+                    compliant_policies.append(policy_name)
+                    print(f"  ✅ Policy '{policy_name}' meets ALL {total_requirements} requirements")
+                else:
+                    print(f"  ❌ Policy '{policy_name}' meets {policy_compliant_count}/{total_requirements} requirements")
+            
+            # Category is compliant if ANY policy meets ALL requirements
+            is_compliant = len(compliant_policies) > 0
+            compliant_policy = compliant_policies[0] if compliant_policies else None
+            
+            # For display purposes, show how many requirements would be "passed" 
+            # If compliant: all requirements pass, if not: show actual pass count
+            passed_count = total_requirements if is_compliant else sum(1 for r in category_results if r.get('found', False))
+            percentage = 100 if is_compliant else round((passed_count / total_requirements) * 100)
+            
+            compliance_by_type[policy_type] = {
+                'percentage': percentage,
+                'passed': passed_count,
+                'total': total_requirements,
+                'is_compliant': is_compliant,
+                'compliant_policy': compliant_policy,
+                'compliant_policies': compliant_policies
+            }
+            
+            print(f"Final {policy_type} compliance: {compliance_by_type[policy_type]}")
         
-        # Category is compliant if ANY policy meets ALL requirements
-        is_compliant = len(compliant_policies) > 0
-        compliant_policy = compliant_policies[0] if compliant_policies else None
+        # Calculate overall Exchange Online compliance
+        total_passed = sum(comp['passed'] for comp in compliance_by_type.values())
+        total_requirements = sum(comp['total'] for comp in compliance_by_type.values())
+        overall_percentage = round((total_passed / total_requirements) * 100) if total_requirements > 0 else 0
+        overall_compliant = all(comp['is_compliant'] for comp in compliance_by_type.values())
         
-        # For display purposes, show how many requirements would be "passed" 
-        # If compliant: all requirements pass, if not: show actual pass count
-        passed_count = total_requirements if is_compliant else sum(1 for r in category_results if r.get('found', False))
-        percentage = 100 if is_compliant else round((passed_count / total_requirements) * 100)
-        
-        result_dict = {
-            'percentage': percentage,
-            'passed': passed_count,
+        return {
+            'percentage': overall_percentage,
+            'passed': total_passed,
             'total': total_requirements,
-            'is_compliant': is_compliant,
-            'compliant_policy': compliant_policy,
-            'compliant_policies': compliant_policies
+            'is_compliant': overall_compliant,
+            'by_type': compliance_by_type
         }
-        
-        print(f"Final ATP Policy compliance: {result_dict}")
-        return result_dict
 
-    def generate_report(self, ca_results, auth_results, antispam_results=None, antiphishing_results=None, antimalware_results=None, safeattachments_results=None, safelinks_results=None, atppolicy_results=None):
+    def add_hierarchical_numbering(self, ca_results, auth_results, antispam_results, antiphishing_results, 
+                                   antimalware_results, safeattachments_results, safelinks_results, exchangeonline_results):
+        """Add hierarchical numbering to all policy results for easy referencing"""
+        
+        # Define the policy sections and their numbers
+        section_counter = 1
+        
+        # 1. Conditional Access Policies
+        if ca_results:
+            for i, result in enumerate(ca_results, 1):
+                result['check_id'] = f"{section_counter}.{i}"
+                result['section_name'] = "Conditional Access Policies"
+                result['section_number'] = section_counter
+        section_counter += 1
+        
+        # 2. Authorization Policies
+        if auth_results:
+            for i, result in enumerate(auth_results, 1):
+                result['check_id'] = f"{section_counter}.{i}"
+                result['section_name'] = "Authorization Policies"
+                result['section_number'] = section_counter
+        section_counter += 1
+        
+        # 3. Defender for Office 365 - Anti-Spam Policies
+        if antispam_results:
+            subsection_counter = 1
+            
+            # Group anti-spam results by policy type
+            inbound_standard = [r for r in antispam_results if r.get('policy_type') == 'antispam_inbound_standard']
+            inbound_strict = [r for r in antispam_results if r.get('policy_type') == 'antispam_inbound_strict']
+            outbound = [r for r in antispam_results if r.get('policy_type') == 'antispam_outbound']
+            general = [r for r in antispam_results if r.get('policy_type') == 'antispam']
+            
+            # 3.1 Inbound Standard
+            if inbound_standard:
+                for i, result in enumerate(inbound_standard, 1):
+                    result['check_id'] = f"{section_counter}.{subsection_counter}.{i}"
+                    result['section_name'] = "Anti-Spam Policies (Inbound Standard)"
+                    result['section_number'] = section_counter
+                    result['subsection_number'] = subsection_counter
+                subsection_counter += 1
+            
+            # 3.2 Inbound Strict
+            if inbound_strict:
+                for i, result in enumerate(inbound_strict, 1):
+                    result['check_id'] = f"{section_counter}.{subsection_counter}.{i}"
+                    result['section_name'] = "Anti-Spam Policies (Inbound Strict)"
+                    result['section_number'] = section_counter
+                    result['subsection_number'] = subsection_counter
+                subsection_counter += 1
+            
+            # 3.3 Outbound
+            if outbound:
+                for i, result in enumerate(outbound, 1):
+                    result['check_id'] = f"{section_counter}.{subsection_counter}.{i}"
+                    result['section_name'] = "Anti-Spam Policies (Outbound)"
+                    result['section_number'] = section_counter
+                    result['subsection_number'] = subsection_counter
+                subsection_counter += 1
+            
+            # 3.4 General (legacy)
+            if general:
+                for i, result in enumerate(general, 1):
+                    result['check_id'] = f"{section_counter}.{subsection_counter}.{i}"
+                    result['section_name'] = "Anti-Spam Policies"
+                    result['section_number'] = section_counter
+                    result['subsection_number'] = subsection_counter
+        section_counter += 1
+        
+        # 4. Defender for Office 365 - Anti-Phishing Policies
+        if antiphishing_results:
+            subsection_counter = 1
+            
+            # Group anti-phishing results by policy type
+            standard = [r for r in antiphishing_results if r.get('policy_type') == 'antiphishing_standard']
+            strict = [r for r in antiphishing_results if r.get('policy_type') == 'antiphishing_strict']
+            general = [r for r in antiphishing_results if r.get('policy_type') == 'antiphishing']
+            
+            # 4.1 Standard
+            if standard:
+                for i, result in enumerate(standard, 1):
+                    result['check_id'] = f"{section_counter}.{subsection_counter}.{i}"
+                    result['section_name'] = "Anti-Phishing Policies (Standard)"
+                    result['section_number'] = section_counter
+                    result['subsection_number'] = subsection_counter
+                subsection_counter += 1
+            
+            # 4.2 Strict
+            if strict:
+                for i, result in enumerate(strict, 1):
+                    result['check_id'] = f"{section_counter}.{subsection_counter}.{i}"
+                    result['section_name'] = "Anti-Phishing Policies (Strict)"
+                    result['section_number'] = section_counter
+                    result['subsection_number'] = subsection_counter
+                subsection_counter += 1
+            
+            # 4.3 General
+            if general:
+                for i, result in enumerate(general, 1):
+                    result['check_id'] = f"{section_counter}.{subsection_counter}.{i}"
+                    result['section_name'] = "Anti-Phishing Policies"
+                    result['section_number'] = section_counter
+                    result['subsection_number'] = subsection_counter
+        section_counter += 1
+        
+        # 5. Defender for Office 365 - Anti-Malware Policies
+        if antimalware_results:
+            for i, result in enumerate(antimalware_results, 1):
+                result['check_id'] = f"{section_counter}.{i}"
+                result['section_name'] = "Anti-Malware Policies"
+                result['section_number'] = section_counter
+        section_counter += 1
+        
+        # 6. Defender for Office 365 - Safe Attachments Policies
+        if safeattachments_results:
+            for i, result in enumerate(safeattachments_results, 1):
+                result['check_id'] = f"{section_counter}.{i}"
+                result['section_name'] = "Safe Attachments Policies"
+                result['section_number'] = section_counter
+        section_counter += 1
+        
+        # 7. Defender for Office 365 - Safe Links Policies
+        if safelinks_results:
+            for i, result in enumerate(safelinks_results, 1):
+                result['check_id'] = f"{section_counter}.{i}"
+                result['section_name'] = "Safe Links Policies"
+                result['section_number'] = section_counter
+        section_counter += 1
+        
+        # 8. Exchange Online Configurations
+        if exchangeonline_results:
+            for i, result in enumerate(exchangeonline_results, 1):
+                result['check_id'] = f"{section_counter}.{i}"
+                result['section_name'] = "Exchange Online Configurations"
+                result['section_number'] = section_counter
+        
+        return {
+            'ca_results': ca_results,
+            'auth_results': auth_results,
+            'antispam_results': antispam_results,
+            'antiphishing_results': antiphishing_results,
+            'antimalware_results': antimalware_results,
+            'safeattachments_results': safeattachments_results,
+            'safelinks_results': safelinks_results,
+            'exchangeonline_results': exchangeonline_results
+        }
+
+    def generate_report(self, ca_results, auth_results, antispam_results=None, antiphishing_results=None, antimalware_results=None, safeattachments_results=None, safelinks_results=None, exchangeonline_results=None):
         # Calculate detailed compliance metrics
         ca_compliance = self.calculate_compliance_details(ca_results, is_conditional_access=True)
         auth_compliance = self.calculate_compliance_details(auth_results, is_conditional_access=False)
@@ -813,8 +979,10 @@ class ReportGenerator:
         
         # Calculate ATP Policy compliance
         atppolicy_compliance = {'percentage': 0, 'passed': 0, 'total': 0, 'is_compliant': False}
-        if atppolicy_results:
-            atppolicy_compliance = self.calculate_atppolicy_compliance_by_policy(atppolicy_results)
+        # Calculate Exchange Online compliance
+        exchangeonline_compliance = None
+        if exchangeonline_results:
+            exchangeonline_compliance = self.calculate_exchangeonline_compliance_by_policy(exchangeonline_results)
         
         # Calculate overall compliance using the separate categories
         total_passed = (ca_compliance['passed'] + auth_compliance['passed'] + 
@@ -826,7 +994,7 @@ class ReportGenerator:
                        antimalware_compliance['passed'] +
                        safeattachments_compliance['passed'] +
                        safelinks_compliance['passed'] +
-                       atppolicy_compliance['passed'])
+                       (exchangeonline_compliance['passed'] if exchangeonline_compliance else 0))
         total_policies = (ca_compliance['total'] + auth_compliance['total'] + 
                          antispam_inbound_standard_compliance['total'] + 
                          antispam_inbound_strict_compliance['total'] + 
@@ -836,20 +1004,26 @@ class ReportGenerator:
                          antimalware_compliance['total'] +
                          safeattachments_compliance['total'] +
                          safelinks_compliance['total'] +
-                         atppolicy_compliance['total'])
+                         (exchangeonline_compliance['total'] if exchangeonline_compliance else 0))
         
         overall_compliance = round((total_passed / total_policies) * 100) if total_policies > 0 else 0
 
+        # Add hierarchical numbering to all results for easy referencing
+        numbered_results = self.add_hierarchical_numbering(
+            ca_results, auth_results, antispam_results, antiphishing_results, 
+            antimalware_results, safeattachments_results, safelinks_results, exchangeonline_results
+        )
+
         template = self.env.get_template('report_template.html')
         output = template.render(
-            ca_results=ca_results,
-            auth_results=auth_results,
-            antispam_results=antispam_results or [],
-            antiphishing_results=antiphishing_results or [],
-            antimalware_results=antimalware_results or [],
-            safeattachments_results=safeattachments_results or [],
-            safelinks_results=safelinks_results or [],
-            atppolicy_results=atppolicy_results or [],
+            ca_results=numbered_results['ca_results'],
+            auth_results=numbered_results['auth_results'],
+            antispam_results=numbered_results['antispam_results'] or [],
+            antiphishing_results=numbered_results['antiphishing_results'] or [],
+            antimalware_results=numbered_results['antimalware_results'] or [],
+            safeattachments_results=numbered_results['safeattachments_results'] or [],
+            safelinks_results=numbered_results['safelinks_results'] or [],
+            exchangeonline_results=numbered_results['exchangeonline_results'] or [],
             timestamp=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             compliance_percentage=overall_compliance,
             ca_compliance=ca_compliance,
@@ -864,7 +1038,7 @@ class ReportGenerator:
             antimalware_compliance=antimalware_compliance,
             safeattachments_compliance=safeattachments_compliance,
             safelinks_compliance=safelinks_compliance,
-            atppolicy_compliance=atppolicy_compliance
+            exchangeonline_compliance=exchangeonline_compliance
         )
         
         # Create reports directory if it doesn't exist

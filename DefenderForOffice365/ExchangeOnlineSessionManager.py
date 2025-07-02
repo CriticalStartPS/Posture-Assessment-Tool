@@ -37,7 +37,7 @@ class ExchangeOnlineSessionManager:
         
         Args:
             policy_types: List of policy types to retrieve. Options:
-                         ['antispam_inbound', 'antispam_outbound', 'antiphishing', 'antimalware', 'safeattachments', 'safelinks', 'atppolicy']
+                         ['antispam_inbound', 'antispam_outbound', 'antiphishing', 'antimalware', 'safeattachments', 'safelinks', 'atppolicy', 'externalinoutlook', 'organizationconfig']
                          If None, retrieves all available policy types.
         
         Returns:
@@ -369,6 +369,65 @@ try {
 }
 ''')
         
+        # Add External In Outlook configuration retrieval if requested
+        if 'externalinoutlook' in policy_types:
+            policy_sections.append('''
+# Retrieve External In Outlook configuration
+Write-Output "Retrieving External In Outlook configuration..."
+try {
+    $externalInOutlookConfig = Get-ExternalInOutlook | ConvertTo-Json -Depth 10 -Compress
+    
+    if ($externalInOutlookConfig) {
+        Write-Output "Found External In Outlook configuration"
+        
+        # Output with markers
+        Write-Output "EXTERNALINOUTLOOK_DATA_START"
+        Write-Output $externalInOutlookConfig
+        Write-Output "EXTERNALINOUTLOOK_DATA_END"
+    } else {
+        Write-Output "No External In Outlook configuration found"
+        Write-Output "EXTERNALINOUTLOOK_DATA_START"
+        Write-Output "[]"
+        Write-Output "EXTERNALINOUTLOOK_DATA_END"
+    }
+} catch {
+    Write-Error "Error retrieving External In Outlook configuration: $($_.Exception.Message)"
+    Write-Output "EXTERNALINOUTLOOK_DATA_START"
+    Write-Output "[]"
+    Write-Output "EXTERNALINOUTLOOK_DATA_END"
+}
+''')
+        
+        # Add Organization Configuration retrieval if requested
+        if 'organizationconfig' in policy_types:
+            policy_sections.append('''
+# Retrieve Organization Configuration (Mail Auditing)
+Write-Output "Retrieving Organization Configuration..."
+try {
+    $orgConfig = Get-OrganizationConfig -ErrorAction Stop | Select-Object AuditDisabled
+    
+    if ($orgConfig) {
+        Write-Output "Found Organization Configuration"
+        
+        # Convert to JSON and output with markers
+        $orgConfigJsonOutput = $orgConfig | ConvertTo-Json -Depth 10 -Compress
+        Write-Output "ORGANIZATIONCONFIG_DATA_START"
+        Write-Output $orgConfigJsonOutput
+        Write-Output "ORGANIZATIONCONFIG_DATA_END"
+    } else {
+        Write-Output "No Organization Configuration found"
+        Write-Output "ORGANIZATIONCONFIG_DATA_START"
+        Write-Output "[]"
+        Write-Output "ORGANIZATIONCONFIG_DATA_END"
+    }
+} catch {
+    Write-Error "Error retrieving Organization Configuration: $($_.Exception.Message)"
+    Write-Output "ORGANIZATIONCONFIG_DATA_START"
+    Write-Output "[]"
+    Write-Output "ORGANIZATIONCONFIG_DATA_END"
+}
+''')
+        
         # Script footer
         script_footer = '''
 # Disconnect from Exchange Online
@@ -431,6 +490,8 @@ exit 0
                 policies.update(self._extract_policy_data(lines, 'safeattachments', 'SAFEATTACHMENTS_DATA_START', 'SAFEATTACHMENTS_DATA_END'))
                 policies.update(self._extract_policy_data(lines, 'safelinks', 'SAFELINKS_DATA_START', 'SAFELINKS_DATA_END'))
                 policies.update(self._extract_policy_data(lines, 'atppolicy', 'ATPPOLICY_DATA_START', 'ATPPOLICY_DATA_END'))
+                policies.update(self._extract_policy_data(lines, 'externalinoutlook', 'EXTERNALINOUTLOOK_DATA_START', 'EXTERNALINOUTLOOK_DATA_END'))
+                policies.update(self._extract_policy_data(lines, 'organizationconfig', 'ORGANIZATIONCONFIG_DATA_START', 'ORGANIZATIONCONFIG_DATA_END'))
                 
             else:
                 print("✗ Failed to connect to Exchange Online or retrieve policies")

@@ -6,7 +6,7 @@ from DefenderForOffice365.AntiPhishingPolicyHandler import AntiPhishingPolicyHan
 from DefenderForOffice365.AntiMalwarePolicyHandler import AntiMalwarePolicyHandler
 from DefenderForOffice365.SafeAttachmentsPolicyHandler import SafeAttachmentsPolicyHandler
 from DefenderForOffice365.SafeLinksPolicyHandler import SafeLinksPolicyHandler
-from DefenderForOffice365.AtpPolicyHandler import AtpPolicyHandler
+from DefenderForOffice365.ExchangeOnlineConfigHandler import ExchangeOnlineConfigHandler
 from DefenderForOffice365.ExchangeOnlineSessionManager import ExchangeOnlineSessionManager
 from ReportGenerator import ReportGenerator
 import os
@@ -50,7 +50,7 @@ def main():
         antimalware_results = []
         safeattachments_results = []
         safelinks_results = []
-        atppolicy_results = []
+        exchangeonline_results = []
         
         try:
             print("\n=== Checking Defender for Office 365 Anti-Spam Policies ===")
@@ -118,11 +118,11 @@ if ($module) {
                     'status': 'MISSING - Exchange Online PowerShell module not installed',
                     'policy_type': 'safelinks'
                 }]
-                atppolicy_results = [{
+                exchangeonline_results = [{
                     'requirement_name': 'Module Missing',
                     'found': False,
                     'status': 'MISSING - Exchange Online PowerShell module not installed',
-                    'policy_type': 'atppolicy'
+                    'policy_type': 'exchangeonline'
                 }]
             else:
                 print(f"Exchange Online module found: {module_check.stdout.strip()}")
@@ -184,10 +184,10 @@ if ($module) {
                 print(f"Safe Links requirements file exists: {safelinks_exists}")
                 
                 # Check which ATP Policy files exist
-                atppolicy_file = 'config/DefenderForOffice365/atppolicy_requirements.yaml'
-                atppolicy_exists = os.path.exists(atppolicy_file)
+                exchangeonline_file = 'config/DefenderForOffice365/exchangeonline_requirements.yaml'
+                exchangeonline_exists = os.path.exists(exchangeonline_file)
                 
-                print(f"ATP Policy requirements file exists: {atppolicy_exists}")
+                print(f"Exchange Online requirements file exists: {exchangeonline_exists}")
                 
                 # Determine which policy types we need
                 need_antispam = (standard_exists or strict_exists or outbound_exists or legacy_inbound_file)
@@ -195,7 +195,7 @@ if ($module) {
                 need_antimalware = antimalware_exists
                 need_safeattachments = safeattachments_exists
                 need_safelinks = safelinks_exists
-                need_atppolicy = atppolicy_exists
+                need_exchangeonline = exchangeonline_exists
                 
                 if need_antispam:
                     defender_policy_types.extend(['antispam_inbound', 'antispam_outbound'])
@@ -212,8 +212,10 @@ if ($module) {
                 if need_safelinks:
                     defender_policy_types.append('safelinks')
                 
-                if need_atppolicy:
+                if need_exchangeonline:
                     defender_policy_types.append('atppolicy')
+                    defender_policy_types.append('externalinoutlook')
+                    defender_policy_types.append('organizationconfig')
                 
                 # Retrieve all needed Defender policies in a single authentication session
                 if defender_policy_types:
@@ -339,28 +341,28 @@ if ($module) {
                     safelinks_results = []
                     print("No Safe Links requirements file found. Skipping Safe Links checks.")
 
-                # Process ATP Policy if needed
-                if need_atppolicy:
+                # Process Exchange Online configs if needed
+                if need_exchangeonline:
                     try:
-                        print("\n=== Checking Defender for Office 365 ATP Policy ===")
+                        print("\n=== Checking Exchange Online Configurations ===")
                         
-                        atppolicy_handler = AtpPolicyHandler(
-                            requirements_file=atppolicy_file,
+                        exchangeonline_handler = ExchangeOnlineConfigHandler(
+                            requirements_file=exchangeonline_file,
                             session_manager=exchange_session_manager  # Use the same shared session manager
                         )
                         
-                        atppolicy_results = atppolicy_handler.check_policies()
+                        exchangeonline_results = exchangeonline_handler.check_policies()
                     except Exception as e:
-                        print(f"Error processing ATP Policy: {str(e)}")
-                        atppolicy_results = [{
+                        print(f"Error processing Exchange Online configurations: {str(e)}")
+                        exchangeonline_results = [{
                             'requirement_name': 'Error',
                             'found': False,
                             'status': f'ERROR - {str(e)}',
-                            'policy_type': 'atppolicy'
+                            'policy_type': 'exchangeonline'
                         }]
                 else:
-                    atppolicy_results = []
-                    print("No ATP Policy requirements file found. Skipping ATP Policy checks.")
+                    exchangeonline_results = []
+                    print("No Exchange Online requirements file found. Skipping Exchange Online checks.")
 
         except Exception as e:
             print(f"Error in Defender for Office 365 policy checks: {str(e)}")
@@ -399,12 +401,12 @@ if ($module) {
                     'status': f'ERROR - {str(e)}',
                     'policy_type': 'safelinks'
                 }]
-            if not atppolicy_results:
-                atppolicy_results = [{
+            if not exchangeonline_results:
+                exchangeonline_results = [{
                     'requirement_name': 'Error',
                     'found': False,
                     'status': f'ERROR - {str(e)}',
-                    'policy_type': 'atppolicy'
+                    'policy_type': 'exchangeonline'
                 }]
 
         # Clear the session cache after all Defender policies are retrieved
@@ -412,7 +414,7 @@ if ($module) {
         
         # Update report generation to include all Defender for Office 365 policy results
         report = ReportGenerator()
-        report.generate_report(ca_results, auth_results, antispam_results, antiphishing_results, antimalware_results, safeattachments_results, safelinks_results, atppolicy_results)
+        report.generate_report(ca_results, auth_results, antispam_results, antiphishing_results, antimalware_results, safeattachments_results, safelinks_results, exchangeonline_results)
 
 if __name__ == '__main__':
     main()

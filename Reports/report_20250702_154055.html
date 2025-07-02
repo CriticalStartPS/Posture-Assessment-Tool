@@ -182,14 +182,14 @@
     <div class="header">
         <div class="container">
             <h1>Azure Security Compliance Report</h1>
-            <div class="timestamp">Generated: 2025-06-30 14:31:55</div>
+            <div class="timestamp">Generated: 2025-07-02 15:40:55</div>
         </div>
     </div>
 
     <div class="container">
         <div class="summary-card">
             <h2>Executive Summary</h2>
-            <div class="overall-score">Overall Compliance: 86% (124/145 Policies)</div>
+            <div class="overall-score">Overall Compliance: 92% (153/166 Policies)</div>
             
             <div class="compliance-indicator">
                 <span>Conditional Access Policies:</span>
@@ -288,12 +288,61 @@
             
             <div class="compliance-indicator">
                 <span>Anti-Malware Policies:</span>
-                <span class="status-badge non-compliant">
-                    Non-Compliant
+                <span class="status-badge compliant">
+                    Compliant
                 </span>
                 <div class="compliance-details">
-                    <span class="compliance-fraction">(0/8 Passed)</span>
-                    <span>0%</span>
+                    <span class="compliance-fraction">(8/8 Passed)</span>
+                    <span>100%</span>
+                    
+                    <br><span style="font-size: 12px; color: #107c10; font-style: italic;">✓ Policy "Anti-malware Default Policy" meets all requirements</span>
+                    
+                </div>
+            </div>
+            
+            
+            
+            <div class="compliance-indicator">
+                <span>Safe Attachments Policies:</span>
+                <span class="status-badge compliant">
+                    Compliant
+                </span>
+                <div class="compliance-details">
+                    <span class="compliance-fraction">(5/5 Passed)</span>
+                    <span>100%</span>
+                    
+                    <br><span style="font-size: 12px; color: #107c10; font-style: italic;">✓ Policy "Default Safe Attachments Policy" meets all requirements</span>
+                    
+                </div>
+            </div>
+            
+            
+            
+            <div class="compliance-indicator">
+                <span>Safe Links Policies:</span>
+                <span class="status-badge compliant">
+                    Compliant
+                </span>
+                <div class="compliance-details">
+                    <span class="compliance-fraction">(10/10 Passed)</span>
+                    <span>100%</span>
+                    
+                    <br><span style="font-size: 12px; color: #107c10; font-style: italic;">✓ Policy "Default Safe Links Policy" meets all requirements</span>
+                    
+                </div>
+            </div>
+            
+            
+            
+            <div class="compliance-indicator">
+                <span>Exchange Online Configurations:</span>
+                <span class="status-badge compliant">
+                    Compliant
+                </span>
+                <div class="compliance-details">
+                    <span class="compliance-fraction">(6/6 Passed)</span>
+                    <span>100%</span>
+                    
                 </div>
             </div>
             
@@ -308,7 +357,7 @@
             
             
             <div class="policy-item pass">
-                <h3>MFA for All Users (Base Policy)</h3>
+                <h3>1.1 - MFA for All Users (Base Policy)</h3>
                 
                 <!-- Status Banner -->
                 <div class="policy-status-banner pass">
@@ -339,7 +388,7 @@
             
             
             <div class="policy-item pass">
-                <h3>Entra ID User Risk Policy for High Risk Users</h3>
+                <h3>1.2 - Entra ID User Risk Policy for High Risk Users</h3>
                 
                 <!-- Status Banner -->
                 <div class="policy-status-banner pass">
@@ -370,7 +419,7 @@
             
             
             <div class="policy-item pass">
-                <h3>Entra ID Sign-in Risk Policy for Medium and High Risk Users</h3>
+                <h3>1.3 - Entra ID Sign-in Risk Policy for Medium and High Risk Users</h3>
                 
                 <!-- Status Banner -->
                 <div class="policy-status-banner pass">
@@ -401,7 +450,7 @@
             
             
             <div class="policy-item pass">
-                <h3>Block Legacy Authentication</h3>
+                <h3>1.4 - Block Legacy Authentication</h3>
                 
                 <!-- Status Banner -->
                 <div class="policy-status-banner pass">
@@ -432,7 +481,7 @@
             
             
             <div class="policy-item pass">
-                <h3>Block access for unknown or unsupported device platform</h3>
+                <h3>1.5 - Block access for unknown or unsupported device platform</h3>
                 
                 <!-- Status Banner -->
                 <div class="policy-status-banner pass">
@@ -463,7 +512,7 @@
             
             
             <div class="policy-item pass">
-                <h3>Securing Security Info Registration</h3>
+                <h3>1.6 - Securing Security Info Registration</h3>
                 
                 <!-- Status Banner -->
                 <div class="policy-status-banner pass">
@@ -494,7 +543,7 @@
             
             
             <div class="policy-item pass">
-                <h3>Block Graph Command Line Tools and Explorer</h3>
+                <h3>1.7 - Block Graph Command Line Tools and Explorer</h3>
                 
                 <!-- Status Banner -->
                 <div class="policy-status-banner pass">
@@ -525,7 +574,7 @@
             
             
             <div class="policy-item pass">
-                <h3>Block Device Code Authentication</h3>
+                <h3>1.8 - Block Device Code Authentication</h3>
                 
                 <!-- Status Banner -->
                 <div class="policy-status-banner pass">
@@ -556,7 +605,7 @@
             
             
             <div class="policy-item pass">
-                <h3>Block Azure Management for Non-Admins</h3>
+                <h3>1.9 - Block Azure Management for Non-Admins</h3>
                 
                 <!-- Status Banner -->
                 <div class="policy-status-banner pass">
@@ -587,7 +636,7 @@
             
             
             <div class="policy-item pass">
-                <h3>Block Authentication Transfers</h3>
+                <h3>1.10 - Block Authentication Transfers</h3>
                 
                 <!-- Status Banner -->
                 <div class="policy-status-banner pass">
@@ -618,7 +667,7 @@
             
             
             <div class="policy-item pass">
-                <h3>Require Phishing-Resistant MFA for Admins</h3>
+                <h3>1.11 - Require Phishing-Resistant MFA for Admins</h3>
                 
                 <!-- Status Banner -->
                 <div class="policy-status-banner pass">
@@ -649,7 +698,7 @@
             
             
             <div class="policy-item pass">
-                <h3>No Persistent Browser Session on Unmanaged Devices</h3>
+                <h3>1.12 - No Persistent Browser Session on Unmanaged Devices</h3>
                 
                 <!-- Status Banner -->
                 <div class="policy-status-banner pass">
@@ -680,7 +729,7 @@
             
             
             <div class="policy-item pass">
-                <h3>Require Session Control for Admin Roles</h3>
+                <h3>1.13 - Require Session Control for Admin Roles</h3>
                 
                 <!-- Status Banner -->
                 <div class="policy-status-banner pass">
@@ -711,7 +760,7 @@
             
             
             <div class="policy-item pass">
-                <h3>Block Offline Autopilot Profile Enrollment</h3>
+                <h3>1.14 - Block Offline Autopilot Profile Enrollment</h3>
                 
                 <!-- Status Banner -->
                 <div class="policy-status-banner pass">
@@ -742,7 +791,7 @@
             
             
             <div class="policy-item pass">
-                <h3>Force MFA on Device Registration</h3>
+                <h3>1.15 - Force MFA on Device Registration</h3>
                 
                 <!-- Status Banner -->
                 <div class="policy-status-banner pass">
@@ -773,7 +822,7 @@
             
             
             <div class="policy-item pass">
-                <h3>Require Approved Apps on Mobile Devices</h3>
+                <h3>1.16 - Require Approved Apps on Mobile Devices</h3>
                 
                 <!-- Status Banner -->
                 <div class="policy-status-banner pass">
@@ -804,7 +853,7 @@
             
             
             <div class="policy-item pass">
-                <h3>Block SharePoint Access on Unmanaged Devices</h3>
+                <h3>1.17 - Block SharePoint Access on Unmanaged Devices</h3>
                 
                 <!-- Status Banner -->
                 <div class="policy-status-banner pass">
@@ -835,7 +884,7 @@
             
             
             <div class="policy-item pass">
-                <h3>Enforce SharePoint Browser App Restrictions</h3>
+                <h3>1.18 - Enforce SharePoint Browser App Restrictions</h3>
                 
                 <!-- Status Banner -->
                 <div class="policy-status-banner pass">
@@ -870,7 +919,7 @@
             
             
             <div class="policy-item fail">
-                <h3>Block MSol PowerShell</h3>
+                <h3>2.1 - Block MSol PowerShell</h3>
                 
                 <!-- Status Banner -->
                 <div class="policy-status-banner fail">
@@ -897,7 +946,7 @@
             
             
             <div class="policy-item pass">
-                <h3>Prevent Users from Creating Applications</h3>
+                <h3>2.2 - Prevent Users from Creating Applications</h3>
                 
                 <!-- Status Banner -->
                 <div class="policy-status-banner pass">
@@ -922,7 +971,7 @@
             
             
             <div class="policy-item fail">
-                <h3>Prevent User Consent for Risky Apps</h3>
+                <h3>2.3 - Prevent User Consent for Risky Apps</h3>
                 
                 <!-- Status Banner -->
                 <div class="policy-status-banner fail">
@@ -949,7 +998,7 @@
             
             
             <div class="policy-item fail">
-                <h3>Restrict Guest Invitations</h3>
+                <h3>2.4 - Restrict Guest Invitations</h3>
                 
                 <!-- Status Banner -->
                 <div class="policy-status-banner fail">
@@ -978,7 +1027,7 @@
             
             
             <div class="policy-item fail">
-                <h3>Restrict Guest User Permissions</h3>
+                <h3>2.5 - Restrict Guest User Permissions</h3>
                 
                 <!-- Status Banner -->
                 <div class="policy-status-banner fail">
@@ -1007,7 +1056,7 @@
             
             
             <div class="policy-item pass">
-                <h3>Prevent Users from Creating Tenants</h3>
+                <h3>2.6 - Prevent Users from Creating Tenants</h3>
                 
                 <!-- Status Banner -->
                 <div class="policy-status-banner pass">
@@ -1032,7 +1081,7 @@
             
             
             <div class="policy-item fail">
-                <h3>Prevent BitLocker Key Reading</h3>
+                <h3>2.7 - Prevent BitLocker Key Reading</h3>
                 
                 <!-- Status Banner -->
                 <div class="policy-status-banner fail">
@@ -1075,7 +1124,7 @@
                 
                 
                 <div class="policy-item fail">
-                    <h3>Bulk Email Threshold (Standard) (Inbound_Standard)</h3>
+                    <h3>3.1.1 - Bulk Email Threshold (Standard) (Inbound_Standard)</h3>
                     <p>Configuration Status: <span class="status-text fail">
                         MISSING - 4/5 policies non-compliant
                     </span></p>
@@ -1116,7 +1165,7 @@
                 
                 
                 <div class="policy-item fail">
-                    <h3>Spam Action (Standard) (Inbound_Standard)</h3>
+                    <h3>3.1.2 - Spam Action (Standard) (Inbound_Standard)</h3>
                     <p>Configuration Status: <span class="status-text fail">
                         MISSING - 2/5 policies non-compliant
                     </span></p>
@@ -1157,7 +1206,7 @@
                 
                 
                 <div class="policy-item fail">
-                    <h3>High Confidence Spam Action (Standard) (Inbound_Standard)</h3>
+                    <h3>3.1.3 - High Confidence Spam Action (Standard) (Inbound_Standard)</h3>
                     <p>Configuration Status: <span class="status-text fail">
                         MISSING - 1/5 policies non-compliant
                     </span></p>
@@ -1198,7 +1247,7 @@
                 
                 
                 <div class="policy-item fail">
-                    <h3>Phishing Action (Standard) (Inbound_Standard)</h3>
+                    <h3>3.1.4 - Phishing Action (Standard) (Inbound_Standard)</h3>
                     <p>Configuration Status: <span class="status-text fail">
                         MISSING - 1/5 policies non-compliant
                     </span></p>
@@ -1239,7 +1288,7 @@
                 
                 
                 <div class="policy-item pass">
-                    <h3>High Confidence Phishing Action (Standard) (Inbound_Standard)</h3>
+                    <h3>3.1.5 - High Confidence Phishing Action (Standard) (Inbound_Standard)</h3>
                     <p>Configuration Status: <span class="status-text pass">
                         PRESENT - All 5 policies compliant
                     </span></p>
@@ -1280,7 +1329,7 @@
                 
                 
                 <div class="policy-item fail">
-                    <h3>Bulk Spam Action (Standard) (Inbound_Standard)</h3>
+                    <h3>3.1.6 - Bulk Spam Action (Standard) (Inbound_Standard)</h3>
                     <p>Configuration Status: <span class="status-text fail">
                         MISSING - 2/5 policies non-compliant
                     </span></p>
@@ -1321,7 +1370,7 @@
                 
                 
                 <div class="policy-item pass">
-                    <h3>Zero Hour Auto Purge Enabled (Standard) (Inbound_Standard)</h3>
+                    <h3>3.1.7 - Zero Hour Auto Purge Enabled (Standard) (Inbound_Standard)</h3>
                     <p>Configuration Status: <span class="status-text pass">
                         PRESENT - All 5 policies compliant
                     </span></p>
@@ -1362,7 +1411,7 @@
                 
                 
                 <div class="policy-item pass">
-                    <h3>Zero Hour Auto Purge for Spam (Standard) (Inbound_Standard)</h3>
+                    <h3>3.1.8 - Zero Hour Auto Purge for Spam (Standard) (Inbound_Standard)</h3>
                     <p>Configuration Status: <span class="status-text pass">
                         PRESENT - All 5 policies compliant
                     </span></p>
@@ -1403,7 +1452,7 @@
                 
                 
                 <div class="policy-item pass">
-                    <h3>Zero Hour Auto Purge for Phishing (Standard) (Inbound_Standard)</h3>
+                    <h3>3.1.9 - Zero Hour Auto Purge for Phishing (Standard) (Inbound_Standard)</h3>
                     <p>Configuration Status: <span class="status-text pass">
                         PRESENT - All 5 policies compliant
                     </span></p>
@@ -1444,7 +1493,7 @@
                 
                 
                 <div class="policy-item pass">
-                    <h3>Inline Safety Tips Enabled (Standard) (Inbound_Standard)</h3>
+                    <h3>3.1.10 - Inline Safety Tips Enabled (Standard) (Inbound_Standard)</h3>
                     <p>Configuration Status: <span class="status-text pass">
                         PRESENT - All 5 policies compliant
                     </span></p>
@@ -1485,13 +1534,13 @@
                 
                 
                 <div class="policy-item fail">
-                    <h3>Image Links Spam Detection (Standard) (Inbound_Standard)</h3>
+                    <h3>3.1.11 - Image Links Spam Detection (Standard) (Inbound_Standard)</h3>
                     <p>Configuration Status: <span class="status-text fail">
                         MISSING - 3/5 policies non-compliant
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: Off, On</p>
+                    <p>Current Value: Mixed values: On, Off</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -1516,7 +1565,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: Off, On 
+                        Summary: Mixed values: On, Off 
                         
                         <span class="non-compliant-warning">(3 policies need attention)</span>
                         
@@ -1526,13 +1575,13 @@
                 
                 
                 <div class="policy-item fail">
-                    <h3>Numeric IPs Spam Detection (Standard) (Inbound_Standard)</h3>
+                    <h3>3.1.12 - Numeric IPs Spam Detection (Standard) (Inbound_Standard)</h3>
                     <p>Configuration Status: <span class="status-text fail">
                         MISSING - 3/5 policies non-compliant
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: Off, On</p>
+                    <p>Current Value: Mixed values: On, Off</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -1557,7 +1606,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: Off, On 
+                        Summary: Mixed values: On, Off 
                         
                         <span class="non-compliant-warning">(3 policies need attention)</span>
                         
@@ -1567,13 +1616,13 @@
                 
                 
                 <div class="policy-item fail">
-                    <h3>Redirect to Other Port Detection (Standard) (Inbound_Standard)</h3>
+                    <h3>3.1.13 - Redirect to Other Port Detection (Standard) (Inbound_Standard)</h3>
                     <p>Configuration Status: <span class="status-text fail">
                         MISSING - 3/5 policies non-compliant
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: Off, On</p>
+                    <p>Current Value: Mixed values: On, Off</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -1598,7 +1647,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: Off, On 
+                        Summary: Mixed values: On, Off 
                         
                         <span class="non-compliant-warning">(3 policies need attention)</span>
                         
@@ -1608,13 +1657,13 @@
                 
                 
                 <div class="policy-item fail">
-                    <h3>Business/Info URLs Detection (Standard) (Inbound_Standard)</h3>
+                    <h3>3.1.14 - Business/Info URLs Detection (Standard) (Inbound_Standard)</h3>
                     <p>Configuration Status: <span class="status-text fail">
                         MISSING - 3/5 policies non-compliant
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: Off, On</p>
+                    <p>Current Value: Mixed values: On, Off</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -1639,7 +1688,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: Off, On 
+                        Summary: Mixed values: On, Off 
                         
                         <span class="non-compliant-warning">(3 policies need attention)</span>
                         
@@ -1649,13 +1698,13 @@
                 
                 
                 <div class="policy-item fail">
-                    <h3>Empty Messages Detection (Standard) (Inbound_Standard)</h3>
+                    <h3>3.1.15 - Empty Messages Detection (Standard) (Inbound_Standard)</h3>
                     <p>Configuration Status: <span class="status-text fail">
                         MISSING - 3/5 policies non-compliant
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: Off, On</p>
+                    <p>Current Value: Mixed values: On, Off</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -1680,7 +1729,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: Off, On 
+                        Summary: Mixed values: On, Off 
                         
                         <span class="non-compliant-warning">(3 policies need attention)</span>
                         
@@ -1690,13 +1739,13 @@
                 
                 
                 <div class="policy-item fail">
-                    <h3>JavaScript in HTML Detection (Standard) (Inbound_Standard)</h3>
+                    <h3>3.1.16 - JavaScript in HTML Detection (Standard) (Inbound_Standard)</h3>
                     <p>Configuration Status: <span class="status-text fail">
                         MISSING - 3/5 policies non-compliant
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: Off, On</p>
+                    <p>Current Value: Mixed values: On, Off</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -1721,7 +1770,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: Off, On 
+                        Summary: Mixed values: On, Off 
                         
                         <span class="non-compliant-warning">(3 policies need attention)</span>
                         
@@ -1731,13 +1780,13 @@
                 
                 
                 <div class="policy-item fail">
-                    <h3>Frames in HTML Detection (Standard) (Inbound_Standard)</h3>
+                    <h3>3.1.17 - Frames in HTML Detection (Standard) (Inbound_Standard)</h3>
                     <p>Configuration Status: <span class="status-text fail">
                         MISSING - 3/5 policies non-compliant
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: Off, On</p>
+                    <p>Current Value: Mixed values: On, Off</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -1762,7 +1811,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: Off, On 
+                        Summary: Mixed values: On, Off 
                         
                         <span class="non-compliant-warning">(3 policies need attention)</span>
                         
@@ -1772,13 +1821,13 @@
                 
                 
                 <div class="policy-item fail">
-                    <h3>Object Tags in HTML Detection (Standard) (Inbound_Standard)</h3>
+                    <h3>3.1.18 - Object Tags in HTML Detection (Standard) (Inbound_Standard)</h3>
                     <p>Configuration Status: <span class="status-text fail">
                         MISSING - 3/5 policies non-compliant
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: Off, On</p>
+                    <p>Current Value: Mixed values: On, Off</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -1803,7 +1852,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: Off, On 
+                        Summary: Mixed values: On, Off 
                         
                         <span class="non-compliant-warning">(3 policies need attention)</span>
                         
@@ -1813,13 +1862,13 @@
                 
                 
                 <div class="policy-item fail">
-                    <h3>Embed Tags in HTML Detection (Standard) (Inbound_Standard)</h3>
+                    <h3>3.1.19 - Embed Tags in HTML Detection (Standard) (Inbound_Standard)</h3>
                     <p>Configuration Status: <span class="status-text fail">
                         MISSING - 3/5 policies non-compliant
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: Off, On</p>
+                    <p>Current Value: Mixed values: On, Off</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -1844,7 +1893,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: Off, On 
+                        Summary: Mixed values: On, Off 
                         
                         <span class="non-compliant-warning">(3 policies need attention)</span>
                         
@@ -1854,13 +1903,13 @@
                 
                 
                 <div class="policy-item fail">
-                    <h3>Form Tags in HTML Detection (Standard) (Inbound_Standard)</h3>
+                    <h3>3.1.20 - Form Tags in HTML Detection (Standard) (Inbound_Standard)</h3>
                     <p>Configuration Status: <span class="status-text fail">
                         MISSING - 1/5 policies non-compliant
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: Off, On</p>
+                    <p>Current Value: Mixed values: On, Off</p>
                     
                     
                     <p>Expected Value: Off</p>
@@ -1885,7 +1934,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: Off, On 
+                        Summary: Mixed values: On, Off 
                         
                         <span class="non-compliant-warning">(1 policies need attention)</span>
                         
@@ -1895,13 +1944,13 @@
                 
                 
                 <div class="policy-item fail">
-                    <h3>Web Bugs in HTML Detection (Standard) (Inbound_Standard)</h3>
+                    <h3>3.1.21 - Web Bugs in HTML Detection (Standard) (Inbound_Standard)</h3>
                     <p>Configuration Status: <span class="status-text fail">
                         MISSING - 1/5 policies non-compliant
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: Off, On</p>
+                    <p>Current Value: Mixed values: On, Off</p>
                     
                     
                     <p>Expected Value: Off</p>
@@ -1926,7 +1975,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: Off, On 
+                        Summary: Mixed values: On, Off 
                         
                         <span class="non-compliant-warning">(1 policies need attention)</span>
                         
@@ -1936,13 +1985,13 @@
                 
                 
                 <div class="policy-item fail">
-                    <h3>SPF Record Hard Fail Detection (Standard) (Inbound_Standard)</h3>
+                    <h3>3.1.22 - SPF Record Hard Fail Detection (Standard) (Inbound_Standard)</h3>
                     <p>Configuration Status: <span class="status-text fail">
                         MISSING - 1/5 policies non-compliant
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: Off, On</p>
+                    <p>Current Value: Mixed values: On, Off</p>
                     
                     
                     <p>Expected Value: Off</p>
@@ -1967,7 +2016,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: Off, On 
+                        Summary: Mixed values: On, Off 
                         
                         <span class="non-compliant-warning">(1 policies need attention)</span>
                         
@@ -1977,13 +2026,13 @@
                 
                 
                 <div class="policy-item fail">
-                    <h3>From Address Auth Fail Detection (Standard) (Inbound_Standard)</h3>
+                    <h3>3.1.23 - From Address Auth Fail Detection (Standard) (Inbound_Standard)</h3>
                     <p>Configuration Status: <span class="status-text fail">
                         MISSING - 3/5 policies non-compliant
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: Off, On</p>
+                    <p>Current Value: Mixed values: On, Off</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -2008,7 +2057,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: Off, On 
+                        Summary: Mixed values: On, Off 
                         
                         <span class="non-compliant-warning">(3 policies need attention)</span>
                         
@@ -2018,7 +2067,7 @@
                 
                 
                 <div class="policy-item pass">
-                    <h3>Bulk Mail Detection (Standard) (Inbound_Standard)</h3>
+                    <h3>3.1.24 - Bulk Mail Detection (Standard) (Inbound_Standard)</h3>
                     <p>Configuration Status: <span class="status-text pass">
                         PRESENT - All 5 policies compliant
                     </span></p>
@@ -2059,13 +2108,13 @@
                 
                 
                 <div class="policy-item fail">
-                    <h3>NDR Backscatter Detection (Standard) (Inbound_Standard)</h3>
+                    <h3>3.1.25 - NDR Backscatter Detection (Standard) (Inbound_Standard)</h3>
                     <p>Configuration Status: <span class="status-text fail">
                         MISSING - 3/5 policies non-compliant
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: Off, On</p>
+                    <p>Current Value: Mixed values: On, Off</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -2090,7 +2139,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: Off, On 
+                        Summary: Mixed values: On, Off 
                         
                         <span class="non-compliant-warning">(3 policies need attention)</span>
                         
@@ -2100,7 +2149,7 @@
                 
                 
                 <div class="policy-item pass">
-                    <h3>Sensitive Word List Detection (Standard) (Inbound_Standard)</h3>
+                    <h3>3.1.26 - Sensitive Word List Detection (Standard) (Inbound_Standard)</h3>
                     <p>Configuration Status: <span class="status-text pass">
                         PRESENT - All 5 policies compliant
                     </span></p>
@@ -2141,7 +2190,7 @@
                 
                 
                 <div class="policy-item fail">
-                    <h3>Region Block List Enabled (Standard) (Inbound_Standard)</h3>
+                    <h3>3.1.27 - Region Block List Enabled (Standard) (Inbound_Standard)</h3>
                     <p>Configuration Status: <span class="status-text fail">
                         MISSING - 3/5 policies non-compliant
                     </span></p>
@@ -2182,7 +2231,7 @@
                 
                 
                 <div class="policy-item pass">
-                    <h3>Language Block List Enabled (Standard) (Inbound_Standard)</h3>
+                    <h3>3.1.28 - Language Block List Enabled (Standard) (Inbound_Standard)</h3>
                     <p>Configuration Status: <span class="status-text pass">
                         PRESENT - All 5 policies compliant
                     </span></p>
@@ -2221,13 +2270,13 @@
                 
                 
                 <div class="policy-item fail">
-                    <h3>Intra-Organization Filter State (Standard) (Inbound_Standard)</h3>
+                    <h3>3.1.29 - Intra-Organization Filter State (Standard) (Inbound_Standard)</h3>
                     <p>Configuration Status: <span class="status-text fail">
                         MISSING - 4/5 policies non-compliant
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: Default, Spam, Phish</p>
+                    <p>Current Value: Mixed values: Phish, Spam, Default</p>
                     
                     
                     <p>Expected Value: Phish</p>
@@ -2252,7 +2301,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: Default, Spam, Phish 
+                        Summary: Mixed values: Phish, Spam, Default 
                         
                         <span class="non-compliant-warning">(4 policies need attention)</span>
                         
@@ -2262,13 +2311,13 @@
                 
                 
                 <div class="policy-item fail">
-                    <h3>Quarantine Retention Period (Standard) (Inbound_Standard)</h3>
+                    <h3>3.1.30 - Quarantine Retention Period (Standard) (Inbound_Standard)</h3>
                     <p>Configuration Status: <span class="status-text fail">
                         MISSING - 1/5 policies non-compliant
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: 30, 15</p>
+                    <p>Current Value: Mixed values: 15, 30</p>
                     
                     
                     <p>Expected Value: 30</p>
@@ -2293,7 +2342,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: 30, 15 
+                        Summary: Mixed values: 15, 30 
                         
                         <span class="non-compliant-warning">(1 policies need attention)</span>
                         
@@ -2303,7 +2352,7 @@
                 
                 
                 <div class="policy-item pass">
-                    <h3>Test Mode Action (Standard) (Inbound_Standard)</h3>
+                    <h3>3.1.31 - Test Mode Action (Standard) (Inbound_Standard)</h3>
                     <p>Configuration Status: <span class="status-text pass">
                         PRESENT - All 5 policies compliant
                     </span></p>
@@ -2344,7 +2393,7 @@
                 
                 
                 <div class="policy-item pass">
-                    <h3>Download Link Scanning (Standard) (Inbound_Standard)</h3>
+                    <h3>3.1.32 - Download Link Scanning (Standard) (Inbound_Standard)</h3>
                     <p>Configuration Status: <span class="status-text pass">
                         PRESENT - All 5 policies compliant
                     </span></p>
@@ -2807,7 +2856,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: Off, On</p>
+                    <p>Current Value: Mixed values: On, Off</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -2832,7 +2881,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: Off, On 
+                        Summary: Mixed values: On, Off 
                         
                         <span class="non-compliant-warning">(3 policies need attention)</span>
                         
@@ -2848,7 +2897,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: Off, On</p>
+                    <p>Current Value: Mixed values: On, Off</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -2873,7 +2922,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: Off, On 
+                        Summary: Mixed values: On, Off 
                         
                         <span class="non-compliant-warning">(3 policies need attention)</span>
                         
@@ -2889,7 +2938,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: Off, On</p>
+                    <p>Current Value: Mixed values: On, Off</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -2914,7 +2963,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: Off, On 
+                        Summary: Mixed values: On, Off 
                         
                         <span class="non-compliant-warning">(3 policies need attention)</span>
                         
@@ -2930,7 +2979,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: Off, On</p>
+                    <p>Current Value: Mixed values: On, Off</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -2955,7 +3004,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: Off, On 
+                        Summary: Mixed values: On, Off 
                         
                         <span class="non-compliant-warning">(3 policies need attention)</span>
                         
@@ -2971,7 +3020,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: Off, On</p>
+                    <p>Current Value: Mixed values: On, Off</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -2996,7 +3045,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: Off, On 
+                        Summary: Mixed values: On, Off 
                         
                         <span class="non-compliant-warning">(3 policies need attention)</span>
                         
@@ -3012,7 +3061,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: Off, On</p>
+                    <p>Current Value: Mixed values: On, Off</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -3037,7 +3086,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: Off, On 
+                        Summary: Mixed values: On, Off 
                         
                         <span class="non-compliant-warning">(3 policies need attention)</span>
                         
@@ -3053,7 +3102,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: Off, On</p>
+                    <p>Current Value: Mixed values: On, Off</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -3078,7 +3127,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: Off, On 
+                        Summary: Mixed values: On, Off 
                         
                         <span class="non-compliant-warning">(3 policies need attention)</span>
                         
@@ -3094,7 +3143,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: Off, On</p>
+                    <p>Current Value: Mixed values: On, Off</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -3119,7 +3168,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: Off, On 
+                        Summary: Mixed values: On, Off 
                         
                         <span class="non-compliant-warning">(3 policies need attention)</span>
                         
@@ -3135,7 +3184,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: Off, On</p>
+                    <p>Current Value: Mixed values: On, Off</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -3160,7 +3209,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: Off, On 
+                        Summary: Mixed values: On, Off 
                         
                         <span class="non-compliant-warning">(3 policies need attention)</span>
                         
@@ -3176,7 +3225,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: Off, On</p>
+                    <p>Current Value: Mixed values: On, Off</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -3201,7 +3250,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: Off, On 
+                        Summary: Mixed values: On, Off 
                         
                         <span class="non-compliant-warning">(4 policies need attention)</span>
                         
@@ -3217,7 +3266,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: Off, On</p>
+                    <p>Current Value: Mixed values: On, Off</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -3242,7 +3291,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: Off, On 
+                        Summary: Mixed values: On, Off 
                         
                         <span class="non-compliant-warning">(4 policies need attention)</span>
                         
@@ -3258,7 +3307,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: Off, On</p>
+                    <p>Current Value: Mixed values: On, Off</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -3283,7 +3332,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: Off, On 
+                        Summary: Mixed values: On, Off 
                         
                         <span class="non-compliant-warning">(4 policies need attention)</span>
                         
@@ -3299,7 +3348,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: Off, On</p>
+                    <p>Current Value: Mixed values: On, Off</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -3324,7 +3373,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: Off, On 
+                        Summary: Mixed values: On, Off 
                         
                         <span class="non-compliant-warning">(3 policies need attention)</span>
                         
@@ -3381,7 +3430,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: Off, On</p>
+                    <p>Current Value: Mixed values: On, Off</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -3406,7 +3455,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: Off, On 
+                        Summary: Mixed values: On, Off 
                         
                         <span class="non-compliant-warning">(3 policies need attention)</span>
                         
@@ -3543,7 +3592,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: Default, Spam, Phish</p>
+                    <p>Current Value: Mixed values: Phish, Spam, Default</p>
                     
                     
                     <p>Expected Value: Spam</p>
@@ -3568,7 +3617,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: Default, Spam, Phish 
+                        Summary: Mixed values: Phish, Spam, Default 
                         
                         <span class="non-compliant-warning">(4 policies need attention)</span>
                         
@@ -3584,7 +3633,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: 30, 15</p>
+                    <p>Current Value: Mixed values: 15, 30</p>
                     
                     
                     <p>Expected Value: 30</p>
@@ -3609,7 +3658,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: 30, 15 
+                        Summary: Mixed values: 15, 30 
                         
                         <span class="non-compliant-warning">(1 policies need attention)</span>
                         
@@ -3793,7 +3842,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: BlockUserForToday, Alert</p>
+                    <p>Current Value: Mixed values: Alert, BlockUserForToday</p>
                     
                     
                     <p>Expected Value: BlockUser</p>
@@ -3812,7 +3861,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: BlockUserForToday, Alert 
+                        Summary: Mixed values: Alert, BlockUserForToday 
                         
                         <span class="non-compliant-warning">(2 policies need attention)</span>
                         
@@ -3968,7 +4017,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: Off, Automatic</p>
+                    <p>Current Value: Mixed values: Automatic, Off</p>
                     
                     
                     <p>Expected Value: Off</p>
@@ -3987,7 +4036,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: Off, Automatic 
+                        Summary: Mixed values: Automatic, Off 
                         
                         <span class="non-compliant-warning">(1 policies need attention)</span>
                         
@@ -4285,7 +4334,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: MoveToJmf, NoAction, Quarantine</p>
+                    <p>Current Value: Mixed values: NoAction, MoveToJmf, Quarantine</p>
                     
                     
                     <p>Expected Value: MoveToJmf</p>
@@ -4318,7 +4367,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: MoveToJmf, NoAction, Quarantine 
+                        Summary: Mixed values: NoAction, MoveToJmf, Quarantine 
                         
                         <span class="non-compliant-warning">(7 policies need attention)</span>
                         
@@ -4334,7 +4383,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: MoveToJmf, NoAction, Quarantine</p>
+                    <p>Current Value: Mixed values: NoAction, MoveToJmf, Quarantine</p>
                     
                     
                     <p>Expected Value: Quarantine</p>
@@ -4367,7 +4416,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: MoveToJmf, NoAction, Quarantine 
+                        Summary: Mixed values: NoAction, MoveToJmf, Quarantine 
                         
                         <span class="non-compliant-warning">(5 policies need attention)</span>
                         
@@ -4481,7 +4530,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: MoveToJmf, NoAction, Quarantine</p>
+                    <p>Current Value: Mixed values: NoAction, MoveToJmf, Quarantine</p>
                     
                     
                     <p>Expected Value: Quarantine</p>
@@ -4514,7 +4563,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: MoveToJmf, NoAction, Quarantine 
+                        Summary: Mixed values: NoAction, MoveToJmf, Quarantine 
                         
                         <span class="non-compliant-warning">(6 policies need attention)</span>
                         
@@ -5222,7 +5271,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: MoveToJmf, NoAction, Quarantine</p>
+                    <p>Current Value: Mixed values: NoAction, MoveToJmf, Quarantine</p>
                     
                     
                     <p>Expected Value: Quarantine</p>
@@ -5255,7 +5304,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: MoveToJmf, NoAction, Quarantine 
+                        Summary: Mixed values: NoAction, MoveToJmf, Quarantine 
                         
                         <span class="non-compliant-warning">(6 policies need attention)</span>
                         
@@ -5271,7 +5320,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: MoveToJmf, NoAction, Quarantine</p>
+                    <p>Current Value: Mixed values: NoAction, MoveToJmf, Quarantine</p>
                     
                     
                     <p>Expected Value: Quarantine</p>
@@ -5304,7 +5353,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: MoveToJmf, NoAction, Quarantine 
+                        Summary: Mixed values: NoAction, MoveToJmf, Quarantine 
                         
                         <span class="non-compliant-warning">(5 policies need attention)</span>
                         
@@ -5418,7 +5467,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: MoveToJmf, NoAction, Quarantine</p>
+                    <p>Current Value: Mixed values: NoAction, MoveToJmf, Quarantine</p>
                     
                     
                     <p>Expected Value: Quarantine</p>
@@ -5451,7 +5500,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: MoveToJmf, NoAction, Quarantine 
+                        Summary: Mixed values: NoAction, MoveToJmf, Quarantine 
                         
                         <span class="non-compliant-warning">(6 policies need attention)</span>
                         
@@ -6379,6 +6428,1167 @@
                 </div>
                 
             </div>
+            
+        </div>
+        
+        
+        
+        <div class="policy-section">
+            <h2>📎 Defender for Office 365 - Safe Attachments Policies</h2>
+            <p style="color: #666; font-style: italic; margin-bottom: 20px;">Attachment scanning and threat protection controls</p>
+            
+            
+            
+            <div class="policy-item pass">
+                <h3>Safe Attachments Action - Block</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: Strict Preset Security Policy, Standard Preset Security Policy1629904361875, Built-In Protection Policy, Default Safe Attachments Policy
+                </span></p>
+                <p>Policy Found: True</p>
+                
+                <p>Expected Value: 
+                    
+                        Block
+                    
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>Strict Preset Security Policy: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: Block)
+                        </li>
+                    
+                        <li>Standard Preset Security Policy1629904361875: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: Block)
+                        </li>
+                    
+                        <li>Evaluation Policy: 
+                            
+                                <span style="color: #d13438;">✗ NON-COMPLIANT</span>
+                            
+                            (Current: Allow)
+                        </li>
+                    
+                        <li>Built-In Protection Policy: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: Block)
+                        </li>
+                    
+                        <li>Default Safe Attachments Policy: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: Block)
+                        </li>
+                    
+                    </ul>
+                </div>
+                
+            </div>
+            
+            
+            <div class="policy-item pass">
+                <h3>Safe Attachments Enabled</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: Strict Preset Security Policy, Standard Preset Security Policy1629904361875, Evaluation Policy, Built-In Protection Policy, Default Safe Attachments Policy
+                </span></p>
+                <p>Policy Found: True</p>
+                
+                <p>Expected Value: 
+                    
+                        True
+                    
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>Strict Preset Security Policy: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                        <li>Standard Preset Security Policy1629904361875: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                        <li>Evaluation Policy: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                        <li>Built-In Protection Policy: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                        <li>Default Safe Attachments Policy: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                    </ul>
+                </div>
+                
+            </div>
+            
+            
+            <div class="policy-item pass">
+                <h3>Redirect Enabled</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: Default Safe Attachments Policy
+                </span></p>
+                <p>Policy Found: True</p>
+                
+                <p>Expected Value: 
+                    
+                        True
+                    
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>Strict Preset Security Policy: 
+                            
+                                <span style="color: #d13438;">✗ NON-COMPLIANT</span>
+                            
+                            (Current: False)
+                        </li>
+                    
+                        <li>Standard Preset Security Policy1629904361875: 
+                            
+                                <span style="color: #d13438;">✗ NON-COMPLIANT</span>
+                            
+                            (Current: False)
+                        </li>
+                    
+                        <li>Evaluation Policy: 
+                            
+                                <span style="color: #d13438;">✗ NON-COMPLIANT</span>
+                            
+                            (Current: False)
+                        </li>
+                    
+                        <li>Built-In Protection Policy: 
+                            
+                                <span style="color: #d13438;">✗ NON-COMPLIANT</span>
+                            
+                            (Current: False)
+                        </li>
+                    
+                        <li>Default Safe Attachments Policy: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                    </ul>
+                </div>
+                
+            </div>
+            
+            
+            <div class="policy-item pass">
+                <h3>Redirect Address Configured</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: Default Safe Attachments Policy
+                </span></p>
+                <p>Policy Found: True</p>
+                
+                <p>Expected Value: 
+                    
+                        email_present
+                    
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>Strict Preset Security Policy: 
+                            
+                                <span style="color: #d13438;">✗ NON-COMPLIANT</span>
+                            
+                            (Current: )
+                        </li>
+                    
+                        <li>Standard Preset Security Policy1629904361875: 
+                            
+                                <span style="color: #d13438;">✗ NON-COMPLIANT</span>
+                            
+                            (Current: )
+                        </li>
+                    
+                        <li>Evaluation Policy: 
+                            
+                                <span style="color: #d13438;">✗ NON-COMPLIANT</span>
+                            
+                            (Current: )
+                        </li>
+                    
+                        <li>Built-In Protection Policy: 
+                            
+                                <span style="color: #d13438;">✗ NON-COMPLIANT</span>
+                            
+                            (Current: )
+                        </li>
+                    
+                        <li>Default Safe Attachments Policy: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: SecurityIT@CriticalStartLab.com)
+                        </li>
+                    
+                    </ul>
+                </div>
+                
+            </div>
+            
+            
+            <div class="policy-item pass">
+                <h3>Quarantine Tag with Notifications</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: Default Safe Attachments Policy
+                </span></p>
+                <p>Policy Found: True</p>
+                
+                <p>Expected Value: 
+                    
+                        NotificationEnabledPolicy
+                    
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>Strict Preset Security Policy: 
+                            
+                                <span style="color: #d13438;">✗ NON-COMPLIANT</span>
+                            
+                            (Current: AdminOnlyAccessPolicy)
+                        </li>
+                    
+                        <li>Standard Preset Security Policy1629904361875: 
+                            
+                                <span style="color: #d13438;">✗ NON-COMPLIANT</span>
+                            
+                            (Current: AdminOnlyAccessPolicy)
+                        </li>
+                    
+                        <li>Evaluation Policy: 
+                            
+                                <span style="color: #d13438;">✗ NON-COMPLIANT</span>
+                            
+                            (Current: AdminOnlyAccessPolicy)
+                        </li>
+                    
+                        <li>Built-In Protection Policy: 
+                            
+                                <span style="color: #d13438;">✗ NON-COMPLIANT</span>
+                            
+                            (Current: AdminOnlyAccessPolicy)
+                        </li>
+                    
+                        <li>Default Safe Attachments Policy: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: NotificationEnabledPolicy)
+                        </li>
+                    
+                    </ul>
+                </div>
+                
+            </div>
+            
+        </div>
+        
+        
+        
+        <div class="policy-section">
+            <h2>🔗 Defender for Office 365 - Safe Links Policies</h2>
+            <p style="color: #666; font-style: italic; margin-bottom: 20px;">URL protection and link scanning controls</p>
+            
+            
+            
+            <div class="policy-item pass">
+                <h3>Safe Links for Email Enabled</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: Standard Preset Security Policy1629904362317, Strict Preset Security Policy, Default Safe Links Policy, Evaluation Policy, Built-In Protection Policy, JB - P&W Testing
+                </span></p>
+                <p>Policy Found: True</p>
+                
+                <p>Expected Value: 
+                    
+                        True
+                    
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>Standard Preset Security Policy1629904362317: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                        <li>Strict Preset Security Policy: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                        <li>Default Safe Links Policy: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                        <li>Evaluation Policy: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                        <li>Built-In Protection Policy: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                        <li>JB - P&W Testing: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                    </ul>
+                </div>
+                
+            </div>
+            
+            
+            <div class="policy-item pass">
+                <h3>Safe Links for Teams Enabled</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: Standard Preset Security Policy1629904362317, Strict Preset Security Policy, Default Safe Links Policy, Built-In Protection Policy, JB - P&W Testing
+                </span></p>
+                <p>Policy Found: True</p>
+                
+                <p>Expected Value: 
+                    
+                        True
+                    
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>Standard Preset Security Policy1629904362317: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                        <li>Strict Preset Security Policy: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                        <li>Default Safe Links Policy: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                        <li>Evaluation Policy: 
+                            
+                                <span style="color: #d13438;">✗ NON-COMPLIANT</span>
+                            
+                            (Current: False)
+                        </li>
+                    
+                        <li>Built-In Protection Policy: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                        <li>JB - P&W Testing: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                    </ul>
+                </div>
+                
+            </div>
+            
+            
+            <div class="policy-item pass">
+                <h3>Safe Links for Office Enabled</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: Standard Preset Security Policy1629904362317, Strict Preset Security Policy, Default Safe Links Policy, Built-In Protection Policy, JB - P&W Testing
+                </span></p>
+                <p>Policy Found: True</p>
+                
+                <p>Expected Value: 
+                    
+                        True
+                    
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>Standard Preset Security Policy1629904362317: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                        <li>Strict Preset Security Policy: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                        <li>Default Safe Links Policy: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                        <li>Evaluation Policy: 
+                            
+                                <span style="color: #d13438;">✗ NON-COMPLIANT</span>
+                            
+                            (Current: False)
+                        </li>
+                    
+                        <li>Built-In Protection Policy: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                        <li>JB - P&W Testing: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                    </ul>
+                </div>
+                
+            </div>
+            
+            
+            <div class="policy-item pass">
+                <h3>Track Clicks Enabled</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: Standard Preset Security Policy1629904362317, Strict Preset Security Policy, Default Safe Links Policy, Evaluation Policy, Built-In Protection Policy, JB - P&W Testing
+                </span></p>
+                <p>Policy Found: True</p>
+                
+                <p>Expected Value: 
+                    
+                        True
+                    
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>Standard Preset Security Policy1629904362317: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                        <li>Strict Preset Security Policy: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                        <li>Default Safe Links Policy: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                        <li>Evaluation Policy: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                        <li>Built-In Protection Policy: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                        <li>JB - P&W Testing: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                    </ul>
+                </div>
+                
+            </div>
+            
+            
+            <div class="policy-item pass">
+                <h3>Click Through Disabled</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: Standard Preset Security Policy1629904362317, Strict Preset Security Policy, Default Safe Links Policy
+                </span></p>
+                <p>Policy Found: True</p>
+                
+                <p>Expected Value: 
+                    
+                        False
+                    
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>Standard Preset Security Policy1629904362317: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: False)
+                        </li>
+                    
+                        <li>Strict Preset Security Policy: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: False)
+                        </li>
+                    
+                        <li>Default Safe Links Policy: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: False)
+                        </li>
+                    
+                        <li>Evaluation Policy: 
+                            
+                                <span style="color: #d13438;">✗ NON-COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                        <li>Built-In Protection Policy: 
+                            
+                                <span style="color: #d13438;">✗ NON-COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                        <li>JB - P&W Testing: 
+                            
+                                <span style="color: #d13438;">✗ NON-COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                    </ul>
+                </div>
+                
+            </div>
+            
+            
+            <div class="policy-item pass">
+                <h3>URL Scanning Enabled</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: Standard Preset Security Policy1629904362317, Strict Preset Security Policy, Default Safe Links Policy, Evaluation Policy, Built-In Protection Policy, JB - P&W Testing
+                </span></p>
+                <p>Policy Found: True</p>
+                
+                <p>Expected Value: 
+                    
+                        True
+                    
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>Standard Preset Security Policy1629904362317: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                        <li>Strict Preset Security Policy: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                        <li>Default Safe Links Policy: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                        <li>Evaluation Policy: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                        <li>Built-In Protection Policy: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                        <li>JB - P&W Testing: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                    </ul>
+                </div>
+                
+            </div>
+            
+            
+            <div class="policy-item pass">
+                <h3>Internal Senders Protection Disabled</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: Default Safe Links Policy, Evaluation Policy, Built-In Protection Policy
+                </span></p>
+                <p>Policy Found: True</p>
+                
+                <p>Expected Value: 
+                    
+                        False
+                    
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>Standard Preset Security Policy1629904362317: 
+                            
+                                <span style="color: #d13438;">✗ NON-COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                        <li>Strict Preset Security Policy: 
+                            
+                                <span style="color: #d13438;">✗ NON-COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                        <li>Default Safe Links Policy: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: False)
+                        </li>
+                    
+                        <li>Evaluation Policy: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: False)
+                        </li>
+                    
+                        <li>Built-In Protection Policy: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: False)
+                        </li>
+                    
+                        <li>JB - P&W Testing: 
+                            
+                                <span style="color: #d13438;">✗ NON-COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                    </ul>
+                </div>
+                
+            </div>
+            
+            
+            <div class="policy-item pass">
+                <h3>Deliver After Scan Enabled</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: Standard Preset Security Policy1629904362317, Strict Preset Security Policy, Default Safe Links Policy, Evaluation Policy, Built-In Protection Policy, JB - P&W Testing
+                </span></p>
+                <p>Policy Found: True</p>
+                
+                <p>Expected Value: 
+                    
+                        True
+                    
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>Standard Preset Security Policy1629904362317: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                        <li>Strict Preset Security Policy: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                        <li>Default Safe Links Policy: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                        <li>Evaluation Policy: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                        <li>Built-In Protection Policy: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                        <li>JB - P&W Testing: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                    </ul>
+                </div>
+                
+            </div>
+            
+            
+            <div class="policy-item pass">
+                <h3>URL Rewrite Enabled</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: Standard Preset Security Policy1629904362317, Strict Preset Security Policy, Default Safe Links Policy
+                </span></p>
+                <p>Policy Found: True</p>
+                
+                <p>Expected Value: 
+                    
+                        False
+                    
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>Standard Preset Security Policy1629904362317: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: False)
+                        </li>
+                    
+                        <li>Strict Preset Security Policy: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: False)
+                        </li>
+                    
+                        <li>Default Safe Links Policy: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: False)
+                        </li>
+                    
+                        <li>Evaluation Policy: 
+                            
+                                <span style="color: #d13438;">✗ NON-COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                        <li>Built-In Protection Policy: 
+                            
+                                <span style="color: #d13438;">✗ NON-COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                        <li>JB - P&W Testing: 
+                            
+                                <span style="color: #d13438;">✗ NON-COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                    </ul>
+                </div>
+                
+            </div>
+            
+            
+            <div class="policy-item pass">
+                <h3>DoNotRewriteUrls Configured</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: Standard Preset Security Policy1629904362317, Strict Preset Security Policy, Default Safe Links Policy, Evaluation Policy, Built-In Protection Policy, JB - P&W Testing
+                </span></p>
+                <p>Policy Found: True</p>
+                
+                <p>Expected Value: 
+                    
+                        list_present
+                    
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>Standard Preset Security Policy1629904362317: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: [])
+                        </li>
+                    
+                        <li>Strict Preset Security Policy: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: [])
+                        </li>
+                    
+                        <li>Default Safe Links Policy: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: ['https://dash.readme.com/*'])
+                        </li>
+                    
+                        <li>Evaluation Policy: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: [])
+                        </li>
+                    
+                        <li>Built-In Protection Policy: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: [])
+                        </li>
+                    
+                        <li>JB - P&W Testing: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: [])
+                        </li>
+                    
+                    </ul>
+                </div>
+                
+            </div>
+            
+        </div>
+        
+        
+        
+        <div class="policy-section">
+            <h2>🔧 Exchange Online Configurations</h2>
+            <p style="color: #666; font-style: italic; margin-bottom: 20px;">General Exchange Online security settings and configurations</p>
+            
+            
+            
+            
+            
+            
+            <h3>📋 ATP Policy for O365 (Safe Documents)</h3>
+            
+            
+            <div class="policy-item pass">
+                <h4>ATP for SharePoint, OneDrive, and Teams Enabled</h4>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in configurations: Default
+                </span></p>
+                <p>Policy Found: True</p>
+                
+                <p>Expected Value: True</p>
+                
+                
+                <div class="policy-breakdown">
+                    <h5>Policy Details:</h5>
+                    <ul>
+                    
+                        <li>Default: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                    </ul>
+                </div>
+                
+            </div>
+            
+            
+            <div class="policy-item pass">
+                <h4>Safe Documents Enabled</h4>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in configurations: Default
+                </span></p>
+                <p>Policy Found: True</p>
+                
+                <p>Expected Value: True</p>
+                
+                
+                <div class="policy-breakdown">
+                    <h5>Policy Details:</h5>
+                    <ul>
+                    
+                        <li>Default: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                    </ul>
+                </div>
+                
+            </div>
+            
+            
+            <div class="policy-item pass">
+                <h4>Safe Documents Open Restricted</h4>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in configurations: Default
+                </span></p>
+                <p>Policy Found: True</p>
+                
+                <p>Expected Value: False</p>
+                
+                
+                <div class="policy-breakdown">
+                    <h5>Policy Details:</h5>
+                    <ul>
+                    
+                        <li>Default: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: False)
+                        </li>
+                    
+                    </ul>
+                </div>
+                
+            </div>
+            
+            
+            
+            
+            <h3>📧 External In Outlook Configuration</h3>
+            
+            
+            <div class="policy-item pass">
+                <h4>External In Outlook Enabled</h4>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in configurations: 35476edf-f1a8-4213-a037-266cef283cc3
+                </span></p>
+                <p>Policy Found: True</p>
+                
+                <p>Expected Value: True</p>
+                
+                
+                <div class="policy-breakdown">
+                    <h5>Policy Details:</h5>
+                    <ul>
+                    
+                        <li>35476edf-f1a8-4213-a037-266cef283cc3: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: True)
+                        </li>
+                    
+                    </ul>
+                </div>
+                
+            </div>
+            
+            
+            <div class="policy-item pass">
+                <h4>External In Outlook Identity Configured</h4>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in configurations: 35476edf-f1a8-4213-a037-266cef283cc3
+                </span></p>
+                <p>Policy Found: True</p>
+                
+                <p>Expected Value: not_null</p>
+                
+                
+                <div class="policy-breakdown">
+                    <h5>Policy Details:</h5>
+                    <ul>
+                    
+                        <li>35476edf-f1a8-4213-a037-266cef283cc3: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: 35476edf-f1a8-4213-a037-266cef283cc3)
+                        </li>
+                    
+                    </ul>
+                </div>
+                
+            </div>
+            
+            
+            
+            
+            <h3>🏢 Organization Configuration (Mail Auditing)</h3>
+            
+            
+            <div class="policy-item pass">
+                <h4>Mail Auditing Enabled</h4>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in configurations: Unknown
+                </span></p>
+                <p>Policy Found: True</p>
+                
+                <p>Expected Value: False</p>
+                
+                
+                <div class="policy-breakdown">
+                    <h5>Policy Details:</h5>
+                    <ul>
+                    
+                        <li>Unknown: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: False)
+                        </li>
+                    
+                    </ul>
+                </div>
+                
+            </div>
+            
             
         </div>
         

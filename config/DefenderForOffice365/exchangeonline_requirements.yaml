@@ -1,0 +1,38 @@
+# Exchange Online General Configuration Requirements
+# Configuration-focused checks for various Exchange Online settings
+
+# ATP Policy for O365 (Safe Docs) configuration
+atppolicy_policies:
+  - name: "ATP for SharePoint, OneDrive, and Teams Enabled"
+    setting: "EnableATPForSPOTeamsODB"
+    expected_value: true
+    description: "Ensure Advanced Threat Protection is enabled for SharePoint Online, OneDrive, and Microsoft Teams"
+    
+  - name: "Safe Documents Enabled"
+    setting: "EnableSafeDocs"
+    expected_value: true
+    description: "Ensure Safe Documents protection is enabled for Office applications"
+    
+  - name: "Safe Documents Open Restricted"
+    setting: "AllowSafeDocsOpen"
+    expected_value: false
+    description: "Ensure users cannot open documents that Safe Documents cannot verify as safe"
+
+# External In Outlook configuration
+externalinoutlook_policies:
+  - name: "External In Outlook Enabled"
+    setting: "Enabled"
+    expected_value: true
+    description: "Ensure External In Outlook notifications are enabled to warn users about external emails"
+    
+  - name: "External In Outlook Identity Configured"
+    setting: "Identity"
+    expected_value: "not_null"
+    description: "Verify External In Outlook configuration identity is properly set"
+
+# Organization Configuration - Mail Auditing
+organizationconfig_policies:
+  - name: "Mail Auditing Enabled"
+    setting: "AuditDisabled"
+    expected_value: false
+    description: "Ensure mail auditing is enabled by default (AuditDisabled should be false)"
