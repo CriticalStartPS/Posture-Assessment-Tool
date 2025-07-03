@@ -37,7 +37,7 @@ class ExchangeOnlineSessionManager:
         
         Args:
             policy_types: List of policy types to retrieve. Options:
-                         ['antispam_inbound', 'antispam_outbound', 'antiphishing', 'antimalware', 'safeattachments', 'safelinks', 'atppolicy', 'externalinoutlook', 'organizationconfig']
+                         ['antispam_inbound', 'antispam_outbound', 'antiphishing', 'antimalware', 'safeattachments', 'safelinks', 'atppolicy', 'externalinoutlook', 'organizationconfig', 'reportsubmissionpolicy']
                          If None, retrieves all available policy types.
         
         Returns:
@@ -372,13 +372,13 @@ try {
         # Add External In Outlook configuration retrieval if requested
         if 'externalinoutlook' in policy_types:
             policy_sections.append('''
-# Retrieve External In Outlook configuration
-Write-Output "Retrieving External In Outlook configuration..."
+# Retrieve External Sender Notification In Outlook configuration
+Write-Output "Retrieving External Sender Notification In Outlook configuration..."
 try {
     $externalInOutlookConfig = Get-ExternalInOutlook | ConvertTo-Json -Depth 10 -Compress
     
     if ($externalInOutlookConfig) {
-        Write-Output "Found External In Outlook configuration"
+        Write-Output "Found External Sender Notification In Outlook configuration"
         
         # Output with markers
         Write-Output "EXTERNALINOUTLOOK_DATA_START"
@@ -404,7 +404,7 @@ try {
 # Retrieve Organization Configuration (Mail Auditing)
 Write-Output "Retrieving Organization Configuration..."
 try {
-    $orgConfig = Get-OrganizationConfig -ErrorAction Stop | Select-Object AuditDisabled
+    $orgConfig = Get-OrganizationConfig -ErrorAction Stop | Select-Object AuditDisabled, RejectDirectSend
     
     if ($orgConfig) {
         Write-Output "Found Organization Configuration"
@@ -425,6 +425,35 @@ try {
     Write-Output "ORGANIZATIONCONFIG_DATA_START"
     Write-Output "[]"
     Write-Output "ORGANIZATIONCONFIG_DATA_END"
+}
+''')
+        
+        # Add Report Submission Policy retrieval if requested
+        if 'reportsubmissionpolicy' in policy_types:
+            policy_sections.append('''
+# Retrieve Report Submission Policy
+Write-Output "Retrieving Report Submission Policy..."
+try {
+    $reportSubmissionPolicy = Get-ReportSubmissionPolicy | ConvertTo-Json -Depth 10 -Compress
+    
+    if ($reportSubmissionPolicy) {
+        Write-Output "Found Report Submission Policy"
+        
+        # Output with markers
+        Write-Output "REPORTSUBMISSIONPOLICY_DATA_START"
+        Write-Output $reportSubmissionPolicy
+        Write-Output "REPORTSUBMISSIONPOLICY_DATA_END"
+    } else {
+        Write-Output "No Report Submission Policy found"
+        Write-Output "REPORTSUBMISSIONPOLICY_DATA_START"
+        Write-Output "[]"
+        Write-Output "REPORTSUBMISSIONPOLICY_DATA_END"
+    }
+} catch {
+    Write-Error "Error retrieving Report Submission Policy: $($_.Exception.Message)"
+    Write-Output "REPORTSUBMISSIONPOLICY_DATA_START"
+    Write-Output "[]"
+    Write-Output "REPORTSUBMISSIONPOLICY_DATA_END"
 }
 ''')
         
@@ -492,6 +521,7 @@ exit 0
                 policies.update(self._extract_policy_data(lines, 'atppolicy', 'ATPPOLICY_DATA_START', 'ATPPOLICY_DATA_END'))
                 policies.update(self._extract_policy_data(lines, 'externalinoutlook', 'EXTERNALINOUTLOOK_DATA_START', 'EXTERNALINOUTLOOK_DATA_END'))
                 policies.update(self._extract_policy_data(lines, 'organizationconfig', 'ORGANIZATIONCONFIG_DATA_START', 'ORGANIZATIONCONFIG_DATA_END'))
+                policies.update(self._extract_policy_data(lines, 'reportsubmissionpolicy', 'REPORTSUBMISSIONPOLICY_DATA_START', 'REPORTSUBMISSIONPOLICY_DATA_END'))
                 
             else:
                 print("✗ Failed to connect to Exchange Online or retrieve policies")

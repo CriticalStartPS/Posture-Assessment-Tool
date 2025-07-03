@@ -40,6 +40,8 @@ class ExchangeOnlineConfigHandler:
             config_types.append('externalinoutlook')
         if 'organizationconfig_policies' in self.requirements:
             config_types.append('organizationconfig')
+        if 'reportsubmissionpolicy_policies' in self.requirements:
+            config_types.append('reportsubmissionpolicy')
         
         print(f"Configuration types to check: {config_types}")
         
@@ -56,9 +58,9 @@ class ExchangeOnlineConfigHandler:
         
         # Check External In Outlook configurations
         if 'externalinoutlook' in config_types:
-            print("\n--- Checking External In Outlook Configuration ---")
+            print("\n--- Checking External Sender Notification In Outlook Configuration ---")
             externalinoutlook_configs = all_configs.get("externalinoutlook", [])
-            print(f"Retrieved {len(externalinoutlook_configs)} External In Outlook configurations")
+            print(f"Retrieved {len(externalinoutlook_configs)} External Sender Notification In Outlook configurations")
             externalinoutlook_results = self._check_policy_requirements(externalinoutlook_configs, self.requirements, "externalinoutlook")
             all_results.extend(externalinoutlook_results)
         
@@ -69,6 +71,14 @@ class ExchangeOnlineConfigHandler:
             print(f"Retrieved {len(organizationconfig_configs)} Organization configurations")
             organizationconfig_results = self._check_policy_requirements(organizationconfig_configs, self.requirements, "organizationconfig")
             all_results.extend(organizationconfig_results)
+        
+        # Check Report Submission Policy configurations
+        if 'reportsubmissionpolicy' in config_types:
+            print("\n--- Checking Report Submission Policy Configuration ---")
+            reportsubmissionpolicy_configs = all_configs.get("reportsubmissionpolicy", [])
+            print(f"Retrieved {len(reportsubmissionpolicy_configs)} Report Submission Policy configurations")
+            reportsubmissionpolicy_results = self._check_policy_requirements(reportsubmissionpolicy_configs, self.requirements, "reportsubmissionpolicy")
+            all_results.extend(reportsubmissionpolicy_results)
         
         return all_results
 

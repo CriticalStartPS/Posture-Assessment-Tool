@@ -18,7 +18,7 @@ atppolicy_policies:
     expected_value: false
     description: "Ensure users cannot open documents that Safe Documents cannot verify as safe"
 
-# External In Outlook configuration
+# External Sender Notification In Outlook configuration
 externalinoutlook_policies:
   - name: "External In Outlook Enabled"
     setting: "Enabled"
@@ -36,3 +36,50 @@ organizationconfig_policies:
     setting: "AuditDisabled"
     expected_value: false
     description: "Ensure mail auditing is enabled by default (AuditDisabled should be false)"
+    
+  - name: "Direct Send Rejected"
+    setting: "RejectDirectSend"
+    expected_value: true
+    description: "Ensure direct send is rejected to prevent unauthorized email relay"
+
+# Report Submission Policy Configuration
+reportsubmissionpolicy_policies:
+  - name: "User Submission Options Enabled"
+    setting: "DisableUserSubmissionOptions"
+    expected_value: false
+    description: "Ensure users can submit reports (DisableUserSubmissionOptions should be false)"
+    
+  - name: "Report to Microsoft Enabled"
+    setting: "EnableReportToMicrosoft"
+    expected_value: true
+    description: "Ensure reporting to Microsoft is enabled for threat analysis"
+    
+  - name: "Junk Reporting to Custom Address"
+    setting: "ReportJunkToCustomizedAddress"
+    expected_value: true
+    description: "Ensure junk email can be reported to customized address"
+    
+  - name: "Phishing Reporting to Custom Address"
+    setting: "ReportPhishToCustomizedAddress"
+    expected_value: true
+    description: "Ensure phishing emails can be reported to customized address"
+    
+  - name: "Chat Message Reporting Enabled"
+    setting: "ReportChatMessageEnabled"
+    expected_value: true
+    description: "Ensure users can report suspicious chat messages"
+    
+  - name: "Pre-Submit Message Enabled"
+    setting: "PreSubmitMessageEnabled"
+    expected_value: true
+    description: "Ensure pre-submit messages are shown to users"
+    
+  - name: "Post-Submit Message Enabled"
+    setting: "PostSubmitMessageEnabled"
+    expected_value: true
+    description: "Ensure post-submit messages are shown to users"
+    
+  - name: "Confirmation Notification Enabled"
+    setting: "ConfirmationNotificationEnabled"
+    expected_value: true
+    description: "Ensure confirmation notifications are enabled for user submissions"

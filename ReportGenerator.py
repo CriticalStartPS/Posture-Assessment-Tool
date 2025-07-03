@@ -908,10 +908,48 @@ class ReportGenerator:
         
         # 8. Exchange Online Configurations
         if exchangeonline_results:
-            for i, result in enumerate(exchangeonline_results, 1):
-                result['check_id'] = f"{section_counter}.{i}"
-                result['section_name'] = "Exchange Online Configurations"
-                result['section_number'] = section_counter
+            subsection_counter = 1
+            
+            # Group Exchange Online results by policy type
+            atppolicy = [r for r in exchangeonline_results if r.get('policy_type') == 'atppolicy']
+            externalinoutlook = [r for r in exchangeonline_results if r.get('policy_type') == 'externalinoutlook']
+            organizationconfig = [r for r in exchangeonline_results if r.get('policy_type') == 'organizationconfig']
+            reportsubmissionpolicy = [r for r in exchangeonline_results if r.get('policy_type') == 'reportsubmissionpolicy']
+            
+            # 8.1 ATP Policy for O365
+            if atppolicy:
+                for i, result in enumerate(atppolicy, 1):
+                    result['check_id'] = f"{section_counter}.{subsection_counter}.{i}"
+                    result['section_name'] = "Exchange Online - ATP Policy for O365"
+                    result['section_number'] = section_counter
+                    result['subsection_number'] = subsection_counter
+                subsection_counter += 1
+            
+            # 8.2 External Sender Notification In Outlook
+            if externalinoutlook:
+                for i, result in enumerate(externalinoutlook, 1):
+                    result['check_id'] = f"{section_counter}.{subsection_counter}.{i}"
+                    result['section_name'] = "Exchange Online - External Sender Notification In Outlook"
+                    result['section_number'] = section_counter
+                    result['subsection_number'] = subsection_counter
+                subsection_counter += 1
+            
+            # 8.3 Organization Configuration
+            if organizationconfig:
+                for i, result in enumerate(organizationconfig, 1):
+                    result['check_id'] = f"{section_counter}.{subsection_counter}.{i}"
+                    result['section_name'] = "Exchange Online - Organization Configuration"
+                    result['section_number'] = section_counter
+                    result['subsection_number'] = subsection_counter
+                subsection_counter += 1
+            
+            # 8.4 Report Submission Policy
+            if reportsubmissionpolicy:
+                for i, result in enumerate(reportsubmissionpolicy, 1):
+                    result['check_id'] = f"{section_counter}.{subsection_counter}.{i}"
+                    result['section_name'] = "Exchange Online - Report Submission Policy"
+                    result['section_number'] = section_counter
+                    result['subsection_number'] = subsection_counter
         
         return {
             'ca_results': ca_results,

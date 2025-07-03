@@ -216,6 +216,7 @@ if ($module) {
                     defender_policy_types.append('atppolicy')
                     defender_policy_types.append('externalinoutlook')
                     defender_policy_types.append('organizationconfig')
+                    defender_policy_types.append('reportsubmissionpolicy')
                 
                 # Retrieve all needed Defender policies in a single authentication session
                 if defender_policy_types:

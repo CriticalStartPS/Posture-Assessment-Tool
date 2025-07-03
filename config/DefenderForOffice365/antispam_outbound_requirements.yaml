@@ -5,23 +5,23 @@ antispam_outbound_policies:
     setting: "ActionWhenThresholdReached"
     expected_value: "BlockUser"
 
-  - name: "Daily Message Limit"
-    description: "Maximum number of messages a user can send per day"
+  - name: "External Message Limit per Hour"
+    description: "Maximum number of external messages per hour"
     policy_type: "outbound"
     setting: "RecipientLimitExternalPerHour"
-    expected_value: 500
+    expected_value: 400
 
-  - name: "Internal Message Limit"
+  - name: "Internal Message Limit per Hour"
     description: "Maximum number of internal messages per hour"
     policy_type: "outbound"
     setting: "RecipientLimitInternalPerHour"
-    expected_value: 1000
+    expected_value: 800
 
-  - name: "External Message Limit"
-    description: "Maximum number of external messages per hour"
+  - name: "Daily Message Limit"
+    description: "Maximum number of messages a user can send per day"
     policy_type: "outbound"
     setting: "RecipientLimitPerDay"
-    expected_value: 1000
+    expected_value: 800
 
   - name: "Enable Outbound Spam Notifications"
     description: "Send notifications when outbound spam is detected"
@@ -33,7 +33,7 @@ antispam_outbound_policies:
     description: "Control automatic forwarding to external domains"
     policy_type: "outbound"
     setting: "AutoForwardingMode"
-    expected_value: "Off"
+    expected_value: "Automatic"
 
   - name: "BCC Suspicious Outbound Mail"
     description: "BCC suspicious outbound messages for monitoring"
@@ -41,8 +41,20 @@ antispam_outbound_policies:
     setting: "BccSuspiciousOutboundMail"
     expected_value: true
 
-  - name: "Copy To Sent Items"
-    description: "Ensure outbound messages are saved to sent items"
+  - name: "Policy Enabled Status"
+    description: "Ensure the outbound spam policy is enabled"
+    policy_type: "outbound"
+    setting: "Enabled"
+    expected_value: true
+
+  - name: "Outbound Spam Recipients Configured"
+    description: "Ensure notification recipients are configured for outbound spam"
+    policy_type: "outbound"
+    setting: "NotifyOutboundSpamRecipients"
+    expected_value: "not_null"
+
+  - name: "BCC Additional Recipients Configured"
+    description: "Ensure BCC recipients are configured for suspicious outbound mail"
     policy_type: "outbound"
     setting: "BccSuspiciousOutboundAdditionalRecipients"
-    expected_value: ""
+    expected_value: "not_null"
