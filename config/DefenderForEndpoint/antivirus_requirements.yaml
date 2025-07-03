@@ -1,0 +1,186 @@
+requirements:
+  - name: "Archive files scanning enabled"
+    check_id: "ANTIVIRUS_001"
+    setting_definition_id: "device_vendor_msft_policy_config_defender_allowarchivescanning"
+    expected_value: "device_vendor_msft_policy_config_defender_allowarchivescanning_1"
+    description: "Enable scanning of archive files"
+    
+  - name: "Behavior monitoring enabled"
+    check_id: "ANTIVIRUS_002"
+    setting_definition_id: "device_vendor_msft_policy_config_defender_allowbehaviormonitoring"
+    expected_value: "device_vendor_msft_policy_config_defender_allowbehaviormonitoring_1"
+    description: "Enable behavior monitoring to detect suspicious activities"
+    
+  - name: "Cloud-delivered protection enabled"
+    check_id: "ANTIVIRUS_003"
+    setting_definition_id: "device_vendor_msft_policy_config_defender_allowcloudprotection"
+    expected_value: "device_vendor_msft_policy_config_defender_allowcloudprotection_1"
+    description: "Enable cloud-delivered protection for enhanced threat detection"
+    
+  - name: "Email scanning enabled"
+    check_id: "ANTIVIRUS_004"
+    setting_definition_id: "device_vendor_msft_policy_config_defender_allowemailscanning"
+    expected_value: "device_vendor_msft_policy_config_defender_allowemailscanning_1"
+    description: "Enable scanning of email messages"
+    
+  - name: "Full scan on mapped network drives disabled"
+    check_id: "ANTIVIRUS_005"
+    setting_definition_id: "device_vendor_msft_policy_config_defender_allowfullscanonmappednetworkdrives"
+    expected_value: "device_vendor_msft_policy_config_defender_allowfullscanonmappednetworkdrives_0"
+    description: "Disable full scan on mapped network drives (performance optimization)"
+    
+  - name: "Scan removable drives enabled"
+    check_id: "ANTIVIRUS_006"
+    setting_definition_id: "device_vendor_msft_policy_config_defender_allowfullscanremovabledrivescanning"
+    expected_value: "device_vendor_msft_policy_config_defender_allowfullscanremovabledrivescanning_1"
+    description: "Enable scanning of removable drives during full scan"
+    
+  - name: "Enable downloaded files and attachments scanning"
+    check_id: "ANTIVIRUS_007"
+    setting_definition_id: "device_vendor_msft_policy_config_defender_allowioavprotection"
+    expected_value: "device_vendor_msft_policy_config_defender_allowioavprotection_1"
+    description: "Enable downloaded files and attachments scanning"
+    
+  - name: "Real-time monitoring enabled"
+    check_id: "ANTIVIRUS_008"
+    setting_definition_id: "device_vendor_msft_policy_config_defender_allowrealtimemonitoring"
+    expected_value: "device_vendor_msft_policy_config_defender_allowrealtimemonitoring_1"
+    description: "Enable real-time monitoring for malware protection"
+    
+  - name: "Network files scanning disabled"
+    check_id: "ANTIVIRUS_009"
+    setting_definition_id: "device_vendor_msft_policy_config_defender_allowscanningnetworkfiles"
+    expected_value: "device_vendor_msft_policy_config_defender_allowscanningnetworkfiles_0"
+    description: "Disable scanning of network files (performance optimization)"
+    
+  - name: "Script scanning enabled"
+    check_id: "ANTIVIRUS_010"
+    setting_definition_id: "device_vendor_msft_policy_config_defender_allowscriptscanning"
+    expected_value: "device_vendor_msft_policy_config_defender_allowscriptscanning_1"
+    description: "Enable scanning of scripts"
+    
+  - name: "User UI access enabled"
+    check_id: "ANTIVIRUS_011"
+    setting_definition_id: "device_vendor_msft_policy_config_defender_allowuseruiaccess"
+    expected_value: "device_vendor_msft_policy_config_defender_allowuseruiaccess_1"
+    description: "Allow users to access the Windows Defender user interface"
+    
+  - name: "Check for signatures before scan enabled"
+    check_id: "ANTIVIRUS_012"
+    setting_definition_id: "device_vendor_msft_policy_config_defender_checkforsignaturesbeforerunningscan"
+    expected_value: "device_vendor_msft_policy_config_defender_checkforsignaturesbeforerunningscan_1"
+    description: "Check for signature updates before running scan"
+    
+  - name: "Cloud block level set to high"
+    check_id: "ANTIVIRUS_013"
+    setting_definition_id: "device_vendor_msft_policy_config_defender_cloudblocklevel"
+    expected_value: "device_vendor_msft_policy_config_defender_cloudblocklevel_2"
+    description: "Set cloud block level to high for enhanced protection"
+    
+  - name: "Cloud extended timeout configured"
+    check_id: "ANTIVIRUS_014"
+    setting_definition_id: "device_vendor_msft_policy_config_defender_cloudextendedtimeout"
+    expected_value: null
+    description: "Ensure cloud extended timeout is configured (any value)"
+    
+  - name: "Malware retention period configured"
+    check_id: "ANTIVIRUS_015"
+    setting_definition_id: "device_vendor_msft_policy_config_defender_daystoretaincleanedmalware"
+    expected_value: null
+    description: "Ensure malware retention period is configured (any value)"
+    
+  - name: "Disable catchup full scan"
+    check_id: "ANTIVIRUS_016"
+    setting_definition_id: "device_vendor_msft_policy_config_defender_disablecatchupfullscan"
+    expected_value: "device_vendor_msft_policy_config_defender_disablecatchupfullscan_1"
+    description: "Disable catchup full scan to improve performance"
+    
+  - name: "Disable catchup quick scan"
+    check_id: "ANTIVIRUS_017"
+    setting_definition_id: "device_vendor_msft_policy_config_defender_disablecatchupquickscan"
+    expected_value: "device_vendor_msft_policy_config_defender_disablecatchupquickscan_1"
+    description: "Disable catchup quick scan to improve performance"
+    
+  - name: "Network protection enabled"
+    check_id: "ANTIVIRUS_018"
+    setting_definition_id: "device_vendor_msft_policy_config_defender_enablenetworkprotection"
+    expected_value: "device_vendor_msft_policy_config_defender_enablenetworkprotection_1"
+    description: "Enable network protection"
+    
+  - name: "Potentially unwanted application protection enabled"
+    check_id: "ANTIVIRUS_019"
+    setting_definition_id: "device_vendor_msft_policy_config_defender_puaprotection"
+    expected_value: "device_vendor_msft_policy_config_defender_puaprotection_1"
+    description: "Enable protection against potentially unwanted applications"
+    
+  - name: "Real-time scan direction configured"
+    check_id: "ANTIVIRUS_020"
+    setting_definition_id: "device_vendor_msft_policy_config_defender_realtimescandirection"
+    expected_value: "device_vendor_msft_policy_config_defender_realtimescandirection_0"
+    description: "Set real-time scan direction to monitor both incoming and outgoing files"
+    
+  - name: "Scan parameter set to quick scan"
+    check_id: "ANTIVIRUS_021"
+    setting_definition_id: "device_vendor_msft_policy_config_defender_scanparameter"
+    expected_value: "device_vendor_msft_policy_config_defender_scanparameter_1"
+    description: "Set default scan parameter to quick scan"
+    
+  - name: "Daily quick scan time configured"
+    check_id: "ANTIVIRUS_022"
+    setting_definition_id: "device_vendor_msft_policy_config_defender_schedulequickscantime"
+    expected_value: null
+    description: "Ensure daily quick scan time is configured (any time)"
+    
+  - name: "Weekly scan day configured"
+    check_id: "ANTIVIRUS_023"
+    setting_definition_id: "device_vendor_msft_policy_config_defender_schedulescanday"
+    expected_value: null
+    description: "Ensure weekly scan day is configured (any day)"
+    
+  - name: "Signature update interval configured"
+    check_id: "ANTIVIRUS_024"
+    setting_definition_id: "device_vendor_msft_policy_config_defender_signatureupdateinterval"
+    expected_value: null
+    description: "Ensure signature update interval is configured (any interval)"
+    
+  - name: "Automatic sample submission enabled"
+    check_id: "ANTIVIRUS_025"
+    setting_definition_id: "device_vendor_msft_policy_config_defender_submitsamplesconsent"
+    expected_value: "device_vendor_msft_policy_config_defender_submitsamplesconsent_1"
+    description: "Enable automatic submission of safe samples for analysis"
+    
+  - name: "Disable local admin merge enabled"
+    check_id: "ANTIVIRUS_026"
+    setting_definition_id: "device_vendor_msft_defender_configuration_disablelocaladminmerge"
+    expected_value: "device_vendor_msft_defender_configuration_disablelocaladminmerge_1"
+    description: "Disable local admin merge to prevent local overrides"
+    
+  - name: "On-access protection enabled"
+    check_id: "ANTIVIRUS_027"
+    setting_definition_id: "device_vendor_msft_policy_config_defender_allowonaccessprotection"
+    expected_value: "device_vendor_msft_policy_config_defender_allowonaccessprotection_1"
+    description: "Enable on-access protection"
+    
+  - name: "Threat severity default actions configured"
+    check_id: "ANTIVIRUS_028"
+    setting_definition_id: "device_vendor_msft_policy_config_defender_threatseveritydefaultaction"
+    expected_value: "quarantine"
+    description: "Ensure threat severity default actions are set to quarantine for any severity level"
+    
+  - name: "Engine updates channel configured"
+    check_id: "ANTIVIRUS_029"
+    setting_definition_id: "device_vendor_msft_defender_configuration_engineupdateschannel"
+    expected_value: null
+    description: "Ensure engine updates channel is configured (any channel)"
+    
+  - name: "Platform updates channel configured"
+    check_id: "ANTIVIRUS_030"
+    setting_definition_id: "device_vendor_msft_defender_configuration_platformupdateschannel"
+    expected_value: null
+    description: "Ensure platform updates channel is configured (any channel)"
+    
+  - name: "Security intelligence updates channel configured"
+    check_id: "ANTIVIRUS_031"
+    setting_definition_id: "device_vendor_msft_defender_configuration_securityintelligenceupdateschannel"
+    expected_value: null
+    description: "Ensure security intelligence updates channel is configured (any channel)"

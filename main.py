@@ -8,6 +8,7 @@ from DefenderForOffice365.SafeAttachmentsPolicyHandler import SafeAttachmentsPol
 from DefenderForOffice365.SafeLinksPolicyHandler import SafeLinksPolicyHandler
 from DefenderForOffice365.ExchangeOnlineConfigHandler import ExchangeOnlineConfigHandler
 from DefenderForOffice365.ExchangeOnlineSessionManager import ExchangeOnlineSessionManager
+from DefenderForEndpoint.AntivirusConfigHandler import AntivirusConfigHandler
 from ReportGenerator import ReportGenerator
 import os
 
@@ -39,6 +40,29 @@ def main():
             print(f"Found: {result['found']}")
             print(f"Status: {result.get('status', 'N/A')}")
             print("-" * 40)
+
+        # Get Defender for Endpoint Antivirus Configuration results
+        print("\n=== Checking Defender for Endpoint Antivirus Configurations ===")
+        try:
+            antivirus_handler = AntivirusConfigHandler(token, 'config/DefenderForEndpoint/antivirus_requirements.yaml')
+            antivirus_results = antivirus_handler.check_policies()
+            
+            print("\nDebug - Defender for Endpoint Antivirus Results:")
+            print(f"Number of results: {len(antivirus_results)}")
+            for result in antivirus_results:
+                print(f"Policy: {result['requirement_name']}")
+                print(f"Found: {result['found']}")
+                print(f"Status: {result.get('status', 'N/A')}")
+                print("-" * 40)
+        except Exception as e:
+            print(f"Error checking Defender for Endpoint antivirus configurations: {e}")
+            antivirus_results = [{
+                'requirement_name': 'Antivirus Configuration Error',
+                'check_id': 'ANTIVIRUS_ERROR',
+                'found': False,
+                'status': f'ERROR - {str(e)}',
+                'policy_type': 'antivirus'
+            }]
 
         # Create shared Exchange Online session manager for all Defender for Office 365 policies
         exchange_session_manager = ExchangeOnlineSessionManager()
@@ -415,7 +439,7 @@ if ($module) {
         
         # Update report generation to include all Defender for Office 365 policy results
         report = ReportGenerator()
-        report.generate_report(ca_results, auth_results, antispam_results, antiphishing_results, antimalware_results, safeattachments_results, safelinks_results, exchangeonline_results)
+        report.generate_report(ca_results, auth_results, antispam_results, antiphishing_results, antimalware_results, safeattachments_results, safelinks_results, exchangeonline_results, antivirus_results)
 
 if __name__ == '__main__':
     main()
