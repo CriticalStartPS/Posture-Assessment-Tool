@@ -25,6 +25,12 @@ class ReportGenerator:
         print(f"Found: {found}")
         print(f"Policy Type: {policy_type}")
 
+        # For antivirus and ASR results, use the is_compliant field directly
+        if policy_type in ['antivirus', 'asr']:
+            is_compliant = result.get('is_compliant', False)
+            print(f"{policy_type.upper()} result - is_compliant: {is_compliant}")
+            return is_compliant
+
         # If policy is not found, it's automatically non-compliant
         if not found:
             print("Failed: Policy not found")
@@ -778,7 +784,7 @@ class ReportGenerator:
         }
 
     def add_hierarchical_numbering(self, ca_results, auth_results, antispam_results, antiphishing_results, 
-                                   antimalware_results, safeattachments_results, safelinks_results, exchangeonline_results, antivirus_results):
+                                   antimalware_results, safeattachments_results, safelinks_results, exchangeonline_results, antivirus_results, asr_results=None):
         """Add hierarchical numbering to all policy results for easy referencing"""
         
         # Define the policy sections and their numbers
@@ -958,6 +964,14 @@ class ReportGenerator:
                 result['check_id'] = f"{section_counter}.{i}"
                 result['section_name'] = "Defender for Endpoint - Antivirus Configurations"
                 result['section_number'] = section_counter
+        section_counter += 1
+        
+        # 10. Defender for Endpoint - Attack Surface Reduction Configurations
+        if asr_results:
+            for i, result in enumerate(asr_results, 1):
+                result['check_id'] = f"{section_counter}.{i}"
+                result['section_name'] = "Defender for Endpoint - Attack Surface Reduction Configurations"
+                result['section_number'] = section_counter
         
         return {
             'ca_results': ca_results,
@@ -968,10 +982,11 @@ class ReportGenerator:
             'safeattachments_results': safeattachments_results,
             'safelinks_results': safelinks_results,
             'exchangeonline_results': exchangeonline_results,
-            'antivirus_results': antivirus_results
+            'antivirus_results': antivirus_results,
+            'asr_results': asr_results
         }
 
-    def generate_report(self, ca_results, auth_results, antispam_results=None, antiphishing_results=None, antimalware_results=None, safeattachments_results=None, safelinks_results=None, exchangeonline_results=None, antivirus_results=None):
+    def generate_report(self, ca_results, auth_results, antispam_results=None, antiphishing_results=None, antimalware_results=None, safeattachments_results=None, safelinks_results=None, exchangeonline_results=None, antivirus_results=None, asr_results=None):
         # Calculate detailed compliance metrics
         ca_compliance = self.calculate_compliance_details(ca_results, is_conditional_access=True)
         auth_compliance = self.calculate_compliance_details(auth_results, is_conditional_access=False)
@@ -1036,6 +1051,11 @@ class ReportGenerator:
         if antivirus_results:
             antivirus_compliance = self.calculate_antivirus_compliance_by_policy(antivirus_results)
         
+        # Calculate Defender for Endpoint ASR compliance
+        asr_compliance = None
+        if asr_results:
+            asr_compliance = self.calculate_asr_compliance_by_policy(asr_results)
+        
         # Calculate overall compliance using the separate categories
         total_passed = (ca_compliance['passed'] + auth_compliance['passed'] + 
                        antispam_inbound_standard_compliance['passed'] + 
@@ -1047,7 +1067,8 @@ class ReportGenerator:
                        safeattachments_compliance['passed'] +
                        safelinks_compliance['passed'] +
                        (exchangeonline_compliance['passed'] if exchangeonline_compliance else 0) +
-                       (antivirus_compliance['passed'] if antivirus_compliance else 0))
+                       (antivirus_compliance['passed'] if antivirus_compliance else 0) +
+                       (asr_compliance['passed'] if asr_compliance else 0))
         total_policies = (ca_compliance['total'] + auth_compliance['total'] + 
                          antispam_inbound_standard_compliance['total'] + 
                          antispam_inbound_strict_compliance['total'] + 
@@ -1058,17 +1079,21 @@ class ReportGenerator:
                          safeattachments_compliance['total'] +
                          safelinks_compliance['total'] +
                          (exchangeonline_compliance['total'] if exchangeonline_compliance else 0) +
-                         (antivirus_compliance['total'] if antivirus_compliance else 0))
+                         (antivirus_compliance['total'] if antivirus_compliance else 0) +
+                         (asr_compliance['total'] if asr_compliance else 0))
         
         overall_compliance = round((total_passed / total_policies) * 100) if total_policies > 0 else 0
 
         # Restructure antivirus results to group by requirement with policy breakdowns
         restructured_antivirus_results = self.restructure_antivirus_results(antivirus_results) if antivirus_results else []
+        
+        # Restructure ASR results to group by requirement with policy breakdowns
+        restructured_asr_results = self.restructure_asr_results(asr_results) if asr_results else []
 
         # Add hierarchical numbering to all results for easy referencing
         numbered_results = self.add_hierarchical_numbering(
             ca_results, auth_results, antispam_results, antiphishing_results, 
-            antimalware_results, safeattachments_results, safelinks_results, exchangeonline_results, restructured_antivirus_results
+            antimalware_results, safeattachments_results, safelinks_results, exchangeonline_results, restructured_antivirus_results, restructured_asr_results
         )
 
         template = self.env.get_template('report_template.html')
@@ -1082,6 +1107,7 @@ class ReportGenerator:
             safelinks_results=numbered_results['safelinks_results'] or [],
             exchangeonline_results=numbered_results['exchangeonline_results'] or [],
             antivirus_results=numbered_results['antivirus_results'] or [],
+            asr_results=numbered_results['asr_results'] or [],
             timestamp=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             compliance_percentage=overall_compliance,
             ca_compliance=ca_compliance,
@@ -1097,7 +1123,8 @@ class ReportGenerator:
             safeattachments_compliance=safeattachments_compliance,
             safelinks_compliance=safelinks_compliance,
             exchangeonline_compliance=exchangeonline_compliance,
-            antivirus_compliance=antivirus_compliance
+            antivirus_compliance=antivirus_compliance,
+            asr_compliance=asr_compliance
         )
         
         # Create reports directory if it doesn't exist
@@ -1133,6 +1160,68 @@ class ReportGenerator:
                     'found': False,
                     'status': 'NOT CONFIGURED',
                     'policy_type': 'antivirus'
+                }
+            
+            # Add this policy's result to the requirement
+            policy_result = {
+                'policy_name': result.get('policy_name', 'Unknown'),
+                'policy_id': result.get('policy_id', ''),
+                'current_value': result.get('current_value'),
+                'is_compliant': result.get('is_compliant', False),
+                'status': result.get('status', 'NOT CONFIGURED'),
+                'found': result.get('found', False)
+            }
+            
+            requirement_groups[check_id]['policy_results'].append(policy_result)
+            
+            # Update overall status for this requirement
+            if result.get('found', False):
+                requirement_groups[check_id]['found'] = True
+                
+                # Check if any policy is compliant for this requirement
+                if result.get('is_compliant', False):
+                    requirement_groups[check_id]['status'] = 'COMPLIANT'
+                elif requirement_groups[check_id]['status'] not in ['COMPLIANT']:
+                    requirement_groups[check_id]['status'] = 'NON-COMPLIANT'
+        
+        # Find compliant policies for each requirement to update status message
+        for group in requirement_groups.values():
+            compliant_policies = [p['policy_name'] for p in group['policy_results'] if p['is_compliant']]
+            if compliant_policies:
+                group['status'] = f"COMPLIANT - Found in policies: {', '.join(compliant_policies)}"
+            elif group['found']:
+                group['status'] = "NON-COMPLIANT - Policy configured but not meeting requirements"
+            else:
+                group['status'] = "NOT CONFIGURED - No policies found for this requirement"
+        
+        # Convert to list and sort by check_id
+        restructured_results = list(requirement_groups.values())
+        restructured_results.sort(key=lambda x: x.get('check_id', ''))
+        
+        return restructured_results
+
+    def restructure_asr_results(self, results):
+        """Restructure ASR results to group by requirement with policy breakdowns"""
+        if not results:
+            return []
+        
+        # Group results by requirement (check_id)
+        requirement_groups = {}
+        
+        for result in results:
+            check_id = result.get('check_id', 'Unknown')
+            requirement_name = result.get('requirement_name', 'Unknown')
+            
+            if check_id not in requirement_groups:
+                requirement_groups[check_id] = {
+                    'check_id': check_id,
+                    'requirement_name': requirement_name,
+                    'setting_definition_id': result.get('setting_definition_id', ''),
+                    'expected_value': result.get('expected_value'),
+                    'policy_results': [],
+                    'found': False,
+                    'status': 'NOT CONFIGURED',
+                    'policy_type': 'asr'
                 }
             
             # Add this policy's result to the requirement
@@ -1257,4 +1346,90 @@ class ReportGenerator:
         }
         
         print(f"Final antivirus compliance: {final_result}")
+        return final_result
+
+    def calculate_asr_compliance_by_policy(self, results):
+        """Calculate compliance for Defender for Endpoint Attack Surface Reduction configurations where one complete policy meeting all requirements = compliant"""
+        if not results:
+            return {
+                'percentage': 0,
+                'passed': 0,
+                'total': 0,
+                'is_compliant': False,
+                'compliant_policy': None
+            }
+        
+        print(f"\nCalculating policy-level compliance for Defender for Endpoint Attack Surface Reduction:")
+        
+        # Extract all unique policy names from the results
+        all_policy_names = set()
+        for result in results:
+            policy_name = result.get('policy_name', 'Unknown')
+            if policy_name != 'N/A' and policy_name != 'Unknown':
+                all_policy_names.add(policy_name)
+        
+        print(f"Found {len(all_policy_names)} unique ASR policies: {list(all_policy_names)}")
+        
+        # If no valid policies found, return error state
+        if not all_policy_names:
+            print("No valid ASR policies found")
+            return {
+                'percentage': 0,
+                'passed': 0,
+                'total': len(results),
+                'is_compliant': False,
+                'compliant_policy': None
+            }
+        
+        # Check each policy for compliance
+        compliant_policies = []
+        
+        for policy_name in all_policy_names:
+            # Get all requirements for this policy
+            policy_results = [r for r in results if r.get('policy_name') == policy_name]
+            
+            print(f"\nChecking policy: {policy_name}")
+            print(f"Requirements for this policy: {len(policy_results)}")
+            
+            # Check if all requirements for this policy are met
+            policy_compliant = True
+            compliant_count = 0
+            
+            for result in policy_results:
+                is_requirement_met = self.parse_policy_status(result)
+                if is_requirement_met:
+                    compliant_count += 1
+                else:
+                    policy_compliant = False
+                
+                print(f"  - {result.get('requirement_name', 'Unknown')}: {'PASS' if is_requirement_met else 'FAIL'}")
+            
+            if policy_compliant:
+                compliant_policies.append(policy_name)
+                print(f"Policy '{policy_name}' is COMPLIANT (all {len(policy_results)} requirements met)")
+            else:
+                print(f"Policy '{policy_name}' is NON-COMPLIANT ({compliant_count}/{len(policy_results)} requirements met)")
+        
+        # Determine overall compliance
+        is_compliant = len(compliant_policies) > 0
+        compliant_policy = compliant_policies[0] if compliant_policies else None
+        
+        # Calculate totals
+        total_requirements = len(results)
+        
+        # For display purposes, show how many requirements would be "passed" 
+        # If compliant: all requirements pass, if not: show actual pass count
+        passed_count = total_requirements if is_compliant else sum(1 for r in results if r.get('found', False))
+        percentage = 100 if is_compliant else round((passed_count / total_requirements) * 100)
+        
+        final_result = {
+            'percentage': percentage,
+            'passed': passed_count,
+            'total': total_requirements,
+            'is_compliant': is_compliant,
+            'compliant_policy': compliant_policy,
+            'compliant_policies': compliant_policies
+        }
+        
+        print(f"Final ASR compliance: {final_result}")
         return final_result

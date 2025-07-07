@@ -189,7 +189,7 @@
     <div class="container">
         <div class="summary-card">
             <h2>Executive Summary</h2>
-            <div class="overall-score">Overall Compliance: {{ compliance_percentage }}% ({{ ca_compliance.passed + auth_compliance.passed + antispam_inbound_standard_compliance.passed + antispam_inbound_strict_compliance.passed + antispam_outbound_compliance.passed + antiphishing_standard_compliance.passed + antiphishing_strict_compliance.passed + antimalware_compliance.passed + safeattachments_compliance.passed + safelinks_compliance.passed + (exchangeonline_compliance.passed if exchangeonline_compliance else 0) }}/{{ ca_compliance.total + auth_compliance.total + antispam_inbound_standard_compliance.total + antispam_inbound_strict_compliance.total + antispam_outbound_compliance.total + antiphishing_standard_compliance.total + antiphishing_strict_compliance.total + antimalware_compliance.total + safeattachments_compliance.total + safelinks_compliance.total + (exchangeonline_compliance.total if exchangeonline_compliance else 0) }} Policies)</div>
+            <div class="overall-score">Overall Compliance: {{ compliance_percentage }}% ({{ ca_compliance.passed + auth_compliance.passed + antispam_inbound_standard_compliance.passed + antispam_inbound_strict_compliance.passed + antispam_outbound_compliance.passed + antiphishing_standard_compliance.passed + antiphishing_strict_compliance.passed + antimalware_compliance.passed + safeattachments_compliance.passed + safelinks_compliance.passed + (exchangeonline_compliance.passed if exchangeonline_compliance else 0) + (antivirus_compliance.passed if antivirus_compliance else 0) + (asr_compliance.passed if asr_compliance else 0) }}/{{ ca_compliance.total + auth_compliance.total + antispam_inbound_standard_compliance.total + antispam_inbound_strict_compliance.total + antispam_outbound_compliance.total + antiphishing_standard_compliance.total + antiphishing_strict_compliance.total + antimalware_compliance.total + safeattachments_compliance.total + safelinks_compliance.total + (exchangeonline_compliance.total if exchangeonline_compliance else 0) + (antivirus_compliance.total if antivirus_compliance else 0) + (asr_compliance.total if asr_compliance else 0) }} Policies)</div>
             
             <div class="compliance-indicator">
                 <span>Conditional Access Policies:</span>
@@ -362,6 +362,22 @@
                     <span>{{ antivirus_compliance.percentage }}%</span>
                     {% if antivirus_compliance.is_compliant and antivirus_compliance.compliant_policy %}
                     <br><span style="font-size: 12px; color: #107c10; font-style: italic;">✓ Policy "{{ antivirus_compliance.compliant_policy }}" meets all requirements</span>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+            
+            {% if asr_compliance and asr_compliance.total > 0 %}
+            <div class="compliance-indicator">
+                <span>Defender for Endpoint Attack Surface Reduction:</span>
+                <span class="status-badge {% if asr_compliance.is_compliant %}compliant{% else %}non-compliant{% endif %}">
+                    {% if asr_compliance.is_compliant %}Compliant{% else %}Non-Compliant{% endif %}
+                </span>
+                <div class="compliance-details">
+                    <span class="compliance-fraction">({{ asr_compliance.passed }}/{{ asr_compliance.total }} Passed)</span>
+                    <span>{{ asr_compliance.percentage }}%</span>
+                    {% if asr_compliance.is_compliant and asr_compliance.compliant_policy %}
+                    <br><span style="font-size: 12px; color: #107c10; font-style: italic;">✓ Policy "{{ asr_compliance.compliant_policy }}" meets all requirements</span>
                     {% endif %}
                 </div>
             </div>
@@ -1141,6 +1157,56 @@
                                 <span style="color: #d13438;">✗ NON-COMPLIANT</span>
                             {% endif %}
                             (Current: {{ policy_result.current_value }})
+                        </li>
+                    {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        
+        {% if asr_results and asr_results|length > 0 %}
+        <div class="policy-section">
+            <h2>🛡️ Defender for Endpoint - Attack Surface Reduction Configurations</h2>
+            <p style="color: #666; font-style: italic; margin-bottom: 20px;">Microsoft Defender Attack Surface Reduction rules and configurations from Intune</p>
+            
+            {% for result in asr_results %}
+            {% set status = result.status | string | upper %}
+            <div class="policy-item {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">
+                <h3>{{ result.check_id }} - {{ result.requirement_name }}</h3>
+                <p>Configuration Status: <span class="status-text {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">
+                    {{ result.status }}
+                </span></p>
+                <p>Policy Found: {{ result.found }}</p>
+                {% if result.expected_value is defined %}
+                <p>Expected Value: 
+                    {% if result.expected_value is iterable and result.expected_value is not string %}
+                        {% if result.expected_value|length > 5 %}
+                            [{{ result.expected_value[:5]|join(', ') }}, ... ({{ result.expected_value|length - 5 }} more)]
+                        {% else %}
+                            {{ result.expected_value|join(', ') }}
+                        {% endif %}
+                    {% else %}
+                        {{ result.expected_value }}
+                    {% endif %}
+                </p>
+                {% endif %}
+                {% if result.policy_results %}
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    {% for policy_result in result.policy_results %}
+                        <li>{{ policy_result.policy_name }}: 
+                            {% if policy_result.is_compliant %}
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            {% else %}
+                                <span style="color: #d13438;">✗ NON-COMPLIANT</span>
+                            {% endif %}
+                            {% if policy_result.current_value is defined %}
+                                (Current: {{ policy_result.current_value }})
+                            {% endif %}
                         </li>
                     {% endfor %}
                     </ul>

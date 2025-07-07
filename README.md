@@ -33,6 +33,19 @@ This comprehensive security assessment tool evaluates your Microsoft 365 environ
 - Quarantine management and notification controls
 - Comprehensive malware protection settings
 
+### 6. **Defender for Endpoint Antivirus Configurations**
+- Microsoft Defender Antivirus security configurations from Intune
+- Real-time protection and cloud-delivered protection settings
+- Scan settings and exclusion configurations
+- Advanced threat protection features
+
+### 7. **Defender for Endpoint Attack Surface Reduction (ASR)**
+- Attack Surface Reduction rules and configurations from Intune
+- Malicious behavior blocking and prevention
+- Office application protection rules
+- Script and macro execution controls
+- Email and web threat protection rules
+
 ## 🏗️ Components
 
 ### 1. GraphAuthenticator
@@ -64,13 +77,28 @@ Assesses anti-malware policies in Exchange Online including:
 - Quarantine tag configurations
 - Notification and admin alert settings
 
-### 7. ExchangeOnlineSessionManager
+### 7. AntivirusConfigHandler
+Evaluates Microsoft Defender Antivirus configurations from Intune including:
+- Real-time protection and cloud-delivered protection settings
+- Scan configurations and exclusion policies
+- Advanced threat protection features
+- Policy compliance across managed devices
+
+### 8. AttackSurfaceReductionConfigHandler
+Assesses Attack Surface Reduction (ASR) rules and configurations from Intune including:
+- Malicious behavior blocking and prevention rules
+- Office application protection configurations
+- Script and macro execution controls
+- Email and web threat protection settings
+- ASR rule enablement and action modes (Block, Audit, Warn)
+
+### 9. ExchangeOnlineSessionManager
 Manages single-session authentication to Exchange Online for efficient policy retrieval across all Defender for Office 365 handlers:
 - Shared session management for anti-spam, anti-phishing, and anti-malware checks
 - Reduces authentication overhead and improves performance
 - Handles PowerShell module detection and execution
 
-### 8. ReportGenerator
+### 10. ReportGenerator
 Generates comprehensive HTML reports with detailed compliance analysis and visual indicators for all policy types.
 
 ## 📋 Requirements
@@ -124,6 +152,14 @@ The tool uses YAML configuration files to define security requirements:
 #### Anti-Malware Policies
 - `config/DefenderForOffice365/antimalware_requirements.yaml` - Malware protection settings
 
+### Defender for Endpoint Policies
+
+#### Antivirus Configurations
+- `config/DefenderForEndpoint/antivirus_requirements.yaml` - Defender antivirus settings
+
+#### Attack Surface Reduction (ASR)
+- `config/DefenderForEndpoint/asr_requirements.yaml` - ASR rules and protection settings
+
 ## 🚀 How It Works
 
 ### 1. **Authentication Flow**
@@ -138,6 +174,9 @@ The tool uses YAML configuration files to define security requirements:
   - **Anti-Spam**: Connects to Exchange Online to assess inbound/outbound filtering
   - **Anti-Phishing**: Evaluates spoofing protection and impersonation detection
   - **Anti-Malware**: Checks file filtering, ZAP settings, and quarantine policies
+- **Defender for Endpoint**: Uses Microsoft Graph API to assess Intune configurations:
+  - **Antivirus**: Evaluates Defender antivirus protection settings and policies
+  - **Attack Surface Reduction**: Checks ASR rules and malicious behavior blocking
 
 ### 3. **Compliance Evaluation**
 - Checks each policy against defined security baselines
@@ -146,6 +185,7 @@ The tool uses YAML configuration files to define security requirements:
 - **Special Logic**:
   - **Anti-Malware FileTypes**: Case-insensitive array comparison ensuring all dangerous file types are blocked
   - **Anti-Phishing**: Advanced spoofing and impersonation detection checks
+  - **Defender for Endpoint**: Direct compliance evaluation using `is_compliant` field from Intune configurations
   - **Policy-Level Compliance**: Requirements met when at least one policy satisfies all criteria
 
 ### 4. **Report Generation**
@@ -156,6 +196,8 @@ The tool uses YAML configuration files to define security requirements:
   - Anti-Spam (Inbound Standard, Inbound Strict, Outbound)
   - Anti-Phishing (Standard, Strict)
   - Anti-Malware (File filtering, ZAP, Quarantine)
+  - Defender for Endpoint Antivirus (Protection settings, Scan configurations)
+  - Attack Surface Reduction (ASR rules, Behavior blocking)
 
 ## 📊 Protection Levels
 
@@ -201,6 +243,8 @@ python main.py
 - **Standard Anti-Phishing**: Baseline spoofing and impersonation protection
 - **Strict Anti-Phishing**: Advanced threat detection and response
 - **Anti-Malware**: File filtering, ZAP, and quarantine management
+- **Defender for Endpoint Antivirus**: Real-time protection and scan configurations
+- **Attack Surface Reduction**: ASR rules and malicious behavior blocking
 - **Policy Breakdowns**: Individual policy compliance status for each category
 
 ### Visual Indicators
@@ -211,6 +255,7 @@ python main.py
 - 📤 Outbound controls
 - 🎣 Anti-phishing protection
 - 🦠 Anti-malware protection
+- 🛡️ Defender for Endpoint protection (Antivirus & ASR)
 
 ## 🔧 Troubleshooting
 
@@ -277,7 +322,7 @@ The tool maintains backward compatibility with older configuration files:
 
 ```
 === Azure Security Posture Assessment ===
-Overall Compliance: 78% (47/60 Policies)
+Overall Compliance: 82% (65/79 Policies)
 
 Conditional Access: 94% (17/18 Passed)
 Authorization Policies: 43% (3/7 Passed)  
@@ -287,6 +332,8 @@ Outbound Policies: 88% (7/8 Passed)
 Anti-Phishing Standard: 92% (11/12 Passed)
 Anti-Phishing Strict: 75% (9/12 Passed)
 Anti-Malware: 100% (8/8 Passed)
+Defender for Endpoint Antivirus: 89% (8/9 Passed)
+Attack Surface Reduction: 91% (10/11 Passed)
 ```
 
 ## 🔧 Advanced Configuration
@@ -305,6 +352,29 @@ The anti-malware handler includes comprehensive file type blocking covering:
 - **Strict**: Enhanced security for high-risk environments, sensitive data, or regulatory compliance
 - **Custom**: Ability to define organization-specific requirements in YAML files
 
+### Attack Surface Reduction (ASR) Rules
+The ASR handler supports comprehensive evaluation of Microsoft Defender ASR rules including:
+
+#### Core ASR Rules
+- **Block executable files**: Prevent potentially malicious executable files from running
+- **Block Office applications**: Control Office app behavior to prevent malicious activity
+- **Block credential stealing**: Prevent credential harvesting from Windows security subsystem
+- **Block process creations**: Control process creation from Office communication applications
+- **Block untrusted processes**: Prevent untrusted and unsigned processes from running from USB
+- **Block JavaScript/VBScript**: Control script execution in email and web content
+- **Block Adobe Reader**: Prevent Adobe Reader from creating child processes
+- **Block Win32 API calls**: Control API calls from Office macros
+- **Advanced boot protection**: Block persistence through WMI event subscription
+
+#### ASR Rule Actions
+- **Block**: Prevent the activity (recommended for production)
+- **Audit**: Log the activity without blocking (recommended for testing)
+- **Warn**: Prompt user with warning before allowing activity
+- **Not Configured**: Rule is disabled
+
+#### Configuration Requirements
+The ASR requirements file (`asr_requirements.yaml`) defines expected rule states and actions for comprehensive endpoint protection.
+
 ## 🤝 Contributing
 
 This tool is designed to be extensible. To add new policy types:
@@ -315,11 +385,12 @@ This tool is designed to be extensible. To add new policy types:
 5. Update README.md documentation
 
 ### Handler Architecture
-All Defender for Office 365 handlers follow a consistent pattern:
-- **Constructor**: Accept requirements file and shared session manager
-- **check_policies()**: Main method returning standardized result format
+All handlers follow a consistent pattern:
+- **Defender for Office 365 handlers**: Accept requirements file and shared ExchangeOnlineSessionManager
+- **Defender for Endpoint handlers**: Accept requirements file and Microsoft Graph token for Intune API access
+- **check_policies()**: Main method returning standardized result format with `is_compliant` field
 - **_check_policy_requirements()**: Internal compliance evaluation logic
-- **Integration**: Seamless integration with ExchangeOnlineSessionManager
+- **Integration**: Seamless integration with respective session managers and APIs
 
 ## 📄 License
 

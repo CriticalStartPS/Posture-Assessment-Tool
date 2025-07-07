@@ -9,6 +9,7 @@ from DefenderForOffice365.SafeLinksPolicyHandler import SafeLinksPolicyHandler
 from DefenderForOffice365.ExchangeOnlineConfigHandler import ExchangeOnlineConfigHandler
 from DefenderForOffice365.ExchangeOnlineSessionManager import ExchangeOnlineSessionManager
 from DefenderForEndpoint.AntivirusConfigHandler import AntivirusConfigHandler
+from DefenderForEndpoint.AttackSurfaceReductionConfigHandler import AttackSurfaceReductionConfigHandler
 from ReportGenerator import ReportGenerator
 import os
 
@@ -62,6 +63,29 @@ def main():
                 'found': False,
                 'status': f'ERROR - {str(e)}',
                 'policy_type': 'antivirus'
+            }]
+
+        # Get Defender for Endpoint Attack Surface Reduction Configuration results
+        print("\n=== Checking Defender for Endpoint Attack Surface Reduction Configurations ===")
+        try:
+            asr_handler = AttackSurfaceReductionConfigHandler(token, 'config/DefenderForEndpoint/asr_requirements.yaml')
+            asr_results = asr_handler.check_policies()
+            
+            print("\nDebug - Defender for Endpoint ASR Results:")
+            print(f"Number of results: {len(asr_results)}")
+            for result in asr_results:
+                print(f"Policy: {result['requirement_name']}")
+                print(f"Found: {result['found']}")
+                print(f"Status: {result.get('status', 'N/A')}")
+                print("-" * 40)
+        except Exception as e:
+            print(f"Error checking Defender for Endpoint ASR configurations: {e}")
+            asr_results = [{
+                'requirement_name': 'ASR Configuration Error',
+                'check_id': 'ASR_ERROR',
+                'found': False,
+                'status': f'ERROR - {str(e)}',
+                'policy_type': 'asr'
             }]
 
         # Create shared Exchange Online session manager for all Defender for Office 365 policies
@@ -439,7 +463,7 @@ if ($module) {
         
         # Update report generation to include all Defender for Office 365 policy results
         report = ReportGenerator()
-        report.generate_report(ca_results, auth_results, antispam_results, antiphishing_results, antimalware_results, safeattachments_results, safelinks_results, exchangeonline_results, antivirus_results)
+        report.generate_report(ca_results, auth_results, antispam_results, antiphishing_results, antimalware_results, safeattachments_results, safelinks_results, exchangeonline_results, antivirus_results, asr_results)
 
 if __name__ == '__main__':
     main()

@@ -33,7 +33,7 @@ antispam_outbound_policies:
     description: "Control automatic forwarding to external domains"
     policy_type: "outbound"
     setting: "AutoForwardingMode"
-    expected_value: "Automatic"
+    expected_value: "Off"
 
   - name: "BCC Suspicious Outbound Mail"
     description: "BCC suspicious outbound messages for monitoring"
