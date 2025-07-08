@@ -1356,16 +1356,23 @@ class ReportGenerator:
                 'passed': 0,
                 'total': 0,
                 'is_compliant': False,
-                'compliant_policy': None
+                'compliant_policy': None,
+                'compliant_policies': []
             }
         
         print(f"\nCalculating policy-level compliance for Defender for Endpoint Attack Surface Reduction:")
+        
+        # Debug: Show first few results to understand structure
+        print(f"Total results: {len(results)}")
+        for i, result in enumerate(results[:3]):
+            print(f"Result {i+1}: policy_name='{result.get('policy_name', 'MISSING')}', is_compliant={result.get('is_compliant', 'MISSING')}")
         
         # Extract all unique policy names from the results
         all_policy_names = set()
         for result in results:
             policy_name = result.get('policy_name', 'Unknown')
-            if policy_name != 'N/A' and policy_name != 'Unknown':
+            print(f"Processing policy_name: '{policy_name}'")
+            if policy_name and policy_name != 'N/A' and policy_name != 'Unknown' and policy_name.strip():
                 all_policy_names.add(policy_name)
         
         print(f"Found {len(all_policy_names)} unique ASR policies: {list(all_policy_names)}")
@@ -1378,7 +1385,8 @@ class ReportGenerator:
                 'passed': 0,
                 'total': len(results),
                 'is_compliant': False,
-                'compliant_policy': None
+                'compliant_policy': None,
+                'compliant_policies': []
             }
         
         # Check each policy for compliance

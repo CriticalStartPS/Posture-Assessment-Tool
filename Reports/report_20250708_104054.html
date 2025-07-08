@@ -182,14 +182,14 @@
     <div class="header">
         <div class="container">
             <h1>Azure Security Compliance Report</h1>
-            <div class="timestamp">Generated: 2025-07-03 16:07:05</div>
+            <div class="timestamp">Generated: 2025-07-08 10:40:54</div>
         </div>
     </div>
 
     <div class="container">
         <div class="summary-card">
             <h2>Executive Summary</h2>
-            <div class="overall-score">Overall Compliance: 90% (162/177 Policies)</div>
+            <div class="overall-score">Overall Compliance: 95% (264/279 Policies)</div>
             
             <div class="compliance-indicator">
                 <span>Conditional Access Policies:</span>
@@ -350,12 +350,28 @@
             
             <div class="compliance-indicator">
                 <span>Defender for Endpoint Antivirus:</span>
+                <span class="status-badge compliant">
+                    Compliant
+                </span>
+                <div class="compliance-details">
+                    <span class="compliance-fraction">(62/62 Passed)</span>
+                    <span>100%</span>
+                    
+                    <br><span style="font-size: 12px; color: #107c10; font-style: italic;">✓ Policy "FLDS - Desired State AV Config - Workstation" meets all requirements</span>
+                    
+                </div>
+            </div>
+            
+            
+            
+            <div class="compliance-indicator">
+                <span>Defender for Endpoint Attack Surface Reduction:</span>
                 <span class="status-badge non-compliant">
                     Non-Compliant
                 </span>
                 <div class="compliance-details">
-                    <span class="compliance-fraction">(54/62 Passed)</span>
-                    <span>87%</span>
+                    <span class="compliance-fraction">(40/40 Passed)</span>
+                    <span>100%</span>
                     
                 </div>
             </div>
@@ -2290,7 +2306,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: Spam, Default, Phish</p>
+                    <p>Current Value: Mixed values: Default, Spam, Phish</p>
                     
                     
                     <p>Expected Value: Phish</p>
@@ -2315,7 +2331,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: Spam, Default, Phish 
+                        Summary: Mixed values: Default, Spam, Phish 
                         
                         <span class="non-compliant-warning">(4 policies need attention)</span>
                         
@@ -2331,7 +2347,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: 30, 15</p>
+                    <p>Current Value: Mixed values: 15, 30</p>
                     
                     
                     <p>Expected Value: 30</p>
@@ -2356,7 +2372,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: 30, 15 
+                        Summary: Mixed values: 15, 30 
                         
                         <span class="non-compliant-warning">(1 policies need attention)</span>
                         
@@ -3606,7 +3622,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: Spam, Default, Phish</p>
+                    <p>Current Value: Mixed values: Default, Spam, Phish</p>
                     
                     
                     <p>Expected Value: Spam</p>
@@ -3631,7 +3647,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: Spam, Default, Phish 
+                        Summary: Mixed values: Default, Spam, Phish 
                         
                         <span class="non-compliant-warning">(4 policies need attention)</span>
                         
@@ -3647,7 +3663,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: 30, 15</p>
+                    <p>Current Value: Mixed values: 15, 30</p>
                     
                     
                     <p>Expected Value: 30</p>
@@ -3672,7 +3688,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: 30, 15 
+                        Summary: Mixed values: 15, 30 
                         
                         <span class="non-compliant-warning">(1 policies need attention)</span>
                         
@@ -3891,7 +3907,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: 0, 400</p>
+                    <p>Current Value: Mixed values: 400, 0</p>
                     
                     
                     <p>Expected Value: 400</p>
@@ -3910,7 +3926,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: 0, 400 
+                        Summary: Mixed values: 400, 0 
                         
                         <span class="non-compliant-warning">(1 policies need attention)</span>
                         
@@ -4031,26 +4047,26 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: Automatic, Off</p>
+                    <p>Current Value: Mixed values: Off, Automatic</p>
                     
                     
-                    <p>Expected Value: Automatic</p>
+                    <p>Expected Value: Off</p>
                     
                     
                     <div class="policy-breakdown">
                         <h4>Policy Details:</h4>
                         <ul>
                         
-                            <li>Default (Default): NON-COMPLIANT (Current: Off, Expected: Automatic)</li>
+                            <li>Default (Default): COMPLIANT (Current: Off, Expected: Off)</li>
                         
-                            <li>Alert Only Gen Pop Outbound Policy: COMPLIANT (Current: Automatic, Expected: Automatic)</li>
+                            <li>Alert Only Gen Pop Outbound Policy: NON-COMPLIANT (Current: Automatic, Expected: Off)</li>
                         
                         </ul>
                     </div>
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: Automatic, Off 
+                        Summary: Mixed values: Off, Automatic 
                         
                         <span class="non-compliant-warning">(1 policies need attention)</span>
                         
@@ -4136,7 +4152,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: [], ['jdoe@criticalstartlab.com']</p>
+                    <p>Current Value: Mixed values: ['jdoe@criticalstartlab.com'], []</p>
                     
                     
                     <p>Expected Value: not_null</p>
@@ -4155,7 +4171,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: [], ['jdoe@criticalstartlab.com'] 
+                        Summary: Mixed values: ['jdoe@criticalstartlab.com'], [] 
                         
                         <span class="non-compliant-warning">(2 policies need attention)</span>
                         
@@ -4171,7 +4187,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: [], ['jdoe@criticalstartlab.com']</p>
+                    <p>Current Value: Mixed values: ['jdoe@criticalstartlab.com'], []</p>
                     
                     
                     <p>Expected Value: not_null</p>
@@ -4190,7 +4206,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: [], ['jdoe@criticalstartlab.com'] 
+                        Summary: Mixed values: ['jdoe@criticalstartlab.com'], [] 
                         
                         <span class="non-compliant-warning">(2 policies need attention)</span>
                         
@@ -7937,2229 +7953,2028 @@
             
             <div class="policy-item pass">
                 <h3>9.1 - Archive files scanning enabled</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation, SvN - AV Sally Johnson Devices
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        device_vendor_msft_policy_config_defender_allowarchivescanning_1
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - Desired State AV Config - Workstation: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_policy_config_defender_allowarchivescanning_1)
+                        </li>
+                    
+                        <li>SvN - AV Sally Johnson Devices: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_policy_config_defender_allowarchivescanning_1)
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> FLDS - Desired State AV Config - Workstation</p>
-                        <p><strong>Policy ID:</strong> 12810da0-c6ac-453b-8460-ef5546a990aa</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> device_vendor_msft_policy_config_defender_allowarchivescanning_1</p>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_policy_config_defender_allowarchivescanning_1</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_allowarchivescanning</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
                 <h3>9.2 - Behavior monitoring enabled</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation, SvN - AV Sally Johnson Devices
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        device_vendor_msft_policy_config_defender_allowbehaviormonitoring_1
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - Desired State AV Config - Workstation: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_policy_config_defender_allowbehaviormonitoring_1)
+                        </li>
+                    
+                        <li>SvN - AV Sally Johnson Devices: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_policy_config_defender_allowbehaviormonitoring_1)
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> FLDS - Desired State AV Config - Workstation</p>
-                        <p><strong>Policy ID:</strong> 12810da0-c6ac-453b-8460-ef5546a990aa</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> device_vendor_msft_policy_config_defender_allowbehaviormonitoring_1</p>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_policy_config_defender_allowbehaviormonitoring_1</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_allowbehaviormonitoring</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
                 <h3>9.3 - Cloud-delivered protection enabled</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation, SvN - AV Sally Johnson Devices
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        device_vendor_msft_policy_config_defender_allowcloudprotection_1
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - Desired State AV Config - Workstation: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_policy_config_defender_allowcloudprotection_1)
+                        </li>
+                    
+                        <li>SvN - AV Sally Johnson Devices: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_policy_config_defender_allowcloudprotection_1)
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> FLDS - Desired State AV Config - Workstation</p>
-                        <p><strong>Policy ID:</strong> 12810da0-c6ac-453b-8460-ef5546a990aa</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> device_vendor_msft_policy_config_defender_allowcloudprotection_1</p>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_policy_config_defender_allowcloudprotection_1</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_allowcloudprotection</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
                 <h3>9.4 - Email scanning enabled</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation, SvN - AV Sally Johnson Devices
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        device_vendor_msft_policy_config_defender_allowemailscanning_1
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - Desired State AV Config - Workstation: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_policy_config_defender_allowemailscanning_1)
+                        </li>
+                    
+                        <li>SvN - AV Sally Johnson Devices: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_policy_config_defender_allowemailscanning_1)
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> FLDS - Desired State AV Config - Workstation</p>
-                        <p><strong>Policy ID:</strong> 12810da0-c6ac-453b-8460-ef5546a990aa</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> device_vendor_msft_policy_config_defender_allowemailscanning_1</p>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_policy_config_defender_allowemailscanning_1</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_allowemailscanning</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
                 <h3>9.5 - Full scan on mapped network drives disabled</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation, SvN - AV Sally Johnson Devices
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        device_vendor_msft_policy_config_defender_allowfullscanonmappednetworkdrives_0
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - Desired State AV Config - Workstation: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_policy_config_defender_allowfullscanonmappednetworkdrives_0)
+                        </li>
+                    
+                        <li>SvN - AV Sally Johnson Devices: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_policy_config_defender_allowfullscanonmappednetworkdrives_0)
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> FLDS - Desired State AV Config - Workstation</p>
-                        <p><strong>Policy ID:</strong> 12810da0-c6ac-453b-8460-ef5546a990aa</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> device_vendor_msft_policy_config_defender_allowfullscanonmappednetworkdrives_0</p>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_policy_config_defender_allowfullscanonmappednetworkdrives_0</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_allowfullscanonmappednetworkdrives</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
                 <h3>9.6 - Scan removable drives enabled</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        device_vendor_msft_policy_config_defender_allowfullscanremovabledrivescanning_1
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - Desired State AV Config - Workstation: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_policy_config_defender_allowfullscanremovabledrivescanning_1)
+                        </li>
+                    
+                        <li>SvN - AV Sally Johnson Devices: 
+                            
+                                <span style="color: #d13438;">✗ NON-COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_policy_config_defender_allowfullscanremovabledrivescanning_0)
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> FLDS - Desired State AV Config - Workstation</p>
-                        <p><strong>Policy ID:</strong> 12810da0-c6ac-453b-8460-ef5546a990aa</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> device_vendor_msft_policy_config_defender_allowfullscanremovabledrivescanning_1</p>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_policy_config_defender_allowfullscanremovabledrivescanning_1</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_allowfullscanremovabledrivescanning</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
                 <h3>9.7 - Enable downloaded files and attachments scanning</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation, SvN - AV Sally Johnson Devices
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        device_vendor_msft_policy_config_defender_allowioavprotection_1
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - Desired State AV Config - Workstation: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_policy_config_defender_allowioavprotection_1)
+                        </li>
+                    
+                        <li>SvN - AV Sally Johnson Devices: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_policy_config_defender_allowioavprotection_1)
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> FLDS - Desired State AV Config - Workstation</p>
-                        <p><strong>Policy ID:</strong> 12810da0-c6ac-453b-8460-ef5546a990aa</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> device_vendor_msft_policy_config_defender_allowioavprotection_1</p>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_policy_config_defender_allowioavprotection_1</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_allowioavprotection</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
                 <h3>9.8 - Real-time monitoring enabled</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation, SvN - AV Sally Johnson Devices
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        device_vendor_msft_policy_config_defender_allowrealtimemonitoring_1
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - Desired State AV Config - Workstation: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_policy_config_defender_allowrealtimemonitoring_1)
+                        </li>
+                    
+                        <li>SvN - AV Sally Johnson Devices: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_policy_config_defender_allowrealtimemonitoring_1)
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> FLDS - Desired State AV Config - Workstation</p>
-                        <p><strong>Policy ID:</strong> 12810da0-c6ac-453b-8460-ef5546a990aa</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> device_vendor_msft_policy_config_defender_allowrealtimemonitoring_1</p>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_policy_config_defender_allowrealtimemonitoring_1</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_allowrealtimemonitoring</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
                 <h3>9.9 - Network files scanning disabled</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation, SvN - AV Sally Johnson Devices
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        device_vendor_msft_policy_config_defender_allowscanningnetworkfiles_0
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - Desired State AV Config - Workstation: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_policy_config_defender_allowscanningnetworkfiles_0)
+                        </li>
+                    
+                        <li>SvN - AV Sally Johnson Devices: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_policy_config_defender_allowscanningnetworkfiles_0)
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> FLDS - Desired State AV Config - Workstation</p>
-                        <p><strong>Policy ID:</strong> 12810da0-c6ac-453b-8460-ef5546a990aa</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> device_vendor_msft_policy_config_defender_allowscanningnetworkfiles_0</p>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_policy_config_defender_allowscanningnetworkfiles_0</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_allowscanningnetworkfiles</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
                 <h3>9.10 - Script scanning enabled</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation, SvN - AV Sally Johnson Devices
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        device_vendor_msft_policy_config_defender_allowscriptscanning_1
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - Desired State AV Config - Workstation: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_policy_config_defender_allowscriptscanning_1)
+                        </li>
+                    
+                        <li>SvN - AV Sally Johnson Devices: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_policy_config_defender_allowscriptscanning_1)
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> FLDS - Desired State AV Config - Workstation</p>
-                        <p><strong>Policy ID:</strong> 12810da0-c6ac-453b-8460-ef5546a990aa</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> device_vendor_msft_policy_config_defender_allowscriptscanning_1</p>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_policy_config_defender_allowscriptscanning_1</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_allowscriptscanning</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
                 <h3>9.11 - User UI access enabled</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation, SvN - AV Sally Johnson Devices
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        device_vendor_msft_policy_config_defender_allowuseruiaccess_1
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - Desired State AV Config - Workstation: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_policy_config_defender_allowuseruiaccess_1)
+                        </li>
+                    
+                        <li>SvN - AV Sally Johnson Devices: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_policy_config_defender_allowuseruiaccess_1)
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> FLDS - Desired State AV Config - Workstation</p>
-                        <p><strong>Policy ID:</strong> 12810da0-c6ac-453b-8460-ef5546a990aa</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> device_vendor_msft_policy_config_defender_allowuseruiaccess_1</p>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_policy_config_defender_allowuseruiaccess_1</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_allowuseruiaccess</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
                 <h3>9.12 - Check for signatures before scan enabled</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        device_vendor_msft_policy_config_defender_checkforsignaturesbeforerunningscan_1
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - Desired State AV Config - Workstation: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_policy_config_defender_checkforsignaturesbeforerunningscan_1)
+                        </li>
+                    
+                        <li>SvN - AV Sally Johnson Devices: 
+                            
+                                <span style="color: #d13438;">✗ NON-COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_policy_config_defender_checkforsignaturesbeforerunningscan_0)
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> FLDS - Desired State AV Config - Workstation</p>
-                        <p><strong>Policy ID:</strong> 12810da0-c6ac-453b-8460-ef5546a990aa</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> device_vendor_msft_policy_config_defender_checkforsignaturesbeforerunningscan_1</p>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_policy_config_defender_checkforsignaturesbeforerunningscan_1</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_checkforsignaturesbeforerunningscan</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
                 <h3>9.13 - Cloud block level set to high</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation, SvN - AV Sally Johnson Devices
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        device_vendor_msft_policy_config_defender_cloudblocklevel_2
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - Desired State AV Config - Workstation: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_policy_config_defender_cloudblocklevel_2)
+                        </li>
+                    
+                        <li>SvN - AV Sally Johnson Devices: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_policy_config_defender_cloudblocklevel_2)
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> FLDS - Desired State AV Config - Workstation</p>
-                        <p><strong>Policy ID:</strong> 12810da0-c6ac-453b-8460-ef5546a990aa</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> device_vendor_msft_policy_config_defender_cloudblocklevel_2</p>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_policy_config_defender_cloudblocklevel_2</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_cloudblocklevel</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
                 <h3>9.14 - Cloud extended timeout configured</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        None
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - Desired State AV Config - Workstation: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: 50)
+                        </li>
+                    
+                        <li>SvN - AV Sally Johnson Devices: 
+                            
+                                <span style="color: #d13438;">✗ NON-COMPLIANT</span>
+                            
+                            (Current: None)
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> FLDS - Desired State AV Config - Workstation</p>
-                        <p><strong>Policy ID:</strong> 12810da0-c6ac-453b-8460-ef5546a990aa</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        
-                        <p><strong>Current Value:</strong> 50</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_cloudextendedtimeout</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
                 <h3>9.15 - Malware retention period configured</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        None
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - Desired State AV Config - Workstation: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: 90)
+                        </li>
+                    
+                        <li>SvN - AV Sally Johnson Devices: 
+                            
+                                <span style="color: #d13438;">✗ NON-COMPLIANT</span>
+                            
+                            (Current: None)
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> FLDS - Desired State AV Config - Workstation</p>
-                        <p><strong>Policy ID:</strong> 12810da0-c6ac-453b-8460-ef5546a990aa</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        
-                        <p><strong>Current Value:</strong> 90</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_daystoretaincleanedmalware</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
                 <h3>9.16 - Disable catchup full scan</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        device_vendor_msft_policy_config_defender_disablecatchupfullscan_1
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - Desired State AV Config - Workstation: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_policy_config_defender_disablecatchupfullscan_1)
+                        </li>
+                    
+                        <li>SvN - AV Sally Johnson Devices: 
+                            
+                                <span style="color: #d13438;">✗ NON-COMPLIANT</span>
+                            
+                            (Current: None)
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> FLDS - Desired State AV Config - Workstation</p>
-                        <p><strong>Policy ID:</strong> 12810da0-c6ac-453b-8460-ef5546a990aa</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> device_vendor_msft_policy_config_defender_disablecatchupfullscan_1</p>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_policy_config_defender_disablecatchupfullscan_1</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_disablecatchupfullscan</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
                 <h3>9.17 - Disable catchup quick scan</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        device_vendor_msft_policy_config_defender_disablecatchupquickscan_1
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - Desired State AV Config - Workstation: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_policy_config_defender_disablecatchupquickscan_1)
+                        </li>
+                    
+                        <li>SvN - AV Sally Johnson Devices: 
+                            
+                                <span style="color: #d13438;">✗ NON-COMPLIANT</span>
+                            
+                            (Current: None)
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> FLDS - Desired State AV Config - Workstation</p>
-                        <p><strong>Policy ID:</strong> 12810da0-c6ac-453b-8460-ef5546a990aa</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> device_vendor_msft_policy_config_defender_disablecatchupquickscan_1</p>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_policy_config_defender_disablecatchupquickscan_1</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_disablecatchupquickscan</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
                 <h3>9.18 - Network protection enabled</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        device_vendor_msft_policy_config_defender_enablenetworkprotection_1
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - Desired State AV Config - Workstation: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_policy_config_defender_enablenetworkprotection_1)
+                        </li>
+                    
+                        <li>SvN - AV Sally Johnson Devices: 
+                            
+                                <span style="color: #d13438;">✗ NON-COMPLIANT</span>
+                            
+                            (Current: None)
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> FLDS - Desired State AV Config - Workstation</p>
-                        <p><strong>Policy ID:</strong> 12810da0-c6ac-453b-8460-ef5546a990aa</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> device_vendor_msft_policy_config_defender_enablenetworkprotection_1</p>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_policy_config_defender_enablenetworkprotection_1</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_enablenetworkprotection</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
                 <h3>9.19 - Potentially unwanted application protection enabled</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation, SvN - AV Sally Johnson Devices
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        device_vendor_msft_policy_config_defender_puaprotection_1
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - Desired State AV Config - Workstation: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_policy_config_defender_puaprotection_1)
+                        </li>
+                    
+                        <li>SvN - AV Sally Johnson Devices: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_policy_config_defender_puaprotection_1)
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> FLDS - Desired State AV Config - Workstation</p>
-                        <p><strong>Policy ID:</strong> 12810da0-c6ac-453b-8460-ef5546a990aa</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> device_vendor_msft_policy_config_defender_puaprotection_1</p>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_policy_config_defender_puaprotection_1</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_puaprotection</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
                 <h3>9.20 - Real-time scan direction configured</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation, SvN - AV Sally Johnson Devices
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        device_vendor_msft_policy_config_defender_realtimescandirection_0
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - Desired State AV Config - Workstation: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_policy_config_defender_realtimescandirection_0)
+                        </li>
+                    
+                        <li>SvN - AV Sally Johnson Devices: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_policy_config_defender_realtimescandirection_0)
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> FLDS - Desired State AV Config - Workstation</p>
-                        <p><strong>Policy ID:</strong> 12810da0-c6ac-453b-8460-ef5546a990aa</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> device_vendor_msft_policy_config_defender_realtimescandirection_0</p>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_policy_config_defender_realtimescandirection_0</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_realtimescandirection</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
                 <h3>9.21 - Scan parameter set to quick scan</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation, SvN - AV Sally Johnson Devices
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        device_vendor_msft_policy_config_defender_scanparameter_1
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - Desired State AV Config - Workstation: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_policy_config_defender_scanparameter_1)
+                        </li>
+                    
+                        <li>SvN - AV Sally Johnson Devices: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_policy_config_defender_scanparameter_1)
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> FLDS - Desired State AV Config - Workstation</p>
-                        <p><strong>Policy ID:</strong> 12810da0-c6ac-453b-8460-ef5546a990aa</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> device_vendor_msft_policy_config_defender_scanparameter_1</p>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_policy_config_defender_scanparameter_1</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_scanparameter</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
                 <h3>9.22 - Daily quick scan time configured</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation, SvN - AV Sally Johnson Devices
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        None
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - Desired State AV Config - Workstation: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: 120)
+                        </li>
+                    
+                        <li>SvN - AV Sally Johnson Devices: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: 120)
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> FLDS - Desired State AV Config - Workstation</p>
-                        <p><strong>Policy ID:</strong> 12810da0-c6ac-453b-8460-ef5546a990aa</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        
-                        <p><strong>Current Value:</strong> 120</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_schedulequickscantime</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
                 <h3>9.23 - Weekly scan day configured</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation, SvN - AV Sally Johnson Devices
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        None
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - Desired State AV Config - Workstation: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_policy_config_defender_schedulescanday_0)
+                        </li>
+                    
+                        <li>SvN - AV Sally Johnson Devices: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_policy_config_defender_schedulescanday_2)
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> FLDS - Desired State AV Config - Workstation</p>
-                        <p><strong>Policy ID:</strong> 12810da0-c6ac-453b-8460-ef5546a990aa</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_policy_config_defender_schedulescanday_0</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_schedulescanday</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
                 <h3>9.24 - Signature update interval configured</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation, SvN - AV Sally Johnson Devices
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        None
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - Desired State AV Config - Workstation: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: 4)
+                        </li>
+                    
+                        <li>SvN - AV Sally Johnson Devices: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: 8)
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> FLDS - Desired State AV Config - Workstation</p>
-                        <p><strong>Policy ID:</strong> 12810da0-c6ac-453b-8460-ef5546a990aa</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        
-                        <p><strong>Current Value:</strong> 4</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_signatureupdateinterval</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
                 <h3>9.25 - Automatic sample submission enabled</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        device_vendor_msft_policy_config_defender_submitsamplesconsent_1
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - Desired State AV Config - Workstation: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_policy_config_defender_submitsamplesconsent_1)
+                        </li>
+                    
+                        <li>SvN - AV Sally Johnson Devices: 
+                            
+                                <span style="color: #d13438;">✗ NON-COMPLIANT</span>
+                            
+                            (Current: None)
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> FLDS - Desired State AV Config - Workstation</p>
-                        <p><strong>Policy ID:</strong> 12810da0-c6ac-453b-8460-ef5546a990aa</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> device_vendor_msft_policy_config_defender_submitsamplesconsent_1</p>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_policy_config_defender_submitsamplesconsent_1</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_submitsamplesconsent</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
                 <h3>9.26 - Disable local admin merge enabled</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        device_vendor_msft_defender_configuration_disablelocaladminmerge_1
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - Desired State AV Config - Workstation: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_defender_configuration_disablelocaladminmerge_1)
+                        </li>
+                    
+                        <li>SvN - AV Sally Johnson Devices: 
+                            
+                                <span style="color: #d13438;">✗ NON-COMPLIANT</span>
+                            
+                            (Current: None)
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> FLDS - Desired State AV Config - Workstation</p>
-                        <p><strong>Policy ID:</strong> 12810da0-c6ac-453b-8460-ef5546a990aa</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> device_vendor_msft_defender_configuration_disablelocaladminmerge_1</p>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_defender_configuration_disablelocaladminmerge_1</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_defender_configuration_disablelocaladminmerge</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
                 <h3>9.27 - On-access protection enabled</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        device_vendor_msft_policy_config_defender_allowonaccessprotection_1
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - Desired State AV Config - Workstation: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_policy_config_defender_allowonaccessprotection_1)
+                        </li>
+                    
+                        <li>SvN - AV Sally Johnson Devices: 
+                            
+                                <span style="color: #d13438;">✗ NON-COMPLIANT</span>
+                            
+                            (Current: None)
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> FLDS - Desired State AV Config - Workstation</p>
-                        <p><strong>Policy ID:</strong> 12810da0-c6ac-453b-8460-ef5546a990aa</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> device_vendor_msft_policy_config_defender_allowonaccessprotection_1</p>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_policy_config_defender_allowonaccessprotection_1</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_allowonaccessprotection</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
                 <h3>9.28 - Threat severity default actions configured</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation, SvN - AV Sally Johnson Devices
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        quarantine
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - Desired State AV Config - Workstation: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: quarantine)
+                        </li>
+                    
+                        <li>SvN - AV Sally Johnson Devices: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: quarantine)
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> FLDS - Desired State AV Config - Workstation</p>
-                        <p><strong>Policy ID:</strong> 12810da0-c6ac-453b-8460-ef5546a990aa</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> quarantine</p>
-                        
-                        
-                        <p><strong>Current Value:</strong> quarantine</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_threatseveritydefaultaction</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
                 <h3>9.29 - Engine updates channel configured</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation, SvN - AV Sally Johnson Devices
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        None
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - Desired State AV Config - Workstation: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_defender_configuration_engineupdateschannel_5)
+                        </li>
+                    
+                        <li>SvN - AV Sally Johnson Devices: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_defender_configuration_engineupdateschannel_0)
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> FLDS - Desired State AV Config - Workstation</p>
-                        <p><strong>Policy ID:</strong> 12810da0-c6ac-453b-8460-ef5546a990aa</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_defender_configuration_engineupdateschannel_5</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_defender_configuration_engineupdateschannel</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
                 <h3>9.30 - Platform updates channel configured</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation, SvN - AV Sally Johnson Devices
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        None
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - Desired State AV Config - Workstation: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_defender_configuration_platformupdateschannel_5)
+                        </li>
+                    
+                        <li>SvN - AV Sally Johnson Devices: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_defender_configuration_platformupdateschannel_0)
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> FLDS - Desired State AV Config - Workstation</p>
-                        <p><strong>Policy ID:</strong> 12810da0-c6ac-453b-8460-ef5546a990aa</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_defender_configuration_platformupdateschannel_5</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_defender_configuration_platformupdateschannel</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
                 <h3>9.31 - Security intelligence updates channel configured</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation, SvN - AV Sally Johnson Devices
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        None
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - Desired State AV Config - Workstation: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_defender_configuration_securityintelligenceupdateschannel_5)
+                        </li>
+                    
+                        <li>SvN - AV Sally Johnson Devices: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            (Current: device_vendor_msft_defender_configuration_securityintelligenceupdateschannel_0)
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> FLDS - Desired State AV Config - Workstation</p>
-                        <p><strong>Policy ID:</strong> 12810da0-c6ac-453b-8460-ef5546a990aa</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
+            </div>
+            
+        </div>
+        
+        
+        
+        <div class="policy-section">
+            <h2>🛡️ Defender for Endpoint - Attack Surface Reduction Configurations</h2>
+            <p style="color: #666; font-style: italic; margin-bottom: 20px;">Microsoft Defender Attack Surface Reduction rules and configurations from Intune</p>
+            
+            
+            
+            <div class="policy-item pass">
+                <h3>10.1 - Block execution of potentially obfuscated scripts</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - ASR Desired State, SvN - Sally Johnson Devices ASR
+                </span></p>
+                <p>Policy Found: True</p>
+                
+                <p>Expected Value: 
                     
+                        device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockexecutionofpotentiallyobfuscatedscripts_block
                     
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_defender_configuration_securityintelligenceupdateschannel_5</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_defender_configuration_securityintelligenceupdateschannel</p>
-                        
-                    </div>
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
                     
+                        <li>FLDS - ASR Desired State: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            
+                                (Current: device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockexecutionofpotentiallyobfuscatedscripts_block)
+                            
+                        </li>
+                    
+                        <li>SvN - Sally Johnson Devices ASR: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            
+                                (Current: device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockexecutionofpotentiallyobfuscatedscripts_block)
+                            
+                        </li>
+                    
+                    </ul>
                 </div>
+                
             </div>
             
             
             <div class="policy-item pass">
-                <h3>9.32 - Archive files scanning enabled</h3>
+                <h3>10.2 - Block Win32 API calls from Office macros</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - ASR Desired State, SvN - Sally Johnson Devices ASR
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockwin32apicallsfromofficemacros_block
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - ASR Desired State: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            
+                                (Current: device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockwin32apicallsfromofficemacros_block)
+                            
+                        </li>
+                    
+                        <li>SvN - Sally Johnson Devices ASR: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            
+                                (Current: device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockwin32apicallsfromofficemacros_block)
+                            
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> SvN - AV Sally Johnson Devices</p>
-                        <p><strong>Policy ID:</strong> 8abc8d09-e111-40d3-8079-e13862e52edf</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> device_vendor_msft_policy_config_defender_allowarchivescanning_1</p>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_policy_config_defender_allowarchivescanning_1</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_allowarchivescanning</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
-                <h3>9.33 - Behavior monitoring enabled</h3>
+                <h3>10.3 - Block executable files from running unless they meet prevalence, age, or trusted list criterion</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - ASR Desired State, SvN - Sally Johnson Devices ASR
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockexecutablefilesrunningunlesstheymeetprevalenceagetrustedlistcriterion_block
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - ASR Desired State: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            
+                                (Current: device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockexecutablefilesrunningunlesstheymeetprevalenceagetrustedlistcriterion_block)
+                            
+                        </li>
+                    
+                        <li>SvN - Sally Johnson Devices ASR: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            
+                                (Current: device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockexecutablefilesrunningunlesstheymeetprevalenceagetrustedlistcriterion_block)
+                            
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> SvN - AV Sally Johnson Devices</p>
-                        <p><strong>Policy ID:</strong> 8abc8d09-e111-40d3-8079-e13862e52edf</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> device_vendor_msft_policy_config_defender_allowbehaviormonitoring_1</p>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_policy_config_defender_allowbehaviormonitoring_1</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_allowbehaviormonitoring</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
-                <h3>9.34 - Cloud-delivered protection enabled</h3>
+                <h3>10.4 - Block Office communication applications from creating child processes</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - ASR Desired State, SvN - Sally Johnson Devices ASR
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockofficecommunicationappfromcreatingchildprocesses_block
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - ASR Desired State: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            
+                                (Current: device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockofficecommunicationappfromcreatingchildprocesses_block)
+                            
+                        </li>
+                    
+                        <li>SvN - Sally Johnson Devices ASR: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            
+                                (Current: device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockofficecommunicationappfromcreatingchildprocesses_block)
+                            
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> SvN - AV Sally Johnson Devices</p>
-                        <p><strong>Policy ID:</strong> 8abc8d09-e111-40d3-8079-e13862e52edf</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> device_vendor_msft_policy_config_defender_allowcloudprotection_1</p>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_policy_config_defender_allowcloudprotection_1</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_allowcloudprotection</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
-                <h3>9.35 - Email scanning enabled</h3>
+                <h3>10.5 - Block all Office applications from creating child processes</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - ASR Desired State, SvN - Sally Johnson Devices ASR
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockallofficeapplicationsfromcreatingchildprocesses_block
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - ASR Desired State: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            
+                                (Current: device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockallofficeapplicationsfromcreatingchildprocesses_block)
+                            
+                        </li>
+                    
+                        <li>SvN - Sally Johnson Devices ASR: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            
+                                (Current: device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockallofficeapplicationsfromcreatingchildprocesses_block)
+                            
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> SvN - AV Sally Johnson Devices</p>
-                        <p><strong>Policy ID:</strong> 8abc8d09-e111-40d3-8079-e13862e52edf</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> device_vendor_msft_policy_config_defender_allowemailscanning_1</p>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_policy_config_defender_allowemailscanning_1</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_allowemailscanning</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
-                <h3>9.36 - Full scan on mapped network drives disabled</h3>
+                <h3>10.6 - Block Adobe Reader from creating child processes</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - ASR Desired State, SvN - Sally Johnson Devices ASR
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockadobereaderfromcreatingchildprocesses_block
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - ASR Desired State: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            
+                                (Current: device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockadobereaderfromcreatingchildprocesses_block)
+                            
+                        </li>
+                    
+                        <li>SvN - Sally Johnson Devices ASR: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            
+                                (Current: device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockadobereaderfromcreatingchildprocesses_block)
+                            
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> SvN - AV Sally Johnson Devices</p>
-                        <p><strong>Policy ID:</strong> 8abc8d09-e111-40d3-8079-e13862e52edf</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> device_vendor_msft_policy_config_defender_allowfullscanonmappednetworkdrives_0</p>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_policy_config_defender_allowfullscanonmappednetworkdrives_0</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_allowfullscanonmappednetworkdrives</p>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            
-            <div class="policy-item fail">
-                <h3>9.37 - Scan removable drives enabled</h3>
-                
-                <!-- Status Banner -->
-                <div class="policy-status-banner fail">
-                    
-                        ❌ NON-COMPLIANT
-                    
-                </div>
-                
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text fail">NON-COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> SvN - AV Sally Johnson Devices</p>
-                        <p><strong>Policy ID:</strong> 8abc8d09-e111-40d3-8079-e13862e52edf</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> device_vendor_msft_policy_config_defender_allowfullscanremovabledrivescanning_1</p>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_policy_config_defender_allowfullscanremovabledrivescanning_0</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_allowfullscanremovabledrivescanning</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
-                <h3>9.38 - Enable downloaded files and attachments scanning</h3>
+                <h3>10.7 - Block credential stealing from the Windows local security authority subsystem (lsass.exe)</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - ASR Desired State
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockcredentialstealingfromwindowslocalsecurityauthoritysubsystem_block
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - ASR Desired State: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            
+                                (Current: device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockcredentialstealingfromwindowslocalsecurityauthoritysubsystem_block)
+                            
+                        </li>
+                    
+                        <li>SvN - Sally Johnson Devices ASR: 
+                            
+                                <span style="color: #d13438;">✗ NON-COMPLIANT</span>
+                            
+                            
+                                (Current: device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockcredentialstealingfromwindowslocalsecurityauthoritysubsystem_audit)
+                            
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> SvN - AV Sally Johnson Devices</p>
-                        <p><strong>Policy ID:</strong> 8abc8d09-e111-40d3-8079-e13862e52edf</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> device_vendor_msft_policy_config_defender_allowioavprotection_1</p>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_policy_config_defender_allowioavprotection_1</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_allowioavprotection</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
-                <h3>9.39 - Real-time monitoring enabled</h3>
+                <h3>10.8 - Block JavaScript or VBScript from launching downloaded executable content</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - ASR Desired State, SvN - Sally Johnson Devices ASR
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockjavascriptorvbscriptfromlaunchingdownloadedexecutablecontent_block
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - ASR Desired State: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            
+                                (Current: device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockjavascriptorvbscriptfromlaunchingdownloadedexecutablecontent_block)
+                            
+                        </li>
+                    
+                        <li>SvN - Sally Johnson Devices ASR: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            
+                                (Current: device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockjavascriptorvbscriptfromlaunchingdownloadedexecutablecontent_block)
+                            
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> SvN - AV Sally Johnson Devices</p>
-                        <p><strong>Policy ID:</strong> 8abc8d09-e111-40d3-8079-e13862e52edf</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> device_vendor_msft_policy_config_defender_allowrealtimemonitoring_1</p>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_policy_config_defender_allowrealtimemonitoring_1</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_allowrealtimemonitoring</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
-                <h3>9.40 - Network files scanning disabled</h3>
+                <h3>10.9 - Block webshell creation for servers</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - ASR Desired State, SvN - Sally Johnson Devices ASR
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockwebshellcreationforservers_block
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - ASR Desired State: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            
+                                (Current: device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockwebshellcreationforservers_block)
+                            
+                        </li>
+                    
+                        <li>SvN - Sally Johnson Devices ASR: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            
+                                (Current: device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockwebshellcreationforservers_block)
+                            
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> SvN - AV Sally Johnson Devices</p>
-                        <p><strong>Policy ID:</strong> 8abc8d09-e111-40d3-8079-e13862e52edf</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> device_vendor_msft_policy_config_defender_allowscanningnetworkfiles_0</p>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_policy_config_defender_allowscanningnetworkfiles_0</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_allowscanningnetworkfiles</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
-                <h3>9.41 - Script scanning enabled</h3>
+                <h3>10.10 - Block untrusted and unsigned processes that run from USB</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - ASR Desired State, SvN - Sally Johnson Devices ASR
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockuntrustedunsignedprocessesthatrunfromusb_block
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - ASR Desired State: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            
+                                (Current: device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockuntrustedunsignedprocessesthatrunfromusb_block)
+                            
+                        </li>
+                    
+                        <li>SvN - Sally Johnson Devices ASR: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            
+                                (Current: device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockuntrustedunsignedprocessesthatrunfromusb_block)
+                            
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> SvN - AV Sally Johnson Devices</p>
-                        <p><strong>Policy ID:</strong> 8abc8d09-e111-40d3-8079-e13862e52edf</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> device_vendor_msft_policy_config_defender_allowscriptscanning_1</p>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_policy_config_defender_allowscriptscanning_1</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_allowscriptscanning</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
-                <h3>9.42 - User UI access enabled</h3>
+                <h3>10.11 - Block persistence through WMI event subscription</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - ASR Desired State, SvN - Sally Johnson Devices ASR
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockpersistencethroughwmieventsubscription_block
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - ASR Desired State: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            
+                                (Current: device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockpersistencethroughwmieventsubscription_block)
+                            
+                        </li>
+                    
+                        <li>SvN - Sally Johnson Devices ASR: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            
+                                (Current: device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockpersistencethroughwmieventsubscription_block)
+                            
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> SvN - AV Sally Johnson Devices</p>
-                        <p><strong>Policy ID:</strong> 8abc8d09-e111-40d3-8079-e13862e52edf</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> device_vendor_msft_policy_config_defender_allowuseruiaccess_1</p>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_policy_config_defender_allowuseruiaccess_1</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_allowuseruiaccess</p>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            
-            <div class="policy-item fail">
-                <h3>9.43 - Check for signatures before scan enabled</h3>
-                
-                <!-- Status Banner -->
-                <div class="policy-status-banner fail">
-                    
-                        ❌ NON-COMPLIANT
-                    
-                </div>
-                
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text fail">NON-COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> SvN - AV Sally Johnson Devices</p>
-                        <p><strong>Policy ID:</strong> 8abc8d09-e111-40d3-8079-e13862e52edf</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> device_vendor_msft_policy_config_defender_checkforsignaturesbeforerunningscan_1</p>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_policy_config_defender_checkforsignaturesbeforerunningscan_0</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_checkforsignaturesbeforerunningscan</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
-                <h3>9.44 - Cloud block level set to high</h3>
+                <h3>10.12 - Block use of copied or impersonated system tools</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - ASR Desired State
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockuseofcopiedorimpersonatedsystemtools_block
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - ASR Desired State: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            
+                                (Current: device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockuseofcopiedorimpersonatedsystemtools_block)
+                            
+                        </li>
+                    
+                        <li>SvN - Sally Johnson Devices ASR: 
+                            
+                                <span style="color: #d13438;">✗ NON-COMPLIANT</span>
+                            
+                            
+                                (Current: device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockuseofcopiedorimpersonatedsystemtools_audit)
+                            
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> SvN - AV Sally Johnson Devices</p>
-                        <p><strong>Policy ID:</strong> 8abc8d09-e111-40d3-8079-e13862e52edf</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> device_vendor_msft_policy_config_defender_cloudblocklevel_2</p>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_policy_config_defender_cloudblocklevel_2</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_cloudblocklevel</p>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            
-            <div class="policy-item fail">
-                <h3>9.45 - Cloud extended timeout configured</h3>
-                
-                <!-- Status Banner -->
-                <div class="policy-status-banner fail">
-                    
-                        ❌ NON-COMPLIANT
-                    
-                </div>
-                
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text fail">NOT CONFIGURED</span></p>
-                        <p><strong>Policy Name:</strong> SvN - AV Sally Johnson Devices</p>
-                        <p><strong>Policy ID:</strong> 8abc8d09-e111-40d3-8079-e13862e52edf</p>
-                        <p><strong>Setting Found:</strong> False</p>
-                    </div>
-                    
-                    
-                </div>
-            </div>
-            
-            
-            <div class="policy-item fail">
-                <h3>9.46 - Malware retention period configured</h3>
-                
-                <!-- Status Banner -->
-                <div class="policy-status-banner fail">
-                    
-                        ❌ NON-COMPLIANT
-                    
-                </div>
-                
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text fail">NOT CONFIGURED</span></p>
-                        <p><strong>Policy Name:</strong> SvN - AV Sally Johnson Devices</p>
-                        <p><strong>Policy ID:</strong> 8abc8d09-e111-40d3-8079-e13862e52edf</p>
-                        <p><strong>Setting Found:</strong> False</p>
-                    </div>
-                    
-                    
-                </div>
-            </div>
-            
-            
-            <div class="policy-item fail">
-                <h3>9.47 - Disable catchup full scan</h3>
-                
-                <!-- Status Banner -->
-                <div class="policy-status-banner fail">
-                    
-                        ❌ NON-COMPLIANT
-                    
-                </div>
-                
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text fail">NOT CONFIGURED</span></p>
-                        <p><strong>Policy Name:</strong> SvN - AV Sally Johnson Devices</p>
-                        <p><strong>Policy ID:</strong> 8abc8d09-e111-40d3-8079-e13862e52edf</p>
-                        <p><strong>Setting Found:</strong> False</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> device_vendor_msft_policy_config_defender_disablecatchupfullscan_1</p>
-                        
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_disablecatchupfullscan</p>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            
-            <div class="policy-item fail">
-                <h3>9.48 - Disable catchup quick scan</h3>
-                
-                <!-- Status Banner -->
-                <div class="policy-status-banner fail">
-                    
-                        ❌ NON-COMPLIANT
-                    
-                </div>
-                
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text fail">NOT CONFIGURED</span></p>
-                        <p><strong>Policy Name:</strong> SvN - AV Sally Johnson Devices</p>
-                        <p><strong>Policy ID:</strong> 8abc8d09-e111-40d3-8079-e13862e52edf</p>
-                        <p><strong>Setting Found:</strong> False</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> device_vendor_msft_policy_config_defender_disablecatchupquickscan_1</p>
-                        
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_disablecatchupquickscan</p>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            
-            <div class="policy-item fail">
-                <h3>9.49 - Network protection enabled</h3>
-                
-                <!-- Status Banner -->
-                <div class="policy-status-banner fail">
-                    
-                        ❌ NON-COMPLIANT
-                    
-                </div>
-                
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text fail">NOT CONFIGURED</span></p>
-                        <p><strong>Policy Name:</strong> SvN - AV Sally Johnson Devices</p>
-                        <p><strong>Policy ID:</strong> 8abc8d09-e111-40d3-8079-e13862e52edf</p>
-                        <p><strong>Setting Found:</strong> False</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> device_vendor_msft_policy_config_defender_enablenetworkprotection_1</p>
-                        
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_enablenetworkprotection</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
-                <h3>9.50 - Potentially unwanted application protection enabled</h3>
+                <h3>10.13 - Block abuse of exploited vulnerable signed drivers</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - ASR Desired State, SvN - Sally Johnson Devices ASR
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockabuseofexploitedvulnerablesigneddrivers_block
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - ASR Desired State: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            
+                                (Current: device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockabuseofexploitedvulnerablesigneddrivers_block)
+                            
+                        </li>
+                    
+                        <li>SvN - Sally Johnson Devices ASR: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            
+                                (Current: device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockabuseofexploitedvulnerablesigneddrivers_block)
+                            
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> SvN - AV Sally Johnson Devices</p>
-                        <p><strong>Policy ID:</strong> 8abc8d09-e111-40d3-8079-e13862e52edf</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> device_vendor_msft_policy_config_defender_puaprotection_1</p>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_policy_config_defender_puaprotection_1</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_puaprotection</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
-                <h3>9.51 - Real-time scan direction configured</h3>
+                <h3>10.14 - Block process creations originating from PSExec and WMI commands</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - ASR Desired State, SvN - Sally Johnson Devices ASR
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockprocesscreationsfrompsexecandwmicommands_block
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - ASR Desired State: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            
+                                (Current: device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockprocesscreationsfrompsexecandwmicommands_block)
+                            
+                        </li>
+                    
+                        <li>SvN - Sally Johnson Devices ASR: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            
+                                (Current: device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockprocesscreationsfrompsexecandwmicommands_block)
+                            
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> SvN - AV Sally Johnson Devices</p>
-                        <p><strong>Policy ID:</strong> 8abc8d09-e111-40d3-8079-e13862e52edf</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> device_vendor_msft_policy_config_defender_realtimescandirection_0</p>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_policy_config_defender_realtimescandirection_0</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_realtimescandirection</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
-                <h3>9.52 - Scan parameter set to quick scan</h3>
+                <h3>10.15 - Block Office applications from creating executable content</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - ASR Desired State, SvN - Sally Johnson Devices ASR
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockofficeapplicationsfromcreatingexecutablecontent_block
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - ASR Desired State: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            
+                                (Current: device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockofficeapplicationsfromcreatingexecutablecontent_block)
+                            
+                        </li>
+                    
+                        <li>SvN - Sally Johnson Devices ASR: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            
+                                (Current: device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockofficeapplicationsfromcreatingexecutablecontent_block)
+                            
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> SvN - AV Sally Johnson Devices</p>
-                        <p><strong>Policy ID:</strong> 8abc8d09-e111-40d3-8079-e13862e52edf</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> device_vendor_msft_policy_config_defender_scanparameter_1</p>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_policy_config_defender_scanparameter_1</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_scanparameter</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
-                <h3>9.53 - Daily quick scan time configured</h3>
+                <h3>10.16 - Block Office applications from injecting code into other processes</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - ASR Desired State, SvN - Sally Johnson Devices ASR
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockofficeapplicationsfrominjectingcodeintootherprocesses_block
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - ASR Desired State: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            
+                                (Current: device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockofficeapplicationsfrominjectingcodeintootherprocesses_block)
+                            
+                        </li>
+                    
+                        <li>SvN - Sally Johnson Devices ASR: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            
+                                (Current: device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockofficeapplicationsfrominjectingcodeintootherprocesses_block)
+                            
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> SvN - AV Sally Johnson Devices</p>
-                        <p><strong>Policy ID:</strong> 8abc8d09-e111-40d3-8079-e13862e52edf</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        
-                        <p><strong>Current Value:</strong> 120</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_schedulequickscantime</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
-                <h3>9.54 - Weekly scan day configured</h3>
+                <h3>10.17 - Block rebooting machine in Safe Mode</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - ASR Desired State
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockrebootingmachineinsafemode_block
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - ASR Desired State: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            
+                                (Current: device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockrebootingmachineinsafemode_block)
+                            
+                        </li>
+                    
+                        <li>SvN - Sally Johnson Devices ASR: 
+                            
+                                <span style="color: #d13438;">✗ NON-COMPLIANT</span>
+                            
+                            
+                                (Current: device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockrebootingmachineinsafemode_audit)
+                            
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> SvN - AV Sally Johnson Devices</p>
-                        <p><strong>Policy ID:</strong> 8abc8d09-e111-40d3-8079-e13862e52edf</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_policy_config_defender_schedulescanday_2</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_schedulescanday</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
-                <h3>9.55 - Signature update interval configured</h3>
+                <h3>10.18 - Use advanced protection against ransomware</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - ASR Desired State, SvN - Sally Johnson Devices ASR
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        device_vendor_msft_policy_config_defender_attacksurfacereductionrules_useadvancedprotectionagainstransomware_block
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - ASR Desired State: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            
+                                (Current: device_vendor_msft_policy_config_defender_attacksurfacereductionrules_useadvancedprotectionagainstransomware_block)
+                            
+                        </li>
+                    
+                        <li>SvN - Sally Johnson Devices ASR: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            
+                                (Current: device_vendor_msft_policy_config_defender_attacksurfacereductionrules_useadvancedprotectionagainstransomware_block)
+                            
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> SvN - AV Sally Johnson Devices</p>
-                        <p><strong>Policy ID:</strong> 8abc8d09-e111-40d3-8079-e13862e52edf</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        
-                        <p><strong>Current Value:</strong> 8</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_signatureupdateinterval</p>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            
-            <div class="policy-item fail">
-                <h3>9.56 - Automatic sample submission enabled</h3>
-                
-                <!-- Status Banner -->
-                <div class="policy-status-banner fail">
-                    
-                        ❌ NON-COMPLIANT
-                    
-                </div>
-                
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text fail">NOT CONFIGURED</span></p>
-                        <p><strong>Policy Name:</strong> SvN - AV Sally Johnson Devices</p>
-                        <p><strong>Policy ID:</strong> 8abc8d09-e111-40d3-8079-e13862e52edf</p>
-                        <p><strong>Setting Found:</strong> False</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> device_vendor_msft_policy_config_defender_submitsamplesconsent_1</p>
-                        
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_submitsamplesconsent</p>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            
-            <div class="policy-item fail">
-                <h3>9.57 - Disable local admin merge enabled</h3>
-                
-                <!-- Status Banner -->
-                <div class="policy-status-banner fail">
-                    
-                        ❌ NON-COMPLIANT
-                    
-                </div>
-                
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text fail">NOT CONFIGURED</span></p>
-                        <p><strong>Policy Name:</strong> SvN - AV Sally Johnson Devices</p>
-                        <p><strong>Policy ID:</strong> 8abc8d09-e111-40d3-8079-e13862e52edf</p>
-                        <p><strong>Setting Found:</strong> False</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> device_vendor_msft_defender_configuration_disablelocaladminmerge_1</p>
-                        
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_defender_configuration_disablelocaladminmerge</p>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            
-            <div class="policy-item fail">
-                <h3>9.58 - On-access protection enabled</h3>
-                
-                <!-- Status Banner -->
-                <div class="policy-status-banner fail">
-                    
-                        ❌ NON-COMPLIANT
-                    
-                </div>
-                
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text fail">NOT CONFIGURED</span></p>
-                        <p><strong>Policy Name:</strong> SvN - AV Sally Johnson Devices</p>
-                        <p><strong>Policy ID:</strong> 8abc8d09-e111-40d3-8079-e13862e52edf</p>
-                        <p><strong>Setting Found:</strong> False</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> device_vendor_msft_policy_config_defender_allowonaccessprotection_1</p>
-                        
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_allowonaccessprotection</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
-                <h3>9.59 - Threat severity default actions configured</h3>
+                <h3>10.19 - Block executable content from email client and webmail</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: FLDS - ASR Desired State, SvN - Sally Johnson Devices ASR
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockexecutablecontentfromemailclientandwebmail_block
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - ASR Desired State: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            
+                                (Current: device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockexecutablecontentfromemailclientandwebmail_block)
+                            
+                        </li>
+                    
+                        <li>SvN - Sally Johnson Devices ASR: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            
+                                (Current: device_vendor_msft_policy_config_defender_attacksurfacereductionrules_blockexecutablecontentfromemailclientandwebmail_block)
+                            
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> SvN - AV Sally Johnson Devices</p>
-                        <p><strong>Policy ID:</strong> 8abc8d09-e111-40d3-8079-e13862e52edf</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        <p><strong>Expected Value:</strong> quarantine</p>
-                        
-                        
-                        <p><strong>Current Value:</strong> quarantine</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_policy_config_defender_threatseveritydefaultaction</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
             
             <div class="policy-item pass">
-                <h3>9.60 - Engine updates channel configured</h3>
+                <h3>10.20 - Enable controlled folder access</h3>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - Found in policies: SvN - Sally Johnson Devices ASR
+                </span></p>
+                <p>Policy Found: True</p>
                 
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
+                <p>Expected Value: 
                     
-                        ✅ COMPLIANT
+                        device_vendor_msft_policy_config_defender_enablecontrolledfolderaccess_2
                     
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>Policy Details:</h4>
+                    <ul>
+                    
+                        <li>FLDS - ASR Desired State: 
+                            
+                                <span style="color: #d13438;">✗ NON-COMPLIANT</span>
+                            
+                            
+                                (Current: device_vendor_msft_policy_config_defender_enablecontrolledfolderaccess_1)
+                            
+                        </li>
+                    
+                        <li>SvN - Sally Johnson Devices ASR: 
+                            
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            
+                            
+                                (Current: device_vendor_msft_policy_config_defender_enablecontrolledfolderaccess_2)
+                            
+                        </li>
+                    
+                    </ul>
                 </div>
                 
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> SvN - AV Sally Johnson Devices</p>
-                        <p><strong>Policy ID:</strong> 8abc8d09-e111-40d3-8079-e13862e52edf</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_defender_configuration_engineupdateschannel_0</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_defender_configuration_engineupdateschannel</p>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            
-            <div class="policy-item pass">
-                <h3>9.61 - Platform updates channel configured</h3>
-                
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
-                    
-                        ✅ COMPLIANT
-                    
-                </div>
-                
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> SvN - AV Sally Johnson Devices</p>
-                        <p><strong>Policy ID:</strong> 8abc8d09-e111-40d3-8079-e13862e52edf</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_defender_configuration_platformupdateschannel_0</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_defender_configuration_platformupdateschannel</p>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            
-            <div class="policy-item pass">
-                <h3>9.62 - Security intelligence updates channel configured</h3>
-                
-                <!-- Status Banner -->
-                <div class="policy-status-banner pass">
-                    
-                        ✅ COMPLIANT
-                    
-                </div>
-                
-                <div class="policy-details">
-                    <div class="detail-group">
-                        <h4>📊 Configuration Status</h4>
-                        <p><strong>Status:</strong> <span class="status-text pass">COMPLIANT</span></p>
-                        <p><strong>Policy Name:</strong> SvN - AV Sally Johnson Devices</p>
-                        <p><strong>Policy ID:</strong> 8abc8d09-e111-40d3-8079-e13862e52edf</p>
-                        <p><strong>Setting Found:</strong> True</p>
-                    </div>
-                    
-                    
-                    <div class="detail-group">
-                        <h4>⚙️ Configuration Values</h4>
-                        
-                        
-                        <p><strong>Current Value:</strong> device_vendor_msft_defender_configuration_securityintelligenceupdateschannel_0</p>
-                        
-                        
-                        <p><strong>Setting ID:</strong> device_vendor_msft_defender_configuration_securityintelligenceupdateschannel</p>
-                        
-                    </div>
-                    
-                </div>
             </div>
             
         </div>

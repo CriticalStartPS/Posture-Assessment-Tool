@@ -116,4 +116,4 @@ requirements:
   - name: "Enable controlled folder access"
     check_id: "ASR_020"
     setting_definition_id: "device_vendor_msft_policy_config_defender_enablecontrolledfolderaccess"
-    expected_value: "device_vendor_msft_policy_config_defender_enablecontrolledfolderaccess_2"
+    expected_value: "device_vendor_msft_policy_config_defender_enablecontrolledfolderaccess_1"
