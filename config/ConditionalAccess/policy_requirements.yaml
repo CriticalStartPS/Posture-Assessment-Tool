@@ -285,3 +285,42 @@ conditional_access_policies:
     required_session_controls:
       applicationEnforcedRestrictions:
         isEnabled: true
+
+  - name: "Require compliant Device to Access Resources"
+    description: "Enforce device compliance for Windows devices accessing resources"
+    required_conditions:
+      users:
+        includeUsers: ["All"]
+      applications:
+        includeApplications: ["All"]
+      clientAppTypes: ["all"]
+      platforms:
+        includePlatforms: ["all"]
+        excludePlatforms: ["android", "iOS", "macOS", "linux"]
+      locations:
+        includeLocations: ["AllTrusted"]
+    required_controls:
+      operator: "OR"
+      builtInControls: ["mfa", "compliantDevice"]
+
+  - name: "Exchange Online Powershell Restrict"
+    description: "Block Exchange Online PowerShell access except for specific admin roles"
+    required_conditions:
+      users:
+        includeUsers: ["All"]
+        excludeRoles: [
+          "62e90394-69f5-4237-9190-012177145e10",  # Global Administrator
+          "f2ef992c-3afb-46b9-b7cf-a126ee74c451"   # Exchange Administrator
+        ]
+      applications:
+        includeApplications: ["00000002-0000-0ff1-ce00-000000000000"]  # Exchange Online
+        excludeApplications: ["Office365"]
+      clientAppTypes: ["all"]
+    required_controls:
+      operator: "OR"
+      builtInControls: ["block"]
+    required_session_controls:
+      signInFrequency:
+        authenticationType: "primaryAndSecondaryAuthentication"
+        frequencyInterval: "everyTime"
+        isEnabled: true
