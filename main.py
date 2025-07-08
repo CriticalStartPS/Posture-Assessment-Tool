@@ -1,4 +1,5 @@
 from GraphAuthenticator import GraphAuthenticator
+from TenantInfoHandler import TenantInfoHandler
 from EntraID.ConditionalAccess.ConditionalAccessPolicyHandler import ConditionalAccessPolicyHandler
 from EntraID.AuthorizationPolicy.AuthorizationPolicyHandler import AuthorizationPolicyHandler
 from DefenderForOffice365.AntiSpamPolicyHandler import AntiSpamPolicyHandler
@@ -469,9 +470,14 @@ if ($module) {
         # Clear the session cache after all Defender policies are retrieved
         print(f"\nSession manager cached policies: {list(exchange_session_manager.get_cached_policies().keys())}")
         
+        # Get tenant information
+        print("\n=== Retrieving Tenant Information ===")
+        tenant_handler = TenantInfoHandler(token)
+        tenant_info = tenant_handler.get_tenant_information()
+        
         # Update report generation to include all Defender for Office 365 policy results
         report = ReportGenerator()
-        report.generate_report(ca_results, auth_results, antispam_results, antiphishing_results, antimalware_results, safeattachments_results, safelinks_results, exchangeonline_results, antivirus_results, asr_results)
+        report.generate_report(ca_results, auth_results, antispam_results, antiphishing_results, antimalware_results, safeattachments_results, safelinks_results, exchangeonline_results, antivirus_results, asr_results, tenant_info)
 
 if __name__ == '__main__':
     main()

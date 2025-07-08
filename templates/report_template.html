@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Azure Security Compliance Report</title>
+    <title>Posture Assessment Tool Report</title>
     <style>
         :root {
             --primary-color: #0078d4;
@@ -181,7 +181,16 @@
 <body>
     <div class="header">
         <div class="container">
-            <h1>Azure Security Compliance Report</h1>
+            <h1>Posture Assessment Tool Report</h1>
+            {% if tenant_info and (tenant_info.displayName or tenant_info.id) %}
+            <div class="tenant-info" style="color: rgba(255, 255, 255, 0.9); font-size: 16px; margin: 10px 0;">
+                <strong>{{ tenant_info.displayName or 'Unknown Organization' }}</strong>
+                {% set tenant_id = tenant_info.id or tenant_info.tenantId %}
+                {% if tenant_id and tenant_id != 'Unknown' %}
+                <span style="margin-left: 20px;">Tenant ID: {{ tenant_id }}</span>
+                {% endif %}
+            </div>
+            {% endif %}
             <div class="timestamp">Generated: {{ timestamp }}</div>
         </div>
     </div>

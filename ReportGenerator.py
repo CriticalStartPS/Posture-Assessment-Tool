@@ -998,7 +998,7 @@ class ReportGenerator:
             'asr_results': asr_results
         }
 
-    def generate_report(self, ca_results, auth_results, antispam_results=None, antiphishing_results=None, antimalware_results=None, safeattachments_results=None, safelinks_results=None, exchangeonline_results=None, antivirus_results=None, asr_results=None):
+    def generate_report(self, ca_results, auth_results, antispam_results=None, antiphishing_results=None, antimalware_results=None, safeattachments_results=None, safelinks_results=None, exchangeonline_results=None, antivirus_results=None, asr_results=None, tenant_info=None):
         # Calculate detailed compliance metrics
         ca_compliance = self.calculate_compliance_details(ca_results, is_conditional_access=True)
         auth_compliance = self.calculate_compliance_details(auth_results, is_conditional_access=False)
@@ -1147,7 +1147,8 @@ class ReportGenerator:
             exchangeonline_compliance=exchangeonline_compliance,
             antivirus_compliance=antivirus_compliance,
             asr_compliance=asr_compliance,
-            dkim_compliance=dkim_compliance
+            dkim_compliance=dkim_compliance,
+            tenant_info=tenant_info or {}
         )
         
         # Create reports directory if it doesn't exist
