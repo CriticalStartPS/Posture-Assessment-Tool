@@ -265,6 +265,7 @@ if ($module) {
                     defender_policy_types.append('externalinoutlook')
                     defender_policy_types.append('organizationconfig')
                     defender_policy_types.append('reportsubmissionpolicy')
+                    defender_policy_types.append('dkim')
                 
                 # Retrieve all needed Defender policies in a single authentication session
                 if defender_policy_types:
@@ -456,6 +457,13 @@ if ($module) {
                     'found': False,
                     'status': f'ERROR - {str(e)}',
                     'policy_type': 'exchangeonline'
+                }]
+            if not dkim_results:
+                dkim_results = [{
+                    'requirement_name': 'Error',
+                    'found': False,
+                    'status': f'ERROR - {str(e)}',
+                    'policy_type': 'dkim'
                 }]
 
         # Clear the session cache after all Defender policies are retrieved

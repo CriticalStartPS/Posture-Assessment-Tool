@@ -42,6 +42,8 @@ class ExchangeOnlineConfigHandler:
             config_types.append('organizationconfig')
         if 'reportsubmissionpolicy_policies' in self.requirements:
             config_types.append('reportsubmissionpolicy')
+        if 'dkim_policies' in self.requirements:
+            config_types.append('dkim')
         
         print(f"Configuration types to check: {config_types}")
         
@@ -79,6 +81,14 @@ class ExchangeOnlineConfigHandler:
             print(f"Retrieved {len(reportsubmissionpolicy_configs)} Report Submission Policy configurations")
             reportsubmissionpolicy_results = self._check_policy_requirements(reportsubmissionpolicy_configs, self.requirements, "reportsubmissionpolicy")
             all_results.extend(reportsubmissionpolicy_results)
+        
+        # Check DKIM configurations
+        if 'dkim' in config_types:
+            print("\n--- Checking DKIM Signing Configuration ---")
+            dkim_configs = all_configs.get("dkim", [])
+            print(f"Retrieved {len(dkim_configs)} DKIM configurations")
+            dkim_results = self._check_dkim_requirements(dkim_configs, self.requirements, "dkim")
+            all_results.extend(dkim_results)
         
         return all_results
 
@@ -187,6 +197,121 @@ class ExchangeOnlineConfigHandler:
                 print(f"    Expected: {expected_value}")
                 for policy_result in policy_results:
                     print(f"    {policy_result['policy_name']}: {policy_result['current_value']} ({'✓' if policy_result['is_compliant'] else '✗'})")
+        
+        return results
+
+    def _check_dkim_requirements(self, dkim_configs: List[Dict], requirements: Dict, policy_type: str) -> List[Dict[str, Any]]:
+        """Check DKIM configurations against requirements"""
+        results = []
+        
+        if not dkim_configs:
+            return [{
+                'requirement_name': f'{policy_type.upper()} Connection Error',
+                'found': False,
+                'status': f'MISSING - Could not connect to Exchange Online or retrieve {policy_type.upper()} configurations',
+                'policy_type': policy_type
+            }]
+        
+        print(f"Successfully retrieved {len(dkim_configs)} {policy_type.upper()} configurations")
+        
+        # Print all domains found
+        for config in dkim_configs:
+            domain = config.get('Domain', 'Unknown')
+            selector1_size = config.get('Selector1KeySize', 'Unknown')
+            selector2_size = config.get('Selector2KeySize', 'Unknown')
+            print(f"  - Domain: {domain} (Selector1: {selector1_size}, Selector2: {selector2_size})")
+        
+        # Get the appropriate requirements key
+        requirements_key = f'{policy_type}_policies'
+        policy_requirements = requirements.get(requirements_key, [])
+        
+        # Evaluate each requirement against ALL DKIM configurations
+        for requirement in policy_requirements:
+            setting = requirement['setting']
+            expected_value = requirement['expected_value']
+            requirement_name = requirement['name']
+            
+            # Track results for this requirement across all domains
+            domain_results = []
+            compliant_domains = []
+            non_compliant_domains = []
+            
+            for config in dkim_configs:
+                domain = config.get('Domain', 'Unknown')
+                
+                # Handle different DKIM settings
+                if setting == 'KeySize':
+                    # Check both selector key sizes
+                    selector1_size = config.get('Selector1KeySize', 0)
+                    selector2_size = config.get('Selector2KeySize', 0)
+                    
+                    # Both selectors must meet the minimum key size requirement
+                    selector1_compliant = selector1_size >= expected_value
+                    selector2_compliant = selector2_size >= expected_value
+                    is_compliant = selector1_compliant and selector2_compliant
+                    
+                    current_value = f"Selector1: {selector1_size}, Selector2: {selector2_size}"
+                    
+                elif setting in ['Selector1KeySize', 'Selector2KeySize']:
+                    # Check specific selector key size
+                    current_value = config.get(setting, 0)
+                    is_compliant = current_value >= expected_value
+                    
+                else:
+                    # Handle other DKIM settings
+                    current_value = config.get(setting)
+                    if expected_value == "not_null":
+                        is_compliant = current_value is not None and current_value != "" and current_value != []
+                    elif isinstance(expected_value, bool):
+                        current_bool = bool(current_value) if current_value is not None else False
+                        is_compliant = current_bool == expected_value
+                    else:
+                        is_compliant = current_value == expected_value
+                
+                # Store result for this domain
+                domain_result = {
+                    'domain': domain,
+                    'current_value': current_value,
+                    'is_compliant': is_compliant
+                }
+                domain_results.append(domain_result)
+                
+                if is_compliant:
+                    compliant_domains.append(domain)
+                else:
+                    non_compliant_domains.append(f"{domain} (Current: {current_value})")
+            
+            # Determine overall compliance for this requirement
+            # All domains must be compliant for the requirement to pass
+            overall_compliant = len(non_compliant_domains) == 0
+            
+            # Create result entry
+            if overall_compliant:
+                status = f"COMPLIANT - All domains meet requirement: {', '.join(compliant_domains)}"
+            else:
+                status = f"NON-COMPLIANT - Domains not meeting requirement: {', '.join(non_compliant_domains)}"
+            
+            result = {
+                'requirement_name': requirement_name,
+                'setting': setting,
+                'expected_value': expected_value,
+                'found': overall_compliant,
+                'status': status,
+                'policy_type': policy_type,
+                'domain_results': domain_results
+            }
+            
+            results.append(result)
+            
+            # Print detailed results
+            if overall_compliant:
+                print(f"  ✓ {requirement_name}: COMPLIANT")
+                print(f"    All domains ({len(compliant_domains)}) meet requirement")
+            else:
+                print(f"  ✗ {requirement_name}: NON-COMPLIANT")
+                print(f"    Expected: {expected_value}")
+                for domain_result in domain_results:
+                    print(f"    {domain_result['domain']}: {domain_result['current_value']} ({'✓' if domain_result['is_compliant'] else '✗'})")
         
         return results
 

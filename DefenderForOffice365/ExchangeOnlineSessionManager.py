@@ -457,6 +457,35 @@ try {
 }
 ''')
         
+        # Add DKIM configuration retrieval if requested
+        if 'dkim' in policy_types:
+            policy_sections.append('''
+# Retrieve DKIM Signing Configuration
+Write-Output "Retrieving DKIM Signing Configuration..."
+try {
+    $dkimConfig = Get-DkimSigningConfig | Select-Object Domain,Selector1KeySize,Selector2KeySize,Enabled,Status | ConvertTo-Json -Depth 10 -Compress
+    
+    if ($dkimConfig) {
+        Write-Output "Found DKIM Signing Configuration"
+        
+        # Output with markers
+        Write-Output "DKIM_DATA_START"
+        Write-Output $dkimConfig
+        Write-Output "DKIM_DATA_END"
+    } else {
+        Write-Output "No DKIM Signing Configuration found"
+        Write-Output "DKIM_DATA_START"
+        Write-Output "[]"
+        Write-Output "DKIM_DATA_END"
+    }
+} catch {
+    Write-Error "Error retrieving DKIM Signing Configuration: $($_.Exception.Message)"
+    Write-Output "DKIM_DATA_START"
+    Write-Output "[]"
+    Write-Output "DKIM_DATA_END"
+}
+''')
+        
         # Script footer
         script_footer = '''
 # Disconnect from Exchange Online
@@ -522,6 +551,7 @@ exit 0
                 policies.update(self._extract_policy_data(lines, 'externalinoutlook', 'EXTERNALINOUTLOOK_DATA_START', 'EXTERNALINOUTLOOK_DATA_END'))
                 policies.update(self._extract_policy_data(lines, 'organizationconfig', 'ORGANIZATIONCONFIG_DATA_START', 'ORGANIZATIONCONFIG_DATA_END'))
                 policies.update(self._extract_policy_data(lines, 'reportsubmissionpolicy', 'REPORTSUBMISSIONPOLICY_DATA_START', 'REPORTSUBMISSIONPOLICY_DATA_END'))
+                policies.update(self._extract_policy_data(lines, 'dkim', 'DKIM_DATA_START', 'DKIM_DATA_END'))
                 
             else:
                 print("✗ Failed to connect to Exchange Online or retrieve policies")

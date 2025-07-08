@@ -83,3 +83,25 @@ reportsubmissionpolicy_policies:
     setting: "ConfirmationNotificationEnabled"
     expected_value: true
     description: "Ensure confirmation notifications are enabled for user submissions"
+
+# DKIM (DomainKeys Identified Mail) signing configuration requirements
+dkim_policies:
+  - name: "DKIM Key Size Requirements"
+    setting: "KeySize"
+    expected_value: 2048
+    description: "Both DKIM selector keys must be at least 2048 bits for security"
+    
+  - name: "DKIM Selector 1 Key Size"
+    setting: "Selector1KeySize"
+    expected_value: 2048
+    description: "DKIM Selector 1 key must be at least 2048 bits"
+    
+  - name: "DKIM Selector 2 Key Size"
+    setting: "Selector2KeySize"
+    expected_value: 2048
+    description: "DKIM Selector 2 key must be at least 2048 bits"
+    
+  - name: "DKIM Enabled Status"
+    setting: "Enabled"
+    expected_value: true
+    description: "DKIM signing should be enabled for all domains"

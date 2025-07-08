@@ -980,6 +980,7 @@
             {% set externalinoutlook_results = exchangeonline_results | selectattr("policy_type", "equalto", "externalinoutlook") | list %}
             {% set organizationconfig_results = exchangeonline_results | selectattr("policy_type", "equalto", "organizationconfig") | list %}
             {% set reportsubmissionpolicy_results = exchangeonline_results | selectattr("policy_type", "equalto", "reportsubmissionpolicy") | list %}
+            {% set dkim_results = exchangeonline_results | selectattr("policy_type", "equalto", "dkim") | list %}
             
             {% if atppolicy_results %}
             <h3>📋 ATP Policy for O365 (Safe Documents)</h3>
@@ -1086,6 +1087,40 @@
             {% if reportsubmissionpolicy_results %}
             <h3>📝 Report Submission Policy</h3>
             {% for result in reportsubmissionpolicy_results %}
+            {% set status = result.status | string | upper %}
+            <div class="policy-item {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">
+                <h4>{{ result.requirement_name }}{% if result.check_id %} (ID: {{ result.check_id }}){% endif %}</h4>
+                <p>Configuration Status: <span class="status-text {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">
+                    {{ result.status }}
+                </span></p>
+                <p>Policy Found: {{ result.found }}</p>
+                {% if result.expected_value is defined %}
+                <p>Expected Value: {{ result.expected_value }}</p>
+                {% endif %}
+                {% if result.policy_results %}
+                <div class="policy-breakdown">
+                    <h5>Policy Details:</h5>
+                    <ul>
+                    {% for policy_result in result.policy_results %}
+                        <li>{{ policy_result.policy_name }}: 
+                            {% if policy_result.is_compliant %}
+                                <span style="color: #107c10;">✓ COMPLIANT</span>
+                            {% else %}
+                                <span style="color: #d13438;">✗ NON-COMPLIANT</span>
+                            {% endif %}
+                            (Current: {{ policy_result.current_value }})
+                        </li>
+                    {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+            {% endif %}
+            
+            {% if dkim_results %}
+            <h3>🔐 DKIM Configuration</h3>
+            {% for result in dkim_results %}
             {% set status = result.status | string | upper %}
             <div class="policy-item {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">
                 <h4>{{ result.requirement_name }}{% if result.check_id %} (ID: {{ result.check_id }}){% endif %}</h4>

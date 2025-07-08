@@ -773,7 +773,9 @@ class ReportGenerator:
         total_passed = sum(comp['passed'] for comp in compliance_by_type.values())
         total_requirements = sum(comp['total'] for comp in compliance_by_type.values())
         overall_percentage = round((total_passed / total_requirements) * 100) if total_requirements > 0 else 0
-        overall_compliant = all(comp['is_compliant'] for comp in compliance_by_type.values())
+        
+        # Overall compliance is based on percentage, not requiring ALL policy types to be compliant
+        overall_compliant = overall_percentage == 100
         
         return {
             'percentage': overall_percentage,
@@ -921,6 +923,7 @@ class ReportGenerator:
             externalinoutlook = [r for r in exchangeonline_results if r.get('policy_type') == 'externalinoutlook']
             organizationconfig = [r for r in exchangeonline_results if r.get('policy_type') == 'organizationconfig']
             reportsubmissionpolicy = [r for r in exchangeonline_results if r.get('policy_type') == 'reportsubmissionpolicy']
+            dkim = [r for r in exchangeonline_results if r.get('policy_type') == 'dkim']
             
             # 8.1 ATP Policy for O365
             if atppolicy:
@@ -954,6 +957,15 @@ class ReportGenerator:
                 for i, result in enumerate(reportsubmissionpolicy, 1):
                     result['check_id'] = f"{section_counter}.{subsection_counter}.{i}"
                     result['section_name'] = "Exchange Online - Report Submission Policy"
+                    result['section_number'] = section_counter
+                    result['subsection_number'] = subsection_counter
+                subsection_counter += 1
+            
+            # 8.5 DKIM Signing Configuration
+            if dkim:
+                for i, result in enumerate(dkim, 1):
+                    result['check_id'] = f"{section_counter}.{subsection_counter}.{i}"
+                    result['section_name'] = "Exchange Online - DKIM Signing Configuration"
                     result['section_number'] = section_counter
                     result['subsection_number'] = subsection_counter
         section_counter += 1
@@ -1056,6 +1068,14 @@ class ReportGenerator:
         if asr_results:
             asr_compliance = self.calculate_asr_compliance_by_policy(asr_results)
         
+        # Calculate DKIM compliance (included in Exchange Online results)
+        dkim_compliance = None
+        if exchangeonline_results:
+            # Extract DKIM results from Exchange Online results
+            dkim_results = [r for r in exchangeonline_results if r.get('policy_type') == 'dkim']
+            if dkim_results:
+                dkim_compliance = self.calculate_dkim_compliance_by_policy(dkim_results)
+        
         # Calculate overall compliance using the separate categories
         total_passed = (ca_compliance['passed'] + auth_compliance['passed'] + 
                        antispam_inbound_standard_compliance['passed'] + 
@@ -1068,7 +1088,8 @@ class ReportGenerator:
                        safelinks_compliance['passed'] +
                        (exchangeonline_compliance['passed'] if exchangeonline_compliance else 0) +
                        (antivirus_compliance['passed'] if antivirus_compliance else 0) +
-                       (asr_compliance['passed'] if asr_compliance else 0))
+                       (asr_compliance['passed'] if asr_compliance else 0) +
+                       (dkim_compliance['passed'] if dkim_compliance else 0))
         total_policies = (ca_compliance['total'] + auth_compliance['total'] + 
                          antispam_inbound_standard_compliance['total'] + 
                          antispam_inbound_strict_compliance['total'] + 
@@ -1080,7 +1101,8 @@ class ReportGenerator:
                          safelinks_compliance['total'] +
                          (exchangeonline_compliance['total'] if exchangeonline_compliance else 0) +
                          (antivirus_compliance['total'] if antivirus_compliance else 0) +
-                         (asr_compliance['total'] if asr_compliance else 0))
+                         (asr_compliance['total'] if asr_compliance else 0) +
+                         (dkim_compliance['total'] if dkim_compliance else 0))
         
         overall_compliance = round((total_passed / total_policies) * 100) if total_policies > 0 else 0
 
@@ -1124,7 +1146,8 @@ class ReportGenerator:
             safelinks_compliance=safelinks_compliance,
             exchangeonline_compliance=exchangeonline_compliance,
             antivirus_compliance=antivirus_compliance,
-            asr_compliance=asr_compliance
+            asr_compliance=asr_compliance,
+            dkim_compliance=dkim_compliance
         )
         
         # Create reports directory if it doesn't exist
@@ -1328,13 +1351,12 @@ class ReportGenerator:
         is_compliant = len(compliant_policies) > 0
         compliant_policy = compliant_policies[0] if compliant_policies else None
         
-        # Calculate totals
+        # Calculate totals based on individual requirement compliance
         total_requirements = len(results)
         
-        # For display purposes, show how many requirements would be "passed" 
-        # If compliant: all requirements pass, if not: show actual pass count
-        passed_count = total_requirements if is_compliant else sum(1 for r in results if r.get('found', False))
-        percentage = 100 if is_compliant else round((passed_count / total_requirements) * 100)
+        # Count individual requirements that pass based on their actual status
+        passed_count = sum(1 for r in results if self.parse_policy_status(r))
+        percentage = round((passed_count / total_requirements) * 100) if total_requirements > 0 else 0
         
         final_result = {
             'percentage': percentage,
@@ -1422,13 +1444,12 @@ class ReportGenerator:
         is_compliant = len(compliant_policies) > 0
         compliant_policy = compliant_policies[0] if compliant_policies else None
         
-        # Calculate totals
+        # Calculate totals based on individual requirement compliance
         total_requirements = len(results)
         
-        # For display purposes, show how many requirements would be "passed" 
-        # If compliant: all requirements pass, if not: show actual pass count
-        passed_count = total_requirements if is_compliant else sum(1 for r in results if r.get('found', False))
-        percentage = 100 if is_compliant else round((passed_count / total_requirements) * 100)
+        # Count individual requirements that pass based on their actual status
+        passed_count = sum(1 for r in results if self.parse_policy_status(r))
+        percentage = round((passed_count / total_requirements) * 100) if total_requirements > 0 else 0
         
         final_result = {
             'percentage': percentage,
@@ -1440,4 +1461,53 @@ class ReportGenerator:
         }
         
         print(f"Final ASR compliance: {final_result}")
+        return final_result
+
+    def calculate_dkim_compliance_by_policy(self, results):
+        """Calculate compliance for DKIM configurations where all domains must meet requirements = compliant"""
+        if not results:
+            return {
+                'percentage': 0,
+                'passed': 0,
+                'total': 0,
+                'is_compliant': False,
+                'compliant_policy': None,
+                'compliant_policies': []
+            }
+        
+        print(f"\nCalculating domain-level compliance for DKIM:")
+        
+        # For DKIM, we need all domains to be compliant for each requirement
+        total_requirements = len(results)
+        passed_requirements = 0
+        
+        # Check each requirement 
+        for result in results:
+            requirement_name = result.get('requirement_name', 'Unknown')
+            found = result.get('found', False)
+            
+            if found:
+                passed_requirements += 1
+                print(f"  ✓ {requirement_name}: COMPLIANT")
+            else:
+                print(f"  ✗ {requirement_name}: NON-COMPLIANT")
+        
+        # DKIM is compliant if ALL requirements pass
+        is_compliant = passed_requirements == total_requirements
+        percentage = 100 if is_compliant else round((passed_requirements / total_requirements) * 100)
+        
+        # For DKIM, there's no single "policy" but rather domain configurations
+        compliant_policy = "All Domains" if is_compliant else None
+        compliant_policies = ["All Domains"] if is_compliant else []
+        
+        final_result = {
+            'percentage': percentage,
+            'passed': passed_requirements,
+            'total': total_requirements,
+            'is_compliant': is_compliant,
+            'compliant_policy': compliant_policy,
+            'compliant_policies': compliant_policies
+        }
+        
+        print(f"Final DKIM compliance: {final_result}")
         return final_result
