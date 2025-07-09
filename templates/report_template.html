@@ -360,6 +360,22 @@
             </div>
             {% endif %}
             
+            {% if dns_compliance and dns_compliance.total > 0 %}
+            <div class="compliance-indicator">
+                <span>Exchange Online DNS Configurations:</span>
+                <span class="status-badge {% if dns_compliance.is_compliant %}compliant{% else %}non-compliant{% endif %}">
+                    {% if dns_compliance.is_compliant %}Compliant{% else %}Non-Compliant{% endif %}
+                </span>
+                <div class="compliance-details">
+                    <span class="compliance-fraction">({{ dns_compliance.passed }}/{{ dns_compliance.total }} Passed)</span>
+                    <span>{{ dns_compliance.percentage }}%</span>
+                    {% if dns_compliance.is_compliant and dns_compliance.compliant_policy %}
+                    <br><span style="font-size: 12px; color: #107c10; font-style: italic;">✓ {{ dns_compliance.compliant_policy }} configured properly</span>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+            
             {% if antivirus_compliance and antivirus_compliance.total > 0 %}
             <div class="compliance-indicator">
                 <span>Defender for Endpoint Antivirus:</span>
@@ -1160,6 +1176,118 @@
             </div>
             {% endfor %}
             {% endif %}
+        </div>
+        {% endif %}
+        
+        {% if dns_results and dns_results|length > 0 %}
+        <div class="policy-section">
+            <h2>🌐 Exchange Online DNS Configurations</h2>
+            <p style="color: #666; font-style: italic; margin-bottom: 20px;">DNS records (SPF, DKIM, DMARC) for the default Exchange Online domain</p>
+            
+            {% for result in dns_results %}
+            {% set status = result.status | string | upper %}
+            <div class="policy-item {% if result.is_compliant %}pass{% else %}fail{% endif %}">
+                <h3>{{ result.check_id }} - {{ result.requirement_name }}</h3>
+                <p>DNS Record Status: <span class="status-text {% if result.is_compliant %}pass{% else %}fail{% endif %}">
+                    {{ result.status }}
+                </span></p>
+                <p>Record Found: {{ result.found }}</p>
+                <p>Domain: {% if result.details and result.details.domain %}{{ result.details.domain }}{% else %}{{ result.domain or 'N/A' }}{% endif %}</p>
+                {% if result.expected_value is defined %}
+                <p>Expected: {{ result.expected_value }}</p>
+                {% endif %}
+                {% if result.current_value is defined %}
+                <p>Current Value: 
+                    {% if result.current_value is mapping %}
+                        <ul style="margin: 5px 0; padding-left: 20px;">
+                        {% for key, value in result.current_value.items() %}
+                            <li><strong>{{ key }}:</strong> 
+                                {% if value is iterable and value is not string %}
+                                    {% if value %}
+                                        {{ value|join(', ') if value|length <= 3 else (value[:3]|join(', ') + ', ... (' + (value|length - 3)|string + ' more)') }}
+                                    {% else %}
+                                        None
+                                    {% endif %}
+                                {% else %}
+                                    {{ value or 'None' }}
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    {% elif result.current_value is iterable and result.current_value is not string %}
+                        {% if result.current_value %}
+                            {{ result.current_value|join(', ') if result.current_value|length <= 3 else (result.current_value[:3]|join(', ') + ', ... (' + (result.current_value|length - 3)|string + ' more)') }}
+                        {% else %}
+                            None
+                        {% endif %}
+                    {% else %}
+                        {{ result.current_value or 'None' }}
+                    {% endif %}
+                </p>
+                {% endif %}
+                {% if result.details %}
+                <div class="policy-breakdown">
+                    <h4>DNS Record Details:</h4>
+                    <ul>
+                        {% if result.details.record_type == 'SPF' %}
+                            <li><strong>Record Count:</strong> {{ result.details.record_count }}</li>
+                            <li><strong>Has Hard Fail:</strong> {{ result.details.has_hard_fail }}</li>
+                            <li><strong>Has Soft Fail:</strong> {{ result.details.has_soft_fail }}</li>
+                            {% if result.details.records %}
+                            <li><strong>SPF Records:</strong>
+                                <ul>
+                                {% for record in result.details.records %}
+                                    <li style="font-family: monospace; font-size: 12px; word-break: break-all;">{{ record }}</li>
+                                {% endfor %}
+                                </ul>
+                            </li>
+                            {% endif %}
+                        {% elif result.details.record_type == 'DKIM' %}
+                            {% if result.details.google_dkim %}
+                            <li><strong>Google DKIM:</strong> 
+                                {% if result.details.google_dkim is iterable and result.details.google_dkim is not string %}
+                                    Found ({{ result.details.google_dkim|length }} records)
+                                {% else %}
+                                    Found
+                                {% endif %}
+                            </li>
+                            {% endif %}
+                            {% if result.details.o365_selector1 %}
+                            <li><strong>Office 365 Selector1:</strong> 
+                                {% if result.details.o365_selector1 is iterable and result.details.o365_selector1 is not string %}
+                                    Found ({{ result.details.o365_selector1|length }} records)
+                                {% else %}
+                                    Found
+                                {% endif %}
+                            </li>
+                            {% endif %}
+                            {% if result.details.o365_selector2 %}
+                            <li><strong>Office 365 Selector2:</strong> 
+                                {% if result.details.o365_selector2 is iterable and result.details.o365_selector2 is not string %}
+                                    Found ({{ result.details.o365_selector2|length }} records)
+                                {% else %}
+                                    Found
+                                {% endif %}
+                            </li>
+                            {% endif %}
+                        {% elif result.details.record_type == 'DMARC' %}
+                            <li><strong>Policy:</strong> {{ result.details.policy }}</li>
+                            <li><strong>Record Count:</strong> {{ result.details.record_count }}</li>
+                            {% if result.details.records %}
+                            <li><strong>DMARC Records:</strong>
+                                <ul>
+                                {% for record in result.details.records %}
+                                    <li style="font-family: monospace; font-size: 12px; word-break: break-all;">{{ record }}</li>
+                                {% endfor %}
+                                </ul>
+                            </li>
+                            {% endif %}
+                        {% endif %}
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
         </div>
         {% endif %}
         

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Azure Security Compliance Report</title>
+    <title>Posture Assessment Tool Report</title>
     <style>
         :root {
             --primary-color: #0078d4;
@@ -181,15 +181,24 @@
 <body>
     <div class="header">
         <div class="container">
-            <h1>Azure Security Compliance Report</h1>
-            <div class="timestamp">Generated: 2025-07-08 12:04:33</div>
+            <h1>Posture Assessment Tool Report</h1>
+            
+            <div class="tenant-info" style="color: rgba(255, 255, 255, 0.9); font-size: 16px; margin: 10px 0;">
+                <strong>Critical Start Lab</strong>
+                
+                
+                <span style="margin-left: 20px;">Tenant ID: 35476edf-f1a8-4213-a037-266cef283cc3</span>
+                
+            </div>
+            
+            <div class="timestamp">Generated: 2025-07-09 13:36:54</div>
         </div>
     </div>
 
     <div class="container">
         <div class="summary-card">
             <h2>Executive Summary</h2>
-            <div class="overall-score">Overall Compliance: 95% (270/285 Policies)</div>
+            <div class="overall-score">Overall Compliance: 90% (256/285 Policies)</div>
             
             <div class="compliance-indicator">
                 <span>Conditional Access Policies:</span>
@@ -336,12 +345,26 @@
             
             <div class="compliance-indicator">
                 <span>Exchange Online Configurations:</span>
-                <span class="status-badge non-compliant">
-                    Non-Compliant
+                <span class="status-badge compliant">
+                    Compliant
                 </span>
                 <div class="compliance-details">
                     <span class="compliance-fraction">(19/19 Passed)</span>
                     <span>100%</span>
+                    
+                </div>
+            </div>
+            
+            
+            
+            <div class="compliance-indicator">
+                <span>Exchange Online DNS Configurations:</span>
+                <span class="status-badge non-compliant">
+                    Non-Compliant
+                </span>
+                <div class="compliance-details">
+                    <span class="compliance-fraction">(2/3 Passed)</span>
+                    <span>67%</span>
                     
                 </div>
             </div>
@@ -354,8 +377,8 @@
                     Compliant
                 </span>
                 <div class="compliance-details">
-                    <span class="compliance-fraction">(62/62 Passed)</span>
-                    <span>100%</span>
+                    <span class="compliance-fraction">(52/62 Passed)</span>
+                    <span>84%</span>
                     
                     <br><span style="font-size: 12px; color: #107c10; font-style: italic;">✓ Policy "FLDS - Desired State AV Config - Workstation" meets all requirements</span>
                     
@@ -370,8 +393,8 @@
                     Compliant
                 </span>
                 <div class="compliance-details">
-                    <span class="compliance-fraction">(40/40 Passed)</span>
-                    <span>100%</span>
+                    <span class="compliance-fraction">(36/40 Passed)</span>
+                    <span>90%</span>
                     
                     <br><span style="font-size: 12px; color: #107c10; font-style: italic;">✓ Policy "FLDS - ASR Desired State" meets all requirements</span>
                     
@@ -1634,7 +1657,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: On, Off</p>
+                    <p>Current Value: Mixed values: Off, On</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -1659,7 +1682,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: On, Off 
+                        Summary: Mixed values: Off, On 
                         
                         <span class="non-compliant-warning">(3 policies need attention)</span>
                         
@@ -1675,7 +1698,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: On, Off</p>
+                    <p>Current Value: Mixed values: Off, On</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -1700,7 +1723,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: On, Off 
+                        Summary: Mixed values: Off, On 
                         
                         <span class="non-compliant-warning">(3 policies need attention)</span>
                         
@@ -1716,7 +1739,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: On, Off</p>
+                    <p>Current Value: Mixed values: Off, On</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -1741,7 +1764,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: On, Off 
+                        Summary: Mixed values: Off, On 
                         
                         <span class="non-compliant-warning">(3 policies need attention)</span>
                         
@@ -1757,7 +1780,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: On, Off</p>
+                    <p>Current Value: Mixed values: Off, On</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -1782,7 +1805,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: On, Off 
+                        Summary: Mixed values: Off, On 
                         
                         <span class="non-compliant-warning">(3 policies need attention)</span>
                         
@@ -1798,7 +1821,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: On, Off</p>
+                    <p>Current Value: Mixed values: Off, On</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -1823,7 +1846,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: On, Off 
+                        Summary: Mixed values: Off, On 
                         
                         <span class="non-compliant-warning">(3 policies need attention)</span>
                         
@@ -1839,7 +1862,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: On, Off</p>
+                    <p>Current Value: Mixed values: Off, On</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -1864,7 +1887,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: On, Off 
+                        Summary: Mixed values: Off, On 
                         
                         <span class="non-compliant-warning">(3 policies need attention)</span>
                         
@@ -1880,7 +1903,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: On, Off</p>
+                    <p>Current Value: Mixed values: Off, On</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -1905,7 +1928,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: On, Off 
+                        Summary: Mixed values: Off, On 
                         
                         <span class="non-compliant-warning">(3 policies need attention)</span>
                         
@@ -1921,7 +1944,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: On, Off</p>
+                    <p>Current Value: Mixed values: Off, On</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -1946,7 +1969,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: On, Off 
+                        Summary: Mixed values: Off, On 
                         
                         <span class="non-compliant-warning">(3 policies need attention)</span>
                         
@@ -1962,7 +1985,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: On, Off</p>
+                    <p>Current Value: Mixed values: Off, On</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -1987,7 +2010,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: On, Off 
+                        Summary: Mixed values: Off, On 
                         
                         <span class="non-compliant-warning">(3 policies need attention)</span>
                         
@@ -2003,7 +2026,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: On, Off</p>
+                    <p>Current Value: Mixed values: Off, On</p>
                     
                     
                     <p>Expected Value: Off</p>
@@ -2028,7 +2051,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: On, Off 
+                        Summary: Mixed values: Off, On 
                         
                         <span class="non-compliant-warning">(1 policies need attention)</span>
                         
@@ -2044,7 +2067,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: On, Off</p>
+                    <p>Current Value: Mixed values: Off, On</p>
                     
                     
                     <p>Expected Value: Off</p>
@@ -2069,7 +2092,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: On, Off 
+                        Summary: Mixed values: Off, On 
                         
                         <span class="non-compliant-warning">(1 policies need attention)</span>
                         
@@ -2085,7 +2108,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: On, Off</p>
+                    <p>Current Value: Mixed values: Off, On</p>
                     
                     
                     <p>Expected Value: Off</p>
@@ -2110,7 +2133,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: On, Off 
+                        Summary: Mixed values: Off, On 
                         
                         <span class="non-compliant-warning">(1 policies need attention)</span>
                         
@@ -2126,7 +2149,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: On, Off</p>
+                    <p>Current Value: Mixed values: Off, On</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -2151,7 +2174,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: On, Off 
+                        Summary: Mixed values: Off, On 
                         
                         <span class="non-compliant-warning">(3 policies need attention)</span>
                         
@@ -2208,7 +2231,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: On, Off</p>
+                    <p>Current Value: Mixed values: Off, On</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -2233,7 +2256,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: On, Off 
+                        Summary: Mixed values: Off, On 
                         
                         <span class="non-compliant-warning">(3 policies need attention)</span>
                         
@@ -2370,7 +2393,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: Spam, Default, Phish</p>
+                    <p>Current Value: Mixed values: Phish, Spam, Default</p>
                     
                     
                     <p>Expected Value: Phish</p>
@@ -2395,7 +2418,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: Spam, Default, Phish 
+                        Summary: Mixed values: Phish, Spam, Default 
                         
                         <span class="non-compliant-warning">(4 policies need attention)</span>
                         
@@ -2950,7 +2973,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: On, Off</p>
+                    <p>Current Value: Mixed values: Off, On</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -2975,7 +2998,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: On, Off 
+                        Summary: Mixed values: Off, On 
                         
                         <span class="non-compliant-warning">(3 policies need attention)</span>
                         
@@ -2991,7 +3014,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: On, Off</p>
+                    <p>Current Value: Mixed values: Off, On</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -3016,7 +3039,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: On, Off 
+                        Summary: Mixed values: Off, On 
                         
                         <span class="non-compliant-warning">(3 policies need attention)</span>
                         
@@ -3032,7 +3055,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: On, Off</p>
+                    <p>Current Value: Mixed values: Off, On</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -3057,7 +3080,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: On, Off 
+                        Summary: Mixed values: Off, On 
                         
                         <span class="non-compliant-warning">(3 policies need attention)</span>
                         
@@ -3073,7 +3096,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: On, Off</p>
+                    <p>Current Value: Mixed values: Off, On</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -3098,7 +3121,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: On, Off 
+                        Summary: Mixed values: Off, On 
                         
                         <span class="non-compliant-warning">(3 policies need attention)</span>
                         
@@ -3114,7 +3137,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: On, Off</p>
+                    <p>Current Value: Mixed values: Off, On</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -3139,7 +3162,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: On, Off 
+                        Summary: Mixed values: Off, On 
                         
                         <span class="non-compliant-warning">(3 policies need attention)</span>
                         
@@ -3155,7 +3178,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: On, Off</p>
+                    <p>Current Value: Mixed values: Off, On</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -3180,7 +3203,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: On, Off 
+                        Summary: Mixed values: Off, On 
                         
                         <span class="non-compliant-warning">(3 policies need attention)</span>
                         
@@ -3196,7 +3219,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: On, Off</p>
+                    <p>Current Value: Mixed values: Off, On</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -3221,7 +3244,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: On, Off 
+                        Summary: Mixed values: Off, On 
                         
                         <span class="non-compliant-warning">(3 policies need attention)</span>
                         
@@ -3237,7 +3260,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: On, Off</p>
+                    <p>Current Value: Mixed values: Off, On</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -3262,7 +3285,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: On, Off 
+                        Summary: Mixed values: Off, On 
                         
                         <span class="non-compliant-warning">(3 policies need attention)</span>
                         
@@ -3278,7 +3301,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: On, Off</p>
+                    <p>Current Value: Mixed values: Off, On</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -3303,7 +3326,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: On, Off 
+                        Summary: Mixed values: Off, On 
                         
                         <span class="non-compliant-warning">(3 policies need attention)</span>
                         
@@ -3319,7 +3342,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: On, Off</p>
+                    <p>Current Value: Mixed values: Off, On</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -3344,7 +3367,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: On, Off 
+                        Summary: Mixed values: Off, On 
                         
                         <span class="non-compliant-warning">(4 policies need attention)</span>
                         
@@ -3360,7 +3383,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: On, Off</p>
+                    <p>Current Value: Mixed values: Off, On</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -3385,7 +3408,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: On, Off 
+                        Summary: Mixed values: Off, On 
                         
                         <span class="non-compliant-warning">(4 policies need attention)</span>
                         
@@ -3401,7 +3424,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: On, Off</p>
+                    <p>Current Value: Mixed values: Off, On</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -3426,7 +3449,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: On, Off 
+                        Summary: Mixed values: Off, On 
                         
                         <span class="non-compliant-warning">(4 policies need attention)</span>
                         
@@ -3442,7 +3465,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: On, Off</p>
+                    <p>Current Value: Mixed values: Off, On</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -3467,7 +3490,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: On, Off 
+                        Summary: Mixed values: Off, On 
                         
                         <span class="non-compliant-warning">(3 policies need attention)</span>
                         
@@ -3524,7 +3547,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: On, Off</p>
+                    <p>Current Value: Mixed values: Off, On</p>
                     
                     
                     <p>Expected Value: On</p>
@@ -3549,7 +3572,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: On, Off 
+                        Summary: Mixed values: Off, On 
                         
                         <span class="non-compliant-warning">(3 policies need attention)</span>
                         
@@ -3686,7 +3709,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: Spam, Default, Phish</p>
+                    <p>Current Value: Mixed values: Phish, Spam, Default</p>
                     
                     
                     <p>Expected Value: Spam</p>
@@ -3711,7 +3734,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: Spam, Default, Phish 
+                        Summary: Mixed values: Phish, Spam, Default 
                         
                         <span class="non-compliant-warning">(4 policies need attention)</span>
                         
@@ -3936,7 +3959,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: BlockUserForToday, BlockUser</p>
+                    <p>Current Value: Mixed values: BlockUser, BlockUserForToday</p>
                     
                     
                     <p>Expected Value: BlockUser</p>
@@ -3955,7 +3978,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: BlockUserForToday, BlockUser 
+                        Summary: Mixed values: BlockUser, BlockUserForToday 
                         
                         <span class="non-compliant-warning">(1 policies need attention)</span>
                         
@@ -3971,7 +3994,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: 400, 0</p>
+                    <p>Current Value: Mixed values: 0, 400</p>
                     
                     
                     <p>Expected Value: 400</p>
@@ -3990,7 +4013,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: 400, 0 
+                        Summary: Mixed values: 0, 400 
                         
                         <span class="non-compliant-warning">(1 policies need attention)</span>
                         
@@ -4006,7 +4029,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: 800, 0</p>
+                    <p>Current Value: Mixed values: 0, 800</p>
                     
                     
                     <p>Expected Value: 800</p>
@@ -4025,7 +4048,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: 800, 0 
+                        Summary: Mixed values: 0, 800 
                         
                         <span class="non-compliant-warning">(1 policies need attention)</span>
                         
@@ -4041,7 +4064,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: 800, 0</p>
+                    <p>Current Value: Mixed values: 0, 800</p>
                     
                     
                     <p>Expected Value: 800</p>
@@ -4060,7 +4083,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: 800, 0 
+                        Summary: Mixed values: 0, 800 
                         
                         <span class="non-compliant-warning">(1 policies need attention)</span>
                         
@@ -4111,7 +4134,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: Off, Automatic</p>
+                    <p>Current Value: Mixed values: Automatic, Off</p>
                     
                     
                     <p>Expected Value: Off</p>
@@ -4130,7 +4153,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: Off, Automatic 
+                        Summary: Mixed values: Automatic, Off 
                         
                         <span class="non-compliant-warning">(1 policies need attention)</span>
                         
@@ -4216,7 +4239,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: [], ['jdoe@criticalstartlab.com']</p>
+                    <p>Current Value: Mixed values: ['jdoe@criticalstartlab.com'], []</p>
                     
                     
                     <p>Expected Value: not_null</p>
@@ -4235,7 +4258,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: [], ['jdoe@criticalstartlab.com'] 
+                        Summary: Mixed values: ['jdoe@criticalstartlab.com'], [] 
                         
                         <span class="non-compliant-warning">(2 policies need attention)</span>
                         
@@ -4251,7 +4274,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: [], ['jdoe@criticalstartlab.com']</p>
+                    <p>Current Value: Mixed values: ['jdoe@criticalstartlab.com'], []</p>
                     
                     
                     <p>Expected Value: not_null</p>
@@ -4270,7 +4293,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: [], ['jdoe@criticalstartlab.com'] 
+                        Summary: Mixed values: ['jdoe@criticalstartlab.com'], [] 
                         
                         <span class="non-compliant-warning">(2 policies need attention)</span>
                         
@@ -4500,7 +4523,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: MoveToJmf, NoAction, Quarantine</p>
+                    <p>Current Value: Mixed values: MoveToJmf, Quarantine, NoAction</p>
                     
                     
                     <p>Expected Value: MoveToJmf</p>
@@ -4533,7 +4556,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: MoveToJmf, NoAction, Quarantine 
+                        Summary: Mixed values: MoveToJmf, Quarantine, NoAction 
                         
                         <span class="non-compliant-warning">(7 policies need attention)</span>
                         
@@ -4549,7 +4572,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: MoveToJmf, NoAction, Quarantine</p>
+                    <p>Current Value: Mixed values: MoveToJmf, Quarantine, NoAction</p>
                     
                     
                     <p>Expected Value: Quarantine</p>
@@ -4582,7 +4605,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: MoveToJmf, NoAction, Quarantine 
+                        Summary: Mixed values: MoveToJmf, Quarantine, NoAction 
                         
                         <span class="non-compliant-warning">(5 policies need attention)</span>
                         
@@ -4696,7 +4719,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: MoveToJmf, NoAction, Quarantine</p>
+                    <p>Current Value: Mixed values: MoveToJmf, Quarantine, NoAction</p>
                     
                     
                     <p>Expected Value: Quarantine</p>
@@ -4729,7 +4752,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: MoveToJmf, NoAction, Quarantine 
+                        Summary: Mixed values: MoveToJmf, Quarantine, NoAction 
                         
                         <span class="non-compliant-warning">(6 policies need attention)</span>
                         
@@ -5437,7 +5460,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: MoveToJmf, NoAction, Quarantine</p>
+                    <p>Current Value: Mixed values: MoveToJmf, Quarantine, NoAction</p>
                     
                     
                     <p>Expected Value: Quarantine</p>
@@ -5470,7 +5493,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: MoveToJmf, NoAction, Quarantine 
+                        Summary: Mixed values: MoveToJmf, Quarantine, NoAction 
                         
                         <span class="non-compliant-warning">(6 policies need attention)</span>
                         
@@ -5486,7 +5509,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: MoveToJmf, NoAction, Quarantine</p>
+                    <p>Current Value: Mixed values: MoveToJmf, Quarantine, NoAction</p>
                     
                     
                     <p>Expected Value: Quarantine</p>
@@ -5519,7 +5542,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: MoveToJmf, NoAction, Quarantine 
+                        Summary: Mixed values: MoveToJmf, Quarantine, NoAction 
                         
                         <span class="non-compliant-warning">(5 policies need attention)</span>
                         
@@ -5633,7 +5656,7 @@
                     </span></p>
                     <p>Policy Found: True</p>
                     
-                    <p>Current Value: Mixed values: MoveToJmf, NoAction, Quarantine</p>
+                    <p>Current Value: Mixed values: MoveToJmf, Quarantine, NoAction</p>
                     
                     
                     <p>Expected Value: Quarantine</p>
@@ -5666,7 +5689,7 @@
                     
                     
                     <p class="policy-summary">
-                        Summary: Mixed values: MoveToJmf, NoAction, Quarantine 
+                        Summary: Mixed values: MoveToJmf, Quarantine, NoAction 
                         
                         <span class="non-compliant-warning">(6 policies need attention)</span>
                         
@@ -7582,6 +7605,7 @@
             
             
             
+            
             <h3>📋 ATP Policy for O365 (Safe Documents)</h3>
             
             
@@ -8005,6 +8029,198 @@
             </div>
             
             
+            
+            
+            <h3>🔐 DKIM Configuration</h3>
+            
+            
+            <div class="policy-item pass">
+                <h4>DKIM Key Size Requirements (ID: 8.5.1)</h4>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - All domains meet requirement: CriticalStartLab.com, CriticalStartLab.mail.onmicrosoft.com
+                </span></p>
+                <p>Policy Found: True</p>
+                
+                <p>Expected Value: 2048</p>
+                
+                
+            </div>
+            
+            
+            <div class="policy-item pass">
+                <h4>DKIM Selector 1 Key Size (ID: 8.5.2)</h4>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - All domains meet requirement: CriticalStartLab.com, CriticalStartLab.mail.onmicrosoft.com
+                </span></p>
+                <p>Policy Found: True</p>
+                
+                <p>Expected Value: 2048</p>
+                
+                
+            </div>
+            
+            
+            <div class="policy-item pass">
+                <h4>DKIM Selector 2 Key Size (ID: 8.5.3)</h4>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - All domains meet requirement: CriticalStartLab.com, CriticalStartLab.mail.onmicrosoft.com
+                </span></p>
+                <p>Policy Found: True</p>
+                
+                <p>Expected Value: 2048</p>
+                
+                
+            </div>
+            
+            
+            <div class="policy-item pass">
+                <h4>DKIM Enabled Status (ID: 8.5.4)</h4>
+                <p>Configuration Status: <span class="status-text pass">
+                    COMPLIANT - All domains meet requirement: CriticalStartLab.com, CriticalStartLab.mail.onmicrosoft.com
+                </span></p>
+                <p>Policy Found: True</p>
+                
+                <p>Expected Value: True</p>
+                
+                
+            </div>
+            
+            
+        </div>
+        
+        
+        
+        <div class="policy-section">
+            <h2>🌐 Exchange Online DNS Configurations</h2>
+            <p style="color: #666; font-style: italic; margin-bottom: 20px;">DNS records (SPF, DKIM, DMARC) for the default Exchange Online domain</p>
+            
+            
+            
+            <div class="policy-item pass">
+                <h3>9.1 - SPF Record Configuration</h3>
+                <p>DNS Record Status: <span class="status-text pass">
+                    PRESENT - Soft SPF Fail Found (~all)
+                </span></p>
+                <p>Record Found: True</p>
+                <p>Domain: CriticalStartLab.com</p>
+                
+                <p>Expected: SPF record with hard fail (-all) or soft fail (~all)</p>
+                
+                
+                <p>Current Value: 
+                    
+                        
+                            v=spf1 include:spf.protection.outlook.com include:_spf.salesforce.com include:mailgun.org ip4:136.37.182.214 ~all
+                        
+                    
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>DNS Record Details:</h4>
+                    <ul>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+            
+            
+            <div class="policy-item pass">
+                <h3>9.2 - DKIM Record Configuration</h3>
+                <p>DNS Record Status: <span class="status-text pass">
+                    PRESENT - Office 365 DKIM Found
+                </span></p>
+                <p>Record Found: True</p>
+                <p>Domain: CriticalStartLab.com</p>
+                
+                <p>Expected: DKIM selectors configured (Google or Office 365)</p>
+                
+                
+                <p>Current Value: 
+                    
+                        <ul style="margin: 5px 0; padding-left: 20px;">
+                        
+                            <li><strong>google_dkim:</strong> 
+                                
+                                    None
+                                
+                            </li>
+                        
+                            <li><strong>o365_selector1:</strong> 
+                                
+                                    
+                                        selector1-criticalstartlab-com._domainkey.criticalstartlab.onmicrosoft.com.
+                                    
+                                
+                            </li>
+                        
+                            <li><strong>o365_selector2:</strong> 
+                                
+                                    
+                                        selector2-criticalstartlab-com._domainkey.criticalstartlab.onmicrosoft.com.
+                                    
+                                
+                            </li>
+                        
+                        </ul>
+                    
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>DNS Record Details:</h4>
+                    <ul>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+            
+            
+            <div class="policy-item fail">
+                <h3>9.3 - DMARC Record Configuration</h3>
+                <p>DNS Record Status: <span class="status-text fail">
+                    PRESENT - DMARC in None Mode
+                </span></p>
+                <p>Record Found: True</p>
+                <p>Domain: CriticalStartLab.com</p>
+                
+                <p>Expected: DMARC record with quarantine or reject policy</p>
+                
+                
+                <p>Current Value: 
+                    
+                        <ul style="margin: 5px 0; padding-left: 20px;">
+                        
+                            <li><strong>records:</strong> 
+                                
+                                    
+                                        v=DMARC1; p=none; rua=mailto:kvxc8wsn@ag.dmarcian.com;
+                                    
+                                
+                            </li>
+                        
+                            <li><strong>policy:</strong> 
+                                
+                                    none
+                                
+                            </li>
+                        
+                        </ul>
+                    
+                </p>
+                
+                
+                <div class="policy-breakdown">
+                    <h4>DNS Record Details:</h4>
+                    <ul>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+            
         </div>
         
         
@@ -8016,7 +8232,7 @@
             
             
             <div class="policy-item pass">
-                <h3>9.1 - Archive files scanning enabled</h3>
+                <h3>10.1 - Archive files scanning enabled</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation, SvN - AV Sally Johnson Devices
                 </span></p>
@@ -8054,7 +8270,7 @@
             
             
             <div class="policy-item pass">
-                <h3>9.2 - Behavior monitoring enabled</h3>
+                <h3>10.2 - Behavior monitoring enabled</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation, SvN - AV Sally Johnson Devices
                 </span></p>
@@ -8092,7 +8308,7 @@
             
             
             <div class="policy-item pass">
-                <h3>9.3 - Cloud-delivered protection enabled</h3>
+                <h3>10.3 - Cloud-delivered protection enabled</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation, SvN - AV Sally Johnson Devices
                 </span></p>
@@ -8130,7 +8346,7 @@
             
             
             <div class="policy-item pass">
-                <h3>9.4 - Email scanning enabled</h3>
+                <h3>10.4 - Email scanning enabled</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation, SvN - AV Sally Johnson Devices
                 </span></p>
@@ -8168,7 +8384,7 @@
             
             
             <div class="policy-item pass">
-                <h3>9.5 - Full scan on mapped network drives disabled</h3>
+                <h3>10.5 - Full scan on mapped network drives disabled</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation, SvN - AV Sally Johnson Devices
                 </span></p>
@@ -8206,7 +8422,7 @@
             
             
             <div class="policy-item pass">
-                <h3>9.6 - Scan removable drives enabled</h3>
+                <h3>10.6 - Scan removable drives enabled</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation
                 </span></p>
@@ -8244,7 +8460,7 @@
             
             
             <div class="policy-item pass">
-                <h3>9.7 - Enable downloaded files and attachments scanning</h3>
+                <h3>10.7 - Enable downloaded files and attachments scanning</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation, SvN - AV Sally Johnson Devices
                 </span></p>
@@ -8282,7 +8498,7 @@
             
             
             <div class="policy-item pass">
-                <h3>9.8 - Real-time monitoring enabled</h3>
+                <h3>10.8 - Real-time monitoring enabled</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation, SvN - AV Sally Johnson Devices
                 </span></p>
@@ -8320,7 +8536,7 @@
             
             
             <div class="policy-item pass">
-                <h3>9.9 - Network files scanning disabled</h3>
+                <h3>10.9 - Network files scanning disabled</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation, SvN - AV Sally Johnson Devices
                 </span></p>
@@ -8358,7 +8574,7 @@
             
             
             <div class="policy-item pass">
-                <h3>9.10 - Script scanning enabled</h3>
+                <h3>10.10 - Script scanning enabled</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation, SvN - AV Sally Johnson Devices
                 </span></p>
@@ -8396,7 +8612,7 @@
             
             
             <div class="policy-item pass">
-                <h3>9.11 - User UI access enabled</h3>
+                <h3>10.11 - User UI access enabled</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation, SvN - AV Sally Johnson Devices
                 </span></p>
@@ -8434,7 +8650,7 @@
             
             
             <div class="policy-item pass">
-                <h3>9.12 - Check for signatures before scan enabled</h3>
+                <h3>10.12 - Check for signatures before scan enabled</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation
                 </span></p>
@@ -8472,7 +8688,7 @@
             
             
             <div class="policy-item pass">
-                <h3>9.13 - Cloud block level set to high</h3>
+                <h3>10.13 - Cloud block level set to high</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation, SvN - AV Sally Johnson Devices
                 </span></p>
@@ -8510,7 +8726,7 @@
             
             
             <div class="policy-item pass">
-                <h3>9.14 - Cloud extended timeout configured</h3>
+                <h3>10.14 - Cloud extended timeout configured</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation
                 </span></p>
@@ -8548,7 +8764,7 @@
             
             
             <div class="policy-item pass">
-                <h3>9.15 - Malware retention period configured</h3>
+                <h3>10.15 - Malware retention period configured</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation
                 </span></p>
@@ -8586,7 +8802,7 @@
             
             
             <div class="policy-item pass">
-                <h3>9.16 - Disable catchup full scan</h3>
+                <h3>10.16 - Disable catchup full scan</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation
                 </span></p>
@@ -8624,7 +8840,7 @@
             
             
             <div class="policy-item pass">
-                <h3>9.17 - Disable catchup quick scan</h3>
+                <h3>10.17 - Disable catchup quick scan</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation
                 </span></p>
@@ -8662,7 +8878,7 @@
             
             
             <div class="policy-item pass">
-                <h3>9.18 - Network protection enabled</h3>
+                <h3>10.18 - Network protection enabled</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation
                 </span></p>
@@ -8700,7 +8916,7 @@
             
             
             <div class="policy-item pass">
-                <h3>9.19 - Potentially unwanted application protection enabled</h3>
+                <h3>10.19 - Potentially unwanted application protection enabled</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation, SvN - AV Sally Johnson Devices
                 </span></p>
@@ -8738,7 +8954,7 @@
             
             
             <div class="policy-item pass">
-                <h3>9.20 - Real-time scan direction configured</h3>
+                <h3>10.20 - Real-time scan direction configured</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation, SvN - AV Sally Johnson Devices
                 </span></p>
@@ -8776,7 +8992,7 @@
             
             
             <div class="policy-item pass">
-                <h3>9.21 - Scan parameter set to quick scan</h3>
+                <h3>10.21 - Scan parameter set to quick scan</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation, SvN - AV Sally Johnson Devices
                 </span></p>
@@ -8814,7 +9030,7 @@
             
             
             <div class="policy-item pass">
-                <h3>9.22 - Daily quick scan time configured</h3>
+                <h3>10.22 - Daily quick scan time configured</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation, SvN - AV Sally Johnson Devices
                 </span></p>
@@ -8852,7 +9068,7 @@
             
             
             <div class="policy-item pass">
-                <h3>9.23 - Weekly scan day configured</h3>
+                <h3>10.23 - Weekly scan day configured</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation, SvN - AV Sally Johnson Devices
                 </span></p>
@@ -8890,7 +9106,7 @@
             
             
             <div class="policy-item pass">
-                <h3>9.24 - Signature update interval configured</h3>
+                <h3>10.24 - Signature update interval configured</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation, SvN - AV Sally Johnson Devices
                 </span></p>
@@ -8928,7 +9144,7 @@
             
             
             <div class="policy-item pass">
-                <h3>9.25 - Automatic sample submission enabled</h3>
+                <h3>10.25 - Automatic sample submission enabled</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation
                 </span></p>
@@ -8966,7 +9182,7 @@
             
             
             <div class="policy-item pass">
-                <h3>9.26 - Disable local admin merge enabled</h3>
+                <h3>10.26 - Disable local admin merge enabled</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation
                 </span></p>
@@ -9004,7 +9220,7 @@
             
             
             <div class="policy-item pass">
-                <h3>9.27 - On-access protection enabled</h3>
+                <h3>10.27 - On-access protection enabled</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation
                 </span></p>
@@ -9042,7 +9258,7 @@
             
             
             <div class="policy-item pass">
-                <h3>9.28 - Threat severity default actions configured</h3>
+                <h3>10.28 - Threat severity default actions configured</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation, SvN - AV Sally Johnson Devices
                 </span></p>
@@ -9080,7 +9296,7 @@
             
             
             <div class="policy-item pass">
-                <h3>9.29 - Engine updates channel configured</h3>
+                <h3>10.29 - Engine updates channel configured</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation, SvN - AV Sally Johnson Devices
                 </span></p>
@@ -9118,7 +9334,7 @@
             
             
             <div class="policy-item pass">
-                <h3>9.30 - Platform updates channel configured</h3>
+                <h3>10.30 - Platform updates channel configured</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation, SvN - AV Sally Johnson Devices
                 </span></p>
@@ -9156,7 +9372,7 @@
             
             
             <div class="policy-item pass">
-                <h3>9.31 - Security intelligence updates channel configured</h3>
+                <h3>10.31 - Security intelligence updates channel configured</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - Desired State AV Config - Workstation, SvN - AV Sally Johnson Devices
                 </span></p>
@@ -9203,7 +9419,7 @@
             
             
             <div class="policy-item pass">
-                <h3>10.1 - Block execution of potentially obfuscated scripts</h3>
+                <h3>11.1 - Block execution of potentially obfuscated scripts</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - ASR Desired State, SvN - Sally Johnson Devices ASR
                 </span></p>
@@ -9245,7 +9461,7 @@
             
             
             <div class="policy-item pass">
-                <h3>10.2 - Block Win32 API calls from Office macros</h3>
+                <h3>11.2 - Block Win32 API calls from Office macros</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - ASR Desired State, SvN - Sally Johnson Devices ASR
                 </span></p>
@@ -9287,7 +9503,7 @@
             
             
             <div class="policy-item pass">
-                <h3>10.3 - Block executable files from running unless they meet prevalence, age, or trusted list criterion</h3>
+                <h3>11.3 - Block executable files from running unless they meet prevalence, age, or trusted list criterion</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - ASR Desired State, SvN - Sally Johnson Devices ASR
                 </span></p>
@@ -9329,7 +9545,7 @@
             
             
             <div class="policy-item pass">
-                <h3>10.4 - Block Office communication applications from creating child processes</h3>
+                <h3>11.4 - Block Office communication applications from creating child processes</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - ASR Desired State, SvN - Sally Johnson Devices ASR
                 </span></p>
@@ -9371,7 +9587,7 @@
             
             
             <div class="policy-item pass">
-                <h3>10.5 - Block all Office applications from creating child processes</h3>
+                <h3>11.5 - Block all Office applications from creating child processes</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - ASR Desired State, SvN - Sally Johnson Devices ASR
                 </span></p>
@@ -9413,7 +9629,7 @@
             
             
             <div class="policy-item pass">
-                <h3>10.6 - Block Adobe Reader from creating child processes</h3>
+                <h3>11.6 - Block Adobe Reader from creating child processes</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - ASR Desired State, SvN - Sally Johnson Devices ASR
                 </span></p>
@@ -9455,7 +9671,7 @@
             
             
             <div class="policy-item pass">
-                <h3>10.7 - Block credential stealing from the Windows local security authority subsystem (lsass.exe)</h3>
+                <h3>11.7 - Block credential stealing from the Windows local security authority subsystem (lsass.exe)</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - ASR Desired State
                 </span></p>
@@ -9497,7 +9713,7 @@
             
             
             <div class="policy-item pass">
-                <h3>10.8 - Block JavaScript or VBScript from launching downloaded executable content</h3>
+                <h3>11.8 - Block JavaScript or VBScript from launching downloaded executable content</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - ASR Desired State, SvN - Sally Johnson Devices ASR
                 </span></p>
@@ -9539,7 +9755,7 @@
             
             
             <div class="policy-item pass">
-                <h3>10.9 - Block webshell creation for servers</h3>
+                <h3>11.9 - Block webshell creation for servers</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - ASR Desired State, SvN - Sally Johnson Devices ASR
                 </span></p>
@@ -9581,7 +9797,7 @@
             
             
             <div class="policy-item pass">
-                <h3>10.10 - Block untrusted and unsigned processes that run from USB</h3>
+                <h3>11.10 - Block untrusted and unsigned processes that run from USB</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - ASR Desired State, SvN - Sally Johnson Devices ASR
                 </span></p>
@@ -9623,7 +9839,7 @@
             
             
             <div class="policy-item pass">
-                <h3>10.11 - Block persistence through WMI event subscription</h3>
+                <h3>11.11 - Block persistence through WMI event subscription</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - ASR Desired State, SvN - Sally Johnson Devices ASR
                 </span></p>
@@ -9665,7 +9881,7 @@
             
             
             <div class="policy-item pass">
-                <h3>10.12 - Block use of copied or impersonated system tools</h3>
+                <h3>11.12 - Block use of copied or impersonated system tools</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - ASR Desired State
                 </span></p>
@@ -9707,7 +9923,7 @@
             
             
             <div class="policy-item pass">
-                <h3>10.13 - Block abuse of exploited vulnerable signed drivers</h3>
+                <h3>11.13 - Block abuse of exploited vulnerable signed drivers</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - ASR Desired State, SvN - Sally Johnson Devices ASR
                 </span></p>
@@ -9749,7 +9965,7 @@
             
             
             <div class="policy-item pass">
-                <h3>10.14 - Block process creations originating from PSExec and WMI commands</h3>
+                <h3>11.14 - Block process creations originating from PSExec and WMI commands</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - ASR Desired State, SvN - Sally Johnson Devices ASR
                 </span></p>
@@ -9791,7 +10007,7 @@
             
             
             <div class="policy-item pass">
-                <h3>10.15 - Block Office applications from creating executable content</h3>
+                <h3>11.15 - Block Office applications from creating executable content</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - ASR Desired State, SvN - Sally Johnson Devices ASR
                 </span></p>
@@ -9833,7 +10049,7 @@
             
             
             <div class="policy-item pass">
-                <h3>10.16 - Block Office applications from injecting code into other processes</h3>
+                <h3>11.16 - Block Office applications from injecting code into other processes</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - ASR Desired State, SvN - Sally Johnson Devices ASR
                 </span></p>
@@ -9875,7 +10091,7 @@
             
             
             <div class="policy-item pass">
-                <h3>10.17 - Block rebooting machine in Safe Mode</h3>
+                <h3>11.17 - Block rebooting machine in Safe Mode</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - ASR Desired State
                 </span></p>
@@ -9917,7 +10133,7 @@
             
             
             <div class="policy-item pass">
-                <h3>10.18 - Use advanced protection against ransomware</h3>
+                <h3>11.18 - Use advanced protection against ransomware</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - ASR Desired State, SvN - Sally Johnson Devices ASR
                 </span></p>
@@ -9959,7 +10175,7 @@
             
             
             <div class="policy-item pass">
-                <h3>10.19 - Block executable content from email client and webmail</h3>
+                <h3>11.19 - Block executable content from email client and webmail</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - ASR Desired State, SvN - Sally Johnson Devices ASR
                 </span></p>
@@ -10001,7 +10217,7 @@
             
             
             <div class="policy-item pass">
-                <h3>10.20 - Enable controlled folder access</h3>
+                <h3>11.20 - Enable controlled folder access</h3>
                 <p>Configuration Status: <span class="status-text pass">
                     COMPLIANT - Found in policies: FLDS - ASR Desired State
                 </span></p>

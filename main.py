@@ -9,6 +9,7 @@ from DefenderForOffice365.SafeAttachmentsPolicyHandler import SafeAttachmentsPol
 from DefenderForOffice365.SafeLinksPolicyHandler import SafeLinksPolicyHandler
 from DefenderForOffice365.ExchangeOnlineConfigHandler import ExchangeOnlineConfigHandler
 from DefenderForOffice365.ExchangeOnlineSessionManager import ExchangeOnlineSessionManager
+from DefenderForOffice365.ExchangeOnlineDNSConfigHandler import ExchangeOnlineDNSConfigHandler
 from DefenderForEndpoint.AntivirusConfigHandler import AntivirusConfigHandler
 from DefenderForEndpoint.AttackSurfaceReductionConfigHandler import AttackSurfaceReductionConfigHandler
 from ReportGenerator import ReportGenerator
@@ -100,6 +101,7 @@ def main():
         safeattachments_results = []
         safelinks_results = []
         exchangeonline_results = []
+        dns_results = []
         
         try:
             print("\n=== Checking Defender for Office 365 Anti-Spam Policies ===")
@@ -238,6 +240,18 @@ if ($module) {
                 
                 print(f"Exchange Online requirements file exists: {exchangeonline_exists}")
                 
+                # Check which DNS files exist
+                dns_file = 'config/DefenderForOffice365/dns_requirements.yaml'
+                dns_exists = os.path.exists(dns_file)
+                
+                print(f"DNS requirements file exists: {dns_exists}")
+                
+                # Check which DNS files exist
+                dns_file = 'config/DefenderForOffice365/dns_requirements.yaml'
+                dns_exists = os.path.exists(dns_file)
+                
+                print(f"DNS requirements file exists: {dns_exists}")
+                
                 # Determine which policy types we need
                 need_antispam = (standard_exists or strict_exists or outbound_exists or legacy_inbound_file)
                 need_antiphishing = (antiphishing_standard_exists or antiphishing_strict_exists)
@@ -245,6 +259,7 @@ if ($module) {
                 need_safeattachments = safeattachments_exists
                 need_safelinks = safelinks_exists
                 need_exchangeonline = exchangeonline_exists
+                need_dns = dns_exists
                 
                 if need_antispam:
                     defender_policy_types.extend(['antispam_inbound', 'antispam_outbound'])
@@ -267,6 +282,11 @@ if ($module) {
                     defender_policy_types.append('organizationconfig')
                     defender_policy_types.append('reportsubmissionpolicy')
                     defender_policy_types.append('dkim')
+                
+                if need_dns:
+                    # Add DKIM policy type to extract domain information for DNS checks
+                    if 'dkim' not in defender_policy_types:
+                        defender_policy_types.append('dkim')
                 
                 # Retrieve all needed Defender policies in a single authentication session
                 if defender_policy_types:
@@ -415,6 +435,29 @@ if ($module) {
                     exchangeonline_results = []
                     print("No Exchange Online requirements file found. Skipping Exchange Online checks.")
 
+                # Process DNS configurations if needed
+                if need_dns:
+                    try:
+                        print("\n=== Checking Exchange Online DNS Configurations ===")
+                        
+                        dns_handler = ExchangeOnlineDNSConfigHandler(
+                            exchange_session_manager=exchange_session_manager,
+                            requirements_file_path=dns_file
+                        )
+                        
+                        dns_results = dns_handler.check_policies()
+                    except Exception as e:
+                        print(f"Error processing DNS configurations: {str(e)}")
+                        dns_results = [{
+                            'requirement_name': 'Error',
+                            'found': False,
+                            'status': f'ERROR - {str(e)}',
+                            'policy_type': 'dns'
+                        }]
+                else:
+                    dns_results = []
+                    print("No DNS requirements file found. Skipping DNS checks.")
+
         except Exception as e:
             print(f"Error in Defender for Office 365 policy checks: {str(e)}")
             if not antispam_results:
@@ -459,12 +502,12 @@ if ($module) {
                     'status': f'ERROR - {str(e)}',
                     'policy_type': 'exchangeonline'
                 }]
-            if not dkim_results:
-                dkim_results = [{
+            if not dns_results:
+                dns_results = [{
                     'requirement_name': 'Error',
                     'found': False,
                     'status': f'ERROR - {str(e)}',
-                    'policy_type': 'dkim'
+                    'policy_type': 'dns'
                 }]
 
         # Clear the session cache after all Defender policies are retrieved
@@ -477,7 +520,7 @@ if ($module) {
         
         # Update report generation to include all Defender for Office 365 policy results
         report = ReportGenerator()
-        report.generate_report(ca_results, auth_results, antispam_results, antiphishing_results, antimalware_results, safeattachments_results, safelinks_results, exchangeonline_results, antivirus_results, asr_results, tenant_info)
+        report.generate_report(ca_results, auth_results, antispam_results, antiphishing_results, antimalware_results, safeattachments_results, safelinks_results, exchangeonline_results, dns_results, antivirus_results, asr_results, tenant_info)
 
 if __name__ == '__main__':
     main()

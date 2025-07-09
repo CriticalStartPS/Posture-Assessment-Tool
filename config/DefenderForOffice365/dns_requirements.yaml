@@ -1,0 +1,24 @@
+# DNS Configuration Requirements for Exchange Online
+# This file defines the requirements for DNS records (SPF, DKIM, DMARC)
+
+dns_requirements:
+  - id: "DNS-001"
+    name: "SPF Record Configuration"
+    description: "Domain should have a proper SPF record with hard fail or soft fail"
+    check_type: "spf_record"
+    expected_value: "SPF record with -all or ~all"
+    compliance_level: "required"
+    
+  - id: "DNS-002"
+    name: "DKIM Record Configuration"
+    description: "Domain should have DKIM selectors configured for email authentication"
+    check_type: "dkim_record"
+    expected_value: "DKIM selectors (Google or Office 365)"
+    compliance_level: "required"
+    
+  - id: "DNS-003"
+    name: "DMARC Record Configuration"
+    description: "Domain should have a DMARC record with quarantine or reject policy"
+    check_type: "dmarc_record"
+    expected_value: "DMARC policy set to quarantine or reject"
+    compliance_level: "required"

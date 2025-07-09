@@ -786,7 +786,7 @@ class ReportGenerator:
         }
 
     def add_hierarchical_numbering(self, ca_results, auth_results, antispam_results, antiphishing_results, 
-                                   antimalware_results, safeattachments_results, safelinks_results, exchangeonline_results, antivirus_results, asr_results=None):
+                                   antimalware_results, safeattachments_results, safelinks_results, exchangeonline_results, dns_results, antivirus_results, asr_results=None):
         """Add hierarchical numbering to all policy results for easy referencing"""
         
         # Define the policy sections and their numbers
@@ -970,7 +970,15 @@ class ReportGenerator:
                     result['subsection_number'] = subsection_counter
         section_counter += 1
         
-        # 9. Defender for Endpoint - Antivirus Configurations
+        # 9. Exchange Online DNS Configurations
+        if dns_results:
+            for i, result in enumerate(dns_results, 1):
+                result['check_id'] = f"{section_counter}.{i}"
+                result['section_name'] = "Exchange Online DNS Configurations"
+                result['section_number'] = section_counter
+        section_counter += 1
+        
+        # 10. Defender for Endpoint - Antivirus Configurations
         if antivirus_results:
             for i, result in enumerate(antivirus_results, 1):
                 result['check_id'] = f"{section_counter}.{i}"
@@ -978,7 +986,7 @@ class ReportGenerator:
                 result['section_number'] = section_counter
         section_counter += 1
         
-        # 10. Defender for Endpoint - Attack Surface Reduction Configurations
+        # 11. Defender for Endpoint - Attack Surface Reduction Configurations
         if asr_results:
             for i, result in enumerate(asr_results, 1):
                 result['check_id'] = f"{section_counter}.{i}"
@@ -994,11 +1002,12 @@ class ReportGenerator:
             'safeattachments_results': safeattachments_results,
             'safelinks_results': safelinks_results,
             'exchangeonline_results': exchangeonline_results,
+            'dns_results': dns_results,
             'antivirus_results': antivirus_results,
             'asr_results': asr_results
         }
 
-    def generate_report(self, ca_results, auth_results, antispam_results=None, antiphishing_results=None, antimalware_results=None, safeattachments_results=None, safelinks_results=None, exchangeonline_results=None, antivirus_results=None, asr_results=None, tenant_info=None):
+    def generate_report(self, ca_results, auth_results, antispam_results=None, antiphishing_results=None, antimalware_results=None, safeattachments_results=None, safelinks_results=None, exchangeonline_results=None, dns_results=None, antivirus_results=None, asr_results=None, tenant_info=None):
         # Calculate detailed compliance metrics
         ca_compliance = self.calculate_compliance_details(ca_results, is_conditional_access=True)
         auth_compliance = self.calculate_compliance_details(auth_results, is_conditional_access=False)
@@ -1076,6 +1085,11 @@ class ReportGenerator:
             if dkim_results:
                 dkim_compliance = self.calculate_dkim_compliance_by_policy(dkim_results)
         
+        # Calculate DNS compliance
+        dns_compliance = None
+        if dns_results:
+            dns_compliance = self.calculate_dns_compliance_by_policy(dns_results)
+        
         # Calculate overall compliance using the separate categories
         total_passed = (ca_compliance['passed'] + auth_compliance['passed'] + 
                        antispam_inbound_standard_compliance['passed'] + 
@@ -1089,7 +1103,8 @@ class ReportGenerator:
                        (exchangeonline_compliance['passed'] if exchangeonline_compliance else 0) +
                        (antivirus_compliance['passed'] if antivirus_compliance else 0) +
                        (asr_compliance['passed'] if asr_compliance else 0) +
-                       (dkim_compliance['passed'] if dkim_compliance else 0))
+                       (dkim_compliance['passed'] if dkim_compliance else 0) +
+                       (dns_compliance['passed'] if dns_compliance else 0))
         total_policies = (ca_compliance['total'] + auth_compliance['total'] + 
                          antispam_inbound_standard_compliance['total'] + 
                          antispam_inbound_strict_compliance['total'] + 
@@ -1102,7 +1117,8 @@ class ReportGenerator:
                          (exchangeonline_compliance['total'] if exchangeonline_compliance else 0) +
                          (antivirus_compliance['total'] if antivirus_compliance else 0) +
                          (asr_compliance['total'] if asr_compliance else 0) +
-                         (dkim_compliance['total'] if dkim_compliance else 0))
+                         (dkim_compliance['total'] if dkim_compliance else 0) +
+                         (dns_compliance['total'] if dns_compliance else 0))
         
         overall_compliance = round((total_passed / total_policies) * 100) if total_policies > 0 else 0
 
@@ -1115,7 +1131,7 @@ class ReportGenerator:
         # Add hierarchical numbering to all results for easy referencing
         numbered_results = self.add_hierarchical_numbering(
             ca_results, auth_results, antispam_results, antiphishing_results, 
-            antimalware_results, safeattachments_results, safelinks_results, exchangeonline_results, restructured_antivirus_results, restructured_asr_results
+            antimalware_results, safeattachments_results, safelinks_results, exchangeonline_results, dns_results, restructured_antivirus_results, restructured_asr_results
         )
 
         template = self.env.get_template('report_template.html')
@@ -1128,6 +1144,7 @@ class ReportGenerator:
             safeattachments_results=numbered_results['safeattachments_results'] or [],
             safelinks_results=numbered_results['safelinks_results'] or [],
             exchangeonline_results=numbered_results['exchangeonline_results'] or [],
+            dns_results=numbered_results['dns_results'] or [],
             antivirus_results=numbered_results['antivirus_results'] or [],
             asr_results=numbered_results['asr_results'] or [],
             timestamp=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
@@ -1145,6 +1162,7 @@ class ReportGenerator:
             safeattachments_compliance=safeattachments_compliance,
             safelinks_compliance=safelinks_compliance,
             exchangeonline_compliance=exchangeonline_compliance,
+            dns_compliance=dns_compliance,
             antivirus_compliance=antivirus_compliance,
             asr_compliance=asr_compliance,
             dkim_compliance=dkim_compliance,
@@ -1511,4 +1529,53 @@ class ReportGenerator:
         }
         
         print(f"Final DKIM compliance: {final_result}")
+        return final_result
+
+    def calculate_dns_compliance_by_policy(self, results):
+        """Calculate compliance for DNS configurations where all DNS checks must meet requirements = compliant"""
+        if not results:
+            return {
+                'percentage': 0,
+                'passed': 0,
+                'total': 0,
+                'is_compliant': False,
+                'compliant_policy': None,
+                'compliant_policies': []
+            }
+        
+        print(f"\nCalculating DNS compliance for Exchange Online:")
+        
+        # For DNS, we need all records (SPF, DKIM, DMARC) to be compliant
+        total_requirements = len(results)
+        passed_requirements = 0
+        
+        # Check each DNS requirement 
+        for result in results:
+            requirement_name = result.get('requirement_name', 'Unknown')
+            is_compliant = result.get('is_compliant', False)
+            
+            if is_compliant:
+                passed_requirements += 1
+                print(f"  ✓ {requirement_name}: COMPLIANT")
+            else:
+                print(f"  ✗ {requirement_name}: NON-COMPLIANT")
+        
+        # DNS is compliant if ALL requirements pass
+        is_compliant = passed_requirements == total_requirements
+        percentage = 100 if is_compliant else round((passed_requirements / total_requirements) * 100)
+        
+        # For DNS, there's no single "policy" but rather DNS record configurations
+        compliant_policy = "All DNS Records" if is_compliant else None
+        compliant_policies = ["All DNS Records"] if is_compliant else []
+        
+        final_result = {
+            'percentage': percentage,
+            'passed': passed_requirements,
+            'total': total_requirements,
+            'is_compliant': is_compliant,
+            'compliant_policy': compliant_policy,
+            'compliant_policies': compliant_policies
+        }
+        
+        print(f"Final DNS compliance: {final_result}")
         return final_result

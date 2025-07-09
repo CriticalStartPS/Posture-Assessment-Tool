@@ -624,5 +624,116 @@ exit 0
         print("Policy cache cleared")
     
     def get_cached_policies(self) -> Dict[str, List[Dict]]:
-        """Get currently cached policies without making new requests"""
+        """Return all cached policies"""
         return self._cached_policies.copy()
+    
+    def execute_exchange_command(self, command: str, timeout: int = 60) -> Optional[str]:
+        """
+        Execute a custom PowerShell command within an Exchange Online session
+        
+        Args:
+            command: PowerShell command to execute
+            timeout: Command timeout in seconds
+            
+        Returns:
+            Command output as string, or None if failed
+        """
+        try:
+            print(f"Executing Exchange Online command: {command}")
+            
+            # Build PowerShell script with connection and custom command
+            powershell_script = f"""
+# PowerShell script for Exchange Online connection and custom command execution
+Write-Output "Starting Exchange Online connection for custom command..."
+
+try {{
+    # Try to connect using various methods
+    try {{
+        Connect-ExchangeOnline -ErrorAction Stop
+        Write-Output "Successfully connected to Exchange Online"
+    }} catch {{
+        try {{
+            Connect-ExchangeOnline -ShowProgress:$false -ErrorAction Stop
+            Write-Output "Successfully connected to Exchange Online (no progress)"
+        }} catch {{
+            throw "All connection methods failed: $($_.Exception.Message)"
+        }}
+    }}
+}} catch {{
+    Write-Error "Failed to connect to Exchange Online: $_"
+    exit 1
+}}
+
+try {{
+    Write-Output "Executing custom command..."
+    $result = {command}
+    
+    Write-Output "=== COMMAND_RESULT_START ==="
+    Write-Output ($result | ConvertTo-Json -Depth 10 -Compress)
+    Write-Output "=== COMMAND_RESULT_END ==="
+    
+}} catch {{
+    Write-Output "=== COMMAND_ERROR_START ==="
+    Write-Output "Error: $($_.Exception.Message)"
+    Write-Output "=== COMMAND_ERROR_END ==="
+}} finally {{
+    try {{
+        Disconnect-ExchangeOnline -Confirm:$false -ErrorAction SilentlyContinue
+        Write-Output "Disconnected from Exchange Online"
+    }} catch {{
+        Write-Output "Disconnect warning: $($_.Exception.Message)"
+    }}
+}}
+"""
+            
+            # Execute the PowerShell script
+            powershell_exe = self._determine_powershell_executable()
+            
+            result = subprocess.run([
+                powershell_exe,
+                "-ExecutionPolicy", "Bypass",
+                "-Command", powershell_script
+            ], capture_output=True, text=True, timeout=timeout)
+            
+            print(f"PowerShell exit code: {result.returncode}")
+            if result.stderr:
+                print(f"PowerShell stderr: {result.stderr}")
+            
+            if result.returncode == 0 and result.stdout:
+                # Extract the command result
+                stdout = result.stdout
+                start_marker = "=== COMMAND_RESULT_START ==="
+                end_marker = "=== COMMAND_RESULT_END ==="
+                
+                start_idx = stdout.find(start_marker)
+                end_idx = stdout.find(end_marker)
+                
+                if start_idx != -1 and end_idx != -1:
+                    command_output = stdout[start_idx + len(start_marker):end_idx].strip()
+                    print(f"Command executed successfully")
+                    return command_output
+                else:
+                    # Check for error
+                    error_start = "=== COMMAND_ERROR_START ==="
+                    error_end = "=== COMMAND_ERROR_END ==="
+                    error_start_idx = stdout.find(error_start)
+                    error_end_idx = stdout.find(error_end)
+                    
+                    if error_start_idx != -1 and error_end_idx != -1:
+                        error_text = stdout[error_start_idx + len(error_start):error_end_idx].strip()
+                        print(f"Command failed: {error_text}")
+                        return None
+                    else:
+                        print("Could not parse command output")
+                        print(f"Raw stdout: {stdout}")
+                        return None
+            else:
+                print(f"PowerShell command failed with return code {result.returncode}")
+                return None
+                
+        except subprocess.TimeoutExpired:
+            print(f"Command timed out after {timeout} seconds")
+            return None
+        except Exception as e:
+            print(f"Error executing Exchange command: {str(e)}")
+            return None
