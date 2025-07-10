@@ -187,21 +187,7 @@ antispam_inbound_strict_policies:
     policy_type: "inbound_strict"
     setting: "QuarantineRetentionPeriod"
     expected_value: 30
-
-  # Test Mode Settings
-  - name: "Test Mode Action (Strict)"
-    description: "Test mode action disabled for strict protection"
-    policy_type: "inbound_strict"
-    setting: "TestModeAction"
-    expected_value: "None"
-
-  # Download Link Settings
-  - name: "Download Link Scanning (Strict)"
-    description: "Download link scanning disabled for strict protection"
-    policy_type: "inbound_strict"
-    setting: "DownloadLink"
-    expected_value: false
-
+    
   # Additional Header and Notification Settings
   - name: "Add X-Header Value (Strict)"
     description: "No additional X-header value for strict protection"

@@ -187,17 +187,3 @@ antispam_inbound_standard_policies:
     policy_type: "inbound_standard"
     setting: "QuarantineRetentionPeriod"
     expected_value: 30
-
-  # Test Mode Settings
-  - name: "Test Mode Action (Standard)"
-    description: "Test mode action disabled for standard protection"
-    policy_type: "inbound_standard"
-    setting: "TestModeAction"
-    expected_value: "None"
-
-  # Download Link Settings
-  - name: "Download Link Scanning (Standard)"
-    description: "Download link scanning disabled for standard protection"
-    policy_type: "inbound_standard"
-    setting: "DownloadLink"
-    expected_value: false
