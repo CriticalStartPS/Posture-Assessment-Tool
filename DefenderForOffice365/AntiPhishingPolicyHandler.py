@@ -168,7 +168,8 @@ class AntiPhishingPolicyHandler:
                 'policy_breakdown': policy_breakdown,
                 'total_policies': len(policy_results),
                 'compliant_policies': len(compliant_policies),
-                'non_compliant_policies': len(non_compliant_policies)
+                'non_compliant_policies': len(non_compliant_policies),
+                'policy_results': policy_results
             }
             
             results.append(result_entry)
