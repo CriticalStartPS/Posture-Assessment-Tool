@@ -247,6 +247,17 @@
             border-left: 3px solid var(--danger-color);
         }
         
+        .policy-description {
+            margin: 10px 0;
+            padding: 8px 12px;
+            background: var(--background-dark);
+            border-left: 3px solid var(--border-color);
+            border-radius: 4px;
+            color: var(--text-secondary);
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+        
         .status-text {
             font-weight: 600;
             font-family: 'Roboto Mono', monospace;
@@ -654,6 +665,9 @@
                         {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}✅ COMPLIANT{% else %}❌ NON-COMPLIANT{% endif %}
                     </div>
                     <h4>{{ result.check_id }} - {{ result.requirement_name }}</h4>
+                    {% if result.description %}
+                    <p class="policy-description"><em>{{ result.description }}</em></p>
+                    {% endif %}
                     <div class="policy-details {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">
                         <p><strong>Status:</strong> <span class="status-text {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">{{ result.status }}</span></p>
                         <p><strong>Policy Found:</strong> {{ result.found }}</p>
@@ -681,6 +695,9 @@
                         {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}✅ COMPLIANT{% else %}❌ NON-COMPLIANT{% endif %}
                     </div>
                     <h4>{{ result.check_id }} - {{ result.requirement_name }}</h4>
+                    {% if result.description %}
+                    <p class="policy-description"><em>{{ result.description }}</em></p>
+                    {% endif %}
                     <div class="policy-details {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">
                         <p><strong>Status:</strong> <span class="status-text {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">{{ result.status }}</span></p>
                         <p><strong>Policy Found:</strong> {{ result.found }}</p>

@@ -71,6 +71,7 @@ class AuthorizationPolicyHandler:
 
             result = {
                 'requirement_name': requirement['name'],
+                'description': requirement.get('description', ''),
                 'found': True,
                 'current_value': current_value,
                 'expected_value': expected_value,

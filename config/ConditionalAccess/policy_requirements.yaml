@@ -13,7 +13,7 @@ conditional_access_policies:
       builtInControls: ["mfa"]
 
   - name: "Entra ID User Risk Policy for High Risk Users"
-    description: "Block high risk users"
+    description: "This will require password Change after a MFA challange for high risk users. SSPR and AD password writeback will be required"
     required_conditions:
       users:
         includeUsers: ["All"]
@@ -25,7 +25,7 @@ conditional_access_policies:
       builtInControls: ["passwordChange"]
 
   - name: "Entra ID Sign-in Risk Policy for Medium and High Risk Users"
-    description: "Block medium and high risk sign-ins"
+    description: "Require MFA for medium and high risk sign-ins"
     required_conditions:
       users:
         includeUsers: ["All"]
@@ -43,7 +43,7 @@ conditional_access_policies:
         isEnabled: true
 
   - name: "Block Legacy Authentication"
-    description: "Block legacy authentication protocols"
+    description: "Block legacy authentication protocols. Which include POP, SMTP, IMAP, and MAPI, and other non-modern authentication methods"
     required_conditions:
       users:
         includeUsers: ["All"]
@@ -110,7 +110,7 @@ conditional_access_policies:
       builtInControls: ["block"]
 
   - name: "Block Azure Management for Non-Admins"
-    description: "Block access to Azure Management for non-administrative users"
+    description: "Block access to Azure Management for non-administrative users. Azure Management includes Azure Portal, Entra ID Portal, and using any Azure Management API through Command Line Interface (CLI) or PowerShell."
     required_conditions:
       users:
         includeUsers: ["All"]
@@ -136,7 +136,7 @@ conditional_access_policies:
       builtInControls: ["block"]
 
   - name: "Require Phishing-Resistant MFA for Admins"
-    description: "Require phishing-resistant authentication methods for administrative roles"
+    description: "Require phishing-resistant authentication methods for administrative roles. Which include FIDO2, Windows Hello for Business, and X.509 certificate-based authentication."
     required_conditions:
       users:
         includeRoles: [
@@ -169,17 +169,21 @@ conditional_access_policies:
         ]
 
   - name: "No Persistent Browser Session on Unmanaged Devices"
-    description: "Prevent persistent browser sessions on unmanaged or non-compliant devices"
+    description: "Will limit browser sessions to 1 hour for Unmanaged Hybrid Entra Joined or Entra Joined devices, excluding iOS and Android phones"
     required_conditions:
       users:
         includeUsers: ["All"]
+        excludeRoles: ["62e90394-69f5-4237-9190-012177145e10"]  # Global Administrator
       applications:
         includeApplications: ["All"]
       clientAppTypes: ["all"]
+      platforms:
+        includePlatforms: ["all"]
+        excludePlatforms: ["android", "iOS"]
       devices:
         deviceFilter:
           mode: "include"
-          rule: "device.trustType -ne \"ServerAD\" -or device.isCompliant -ne True"
+          rule: "device.trustType -ne \"ServerAD\" -or device.trustType -ne \"AzureAD\""
     required_session_controls:
       signInFrequency:
         value: 1
@@ -221,7 +225,7 @@ conditional_access_policies:
         isEnabled: true
 
   - name: "Block Offline Autopilot Profile Enrollment"
-    description: "Block devices using offline Autopilot profile enrollment"
+    description: "Block devices using offline Autopilot profile enrollment. Prevents bad actors from enrolling devices using offline Autopilot profiles using your tenant id."
     required_conditions:
       applications:
         includeApplications: ["All"]
@@ -260,7 +264,7 @@ conditional_access_policies:
         includePlatforms: ["android", "iOS"]
     required_controls:
       operator: "OR"
-      builtInControls: ["approvedApplication", "compliantApplication"]
+      builtInControls: ["compliantApplication"]
 
   - name: "Block SharePoint Access on Unmanaged Devices"
     description: "Block access to SharePoint from unmanaged devices"
@@ -324,3 +328,29 @@ conditional_access_policies:
         authenticationType: "primaryAndSecondaryAuthentication"
         frequencyInterval: "everyTime"
         isEnabled: true
+
+  - name: "Require MFA for Guest Access"
+    description: "Require multifactor authentication for guest and external user access. While also adding session controls to ensure that the user is compliant and has a persistent browser session."
+    required_conditions:
+      users:
+        includeGuestsOrExternalUsers:
+          guestOrExternalUserTypes: "internalGuest,b2bCollaborationGuest,b2bCollaborationMember,b2bDirectConnectUser,otherExternalUser,serviceProvider"
+          externalTenants:
+            membershipKind: "all"
+      applications:
+        includeApplications: ["All"]
+      clientAppTypes: ["all"]
+    required_controls:
+      operator: "OR"
+      builtInControls: ["mfa"]
+    required_session_controls:
+      signInFrequency:
+        value: 1
+        type: "days"
+        authenticationType: "primaryAndSecondaryAuthentication"
+        frequencyInterval: "timeBased"
+        isEnabled: true
+      persistentBrowser:
+        mode: "never"
+        isEnabled: true
+      disableResilienceDefaults: true

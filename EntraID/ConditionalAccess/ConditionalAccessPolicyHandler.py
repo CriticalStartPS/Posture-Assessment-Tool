@@ -148,6 +148,55 @@ class ConditionalAccessPolicyHandler:
         normalized = " ".join(normalized.split())
         return normalized.lower()
 
+    def _check_guest_conditions(self, policy_guest_config: Dict, required_guest_config: Dict) -> bool:
+        """Check if guest user conditions match requirements"""
+        if policy_guest_config is None and required_guest_config is not None:
+            print("✗ Policy has no guest configuration but requirement needs one")
+            return False
+        
+        if policy_guest_config is None:
+            return True
+            
+        print(f"  Policy guest config: {policy_guest_config}")
+        print(f"  Required guest config: {required_guest_config}")
+        
+        # Check guestOrExternalUserTypes
+        if 'guestOrExternalUserTypes' in required_guest_config:
+            required_types = required_guest_config['guestOrExternalUserTypes']
+            policy_types = policy_guest_config.get('guestOrExternalUserTypes', '')
+            
+            # Convert comma-separated string to list for comparison
+            if isinstance(required_types, str):
+                required_types_list = [t.strip() for t in required_types.split(',')]
+            else:
+                required_types_list = required_types
+                
+            if isinstance(policy_types, str):
+                policy_types_list = [t.strip() for t in policy_types.split(',')]
+            else:
+                policy_types_list = policy_types if policy_types else []
+            
+            # Check if all required types are present in policy
+            for req_type in required_types_list:
+                if req_type not in policy_types_list:
+                    print(f"✗ Missing guest type: {req_type}")
+                    return False
+        
+        # Check externalTenants configuration
+        if 'externalTenants' in required_guest_config:
+            required_tenants = required_guest_config['externalTenants']
+            policy_tenants = policy_guest_config.get('externalTenants', {})
+            
+            if 'membershipKind' in required_tenants:
+                required_membership = required_tenants['membershipKind']
+                policy_membership = policy_tenants.get('membershipKind')
+                
+                if required_membership != policy_membership:
+                    print(f"✗ External tenants membership mismatch: required {required_membership}, found {policy_membership}")
+                    return False
+        
+        return True
+
     def _compare_device_filter(self, policy_filter: dict, required_filter: dict) -> bool:
         """Compare device filter conditions"""
         if not policy_filter or not required_filter:
@@ -271,6 +320,14 @@ class ConditionalAccessPolicyHandler:
                                     return False
                                 print("✓ Passed guest exclusion check")
                                 continue
+                            
+                            # Handle includeGuestsOrExternalUsers specially
+                            if sub_key == 'includeGuestsOrExternalUsers':
+                                if not self._check_guest_conditions(policy_sub_value, sub_value):
+                                    print("✗ Failed includeGuestsOrExternalUsers check")
+                                    return False
+                                print("✓ Passed includeGuestsOrExternalUsers check")
+                                continue
 
                         if not self._compare_lists(policy_sub_value, sub_value):
                             print(f"✗ Failed {sub_key} check")
@@ -375,6 +432,7 @@ class ConditionalAccessPolicyHandler:
             
             results.append({
                 'requirement_name': requirement.get('name', 'Unknown Policy'),
+                'description': requirement.get('description', ''),
                 'found': found,
                 'status': status,
                 'current_value': current_value,
