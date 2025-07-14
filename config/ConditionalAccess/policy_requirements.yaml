@@ -173,7 +173,6 @@ conditional_access_policies:
     required_conditions:
       users:
         includeUsers: ["All"]
-        excludeRoles: ["62e90394-69f5-4237-9190-012177145e10"]  # Global Administrator
       applications:
         includeApplications: ["All"]
       clientAppTypes: ["all"]
@@ -312,10 +311,6 @@ conditional_access_policies:
     required_conditions:
       users:
         includeUsers: ["All"]
-        excludeRoles: [
-          "62e90394-69f5-4237-9190-012177145e10",  # Global Administrator
-          "f2ef992c-3afb-46b9-b7cf-a126ee74c451"   # Exchange Administrator
-        ]
       applications:
         includeApplications: ["00000002-0000-0ff1-ce00-000000000000"]  # Exchange Online
         excludeApplications: ["Office365"]

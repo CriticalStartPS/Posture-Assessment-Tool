@@ -1,6 +1,114 @@
-# Azure Security Posture Assessment Tool
+# Posture Assessment Tool
 
-This comprehensive security assessment tool evaluates your Microsoft 365 environment's security posture by checking compliance against predefined security requirements. It covers Conditional Access policies, Authorization policies, and comprehensive Defender for Office 365 protection including Anti-Spam, Anti-Phishing, and Anti-Malware configurations.
+A comprehensive security assessment tool that evaluates your Microsoft 365 environment's security posture by checking compliance against predefined security requirements. This tool covers Conditional Access policies, Authorization policies, and comprehensive Defender for Office 365 protection including Anti-Spam, Anti-Phishing, and Anti-Malware configurations.
+
+## 📝 Setup Instructions
+
+### Step 1: Install Prerequisites
+
+#### 1.1 Install Visual Studio Code
+1. Download and install [Visual Studio Code](https://code.visualstudio.com/)
+2. Launch VS Code after installation
+
+#### 1.2 Install Git
+1. Download and install [Git for Windows](https://git-scm.com/download/win)
+2. During installation, select "Use Git from the Windows Command Prompt"
+3. Complete the installation with default settings
+
+#### 1.3 Install Python
+1. Download and install [Python 3.7 or higher](https://www.python.org/downloads/)
+2. **Important**: Check "Add Python to PATH" during installation
+3. Verify installation by opening Command Prompt and typing: `python --version`
+
+### Step 2: Clone the Repository
+
+1. Open VS Code
+2. Press `Ctrl + Shift + P` to open Command Palette
+3. Type "Git: Clone" and select it
+4. Enter the repository URL: `https://github.com/JohnnyMonz93/Posture-Assessment-Tool.git`
+5. Choose a local folder to clone the repository
+6. Click "Open" when prompted to open the cloned repository
+
+### Step 3: Set Up Python Environment
+
+1. Open VS Code Command Palette: Press `Ctrl + Shift + P`
+2. Type "Python: Create Environment" and select it
+3. Choose "Venv" when prompted for environment type
+4. Select your Python interpreter (the one you installed in Step 1.3)
+5. When prompted to select dependencies, check the box for `requirements.txt`
+6. Click "OK" to create the environment and install dependencies automatically
+7. VS Code will create the virtual environment and install all required packages for you
+
+### Step 4: Verify Python Environment
+
+1. Check that VS Code shows your Python environment in the bottom status bar
+2. If dependencies weren't installed automatically in Step 3, open Terminal in VS Code: `Terminal > New Terminal`
+3. Install required packages manually if needed:
+   ```powershell
+   pip install -r requirements.txt
+   ```
+
+### Step 5: Install Exchange Online PowerShell Module
+
+1. Open PowerShell as Administrator
+2. Install the Exchange Online Management module:
+   ```powershell
+   Install-Module -Name ExchangeOnlineManagement -Force -AllowClobber
+   ```
+3. If prompted about installing from PSGallery, type `Y` and press Enter
+
+### Step 6: Configure Microsoft 365 Permissions
+
+#### 6.1 Microsoft Graph Permissions
+Ensure your account has the following Microsoft Graph permissions:
+- `Policy.Read.All` (for Conditional Access policies)
+- `Policy.Read.AuthorizationPolicy` (for Authorization policies)
+- `DeviceManagementConfiguration.Read.All` (for Defender for Endpoint)
+
+#### 6.2 Entra Role Permissions
+Your account needs both of the following roles:
+- **Global Reader**
+- **Security Reader**
+
+### Step 7: Run the Tool
+
+1. In VS Code Terminal, run:
+   ```powershell
+   python main.py
+   ```
+2. Follow the authentication prompts:
+   - **Microsoft Graph**: Use device code authentication
+   - **Exchange Online**: Sign in when prompted
+3. Wait for the assessment to complete
+4. Find your HTML report in the `Reports/` folder
+
+### Step 8: View Results
+
+1. Navigate to the `Reports/` folder in your project
+2. Open the latest HTML report file (timestamped filename)
+3. Review your security posture assessment results
+
+## 🔧 Troubleshooting Setup Issues
+
+### Python Not Found
+- Ensure Python is added to your system PATH
+- Restart VS Code after Python installation
+- Try `py` instead of `python` command
+
+### Virtual Environment Issues
+- Ensure you're in the correct project directory
+- Check PowerShell execution policy: `Get-ExecutionPolicy`
+- Use full path to activate script if needed
+
+### Exchange Online Module Issues
+- Run PowerShell as Administrator
+- Update PowerShellGet: `Install-Module PowerShellGet -Force`
+- Try: `Install-Module -Name ExchangeOnlineManagement -Force -AllowClobber -Scope CurrentUser`
+
+### Permission Errors
+- Verify your Microsoft 365 account has required roles
+- Contact your tenant administrator for proper permissions
+- Ensure you're signing in with the correct account
 
 ## 🔍 Assessment Coverage
 
@@ -100,33 +208,6 @@ Manages single-session authentication to Exchange Online for efficient policy re
 
 ### 10. ReportGenerator
 Generates comprehensive HTML reports with detailed compliance analysis and visual indicators for all policy types.
-
-## 📋 Requirements
-
-### Prerequisites
-- Python 3.7 or higher
-- Microsoft 365 tenant with appropriate permissions
-- Exchange Online PowerShell module (for anti-spam checks)
-
-### Required Permissions
-- **Microsoft Graph**: 
-  - `Policy.Read.All` (Conditional Access)
-  - `Policy.ReadWrite.AuthorizationPolicy` (Authorization Policies)
-- **Exchange Online**: 
-  - Exchange Administrator or Global Administrator role
-  - Required for anti-spam, anti-phishing, and anti-malware policy checks
-
-### Python Dependencies
-Install required packages:
-```bash
-pip install -r requirements.txt
-```
-
-### Exchange Online Module
-For Defender for Office 365 policy checking (anti-spam, anti-phishing, anti-malware), install the Exchange Online Management module:
-```powershell
-Install-Module -Name ExchangeOnlineManagement -Force
-```
 
 ## ⚙️ Configuration Files
 
