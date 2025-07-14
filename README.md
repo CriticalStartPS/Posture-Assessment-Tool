@@ -20,6 +20,17 @@ A comprehensive security assessment tool that evaluates your Microsoft 365 envir
 2. **Important**: Check "Add Python to PATH" during installation
 3. Verify installation by opening Command Prompt and typing: `python --version`
 
+#### 1.4 Install PowerShell 7
+1. Download and install [PowerShell 7](https://github.com/PowerShell/PowerShell/releases/latest)
+2. Follow the installation wizard with default settings
+3. Verify installation by opening PowerShell 7 and typing: `$PSVersionTable.PSVersion`
+
+#### 1.5 Install VS Code Extensions
+1. Open VS Code
+2. Go to Extensions (Ctrl + Shift + X)
+3. Search for and install "PowerShell" extension by Microsoft
+4. Search for and install "Python" extension by Microsoft (if not already installed)
+
 ### Step 2: Clone the Repository
 
 1. Open VS Code
