@@ -48,6 +48,7 @@ class AuthorizationPolicyHandler:
             if setting == 'guestUserRoleId':
                 current_name = self._get_role_name(current_value)
                 expected_name = self._get_role_name(expected_value)
+                is_compliant = current_value == expected_value
                 status = f"PRESENT - Current: {current_name}"
                 if current_value != expected_value:
                     status = f"MISSING - Current: {current_name}, Expected: {expected_name}"
@@ -62,11 +63,13 @@ class AuthorizationPolicyHandler:
                 # Create result dict with normalized values
                 status = f"PRESENT - Current: {current_str}"
                 if isinstance(expected_value, list):
-                    if current_str not in [str(v).lower() for v in expected_value]:
+                    is_compliant = current_str in [str(v).lower() for v in expected_value]
+                    if not is_compliant:
                         status = f"MISSING - Current: {current_str}, Expected one of: {', '.join(map(str, expected_value))}"
                 else:
                     expected_str = str(expected_value).lower()
-                    if current_str != expected_str:
+                    is_compliant = current_str == expected_str
+                    if not is_compliant:
                         status = f"MISSING - Current: {current_str}, Expected: {expected_str}"
 
             result = {
@@ -76,7 +79,8 @@ class AuthorizationPolicyHandler:
                 'current_value': current_value,
                 'expected_value': expected_value,
                 'policy_type': 'authorization',
-                'status': status
+                'status': status,
+                'is_compliant': is_compliant
             }
 
             results.append(result)
