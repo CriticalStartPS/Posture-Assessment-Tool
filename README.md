@@ -6,14 +6,14 @@ A comprehensive security assessment tool that evaluates your Microsoft 365 envir
 
 ### Step 1: Install Prerequisites
 
-#### 1.1 Install Visual Studio Code
-1. Download and install [Visual Studio Code](https://code.visualstudio.com/)
-2. Launch VS Code after installation
-
-#### 1.2 Install Git
+#### 1.1 Install Git
 1. Download and install [Git for Windows](https://git-scm.com/download/win)
 2. During installation, select "Use Git from the Windows Command Prompt"
 3. Complete the installation with default settings
+
+#### 1.2 Install Visual Studio Code
+1. Download and install [Visual Studio Code](https://code.visualstudio.com/)
+2. Launch VS Code after installation
 
 #### 1.3 Install Python
 1. Download and install [Python 3.7 or higher](https://www.python.org/downloads/)
@@ -50,16 +50,7 @@ A comprehensive security assessment tool that evaluates your Microsoft 365 envir
 6. Click "OK" to create the environment and install dependencies automatically
 7. VS Code will create the virtual environment and install all required packages for you
 
-### Step 4: Verify Python Environment
-
-1. Check that VS Code shows your Python environment in the bottom status bar
-2. If dependencies weren't installed automatically in Step 3, open Terminal in VS Code: `Terminal > New Terminal`
-3. Install required packages manually if needed:
-   ```powershell
-   pip install -r requirements.txt
-   ```
-
-### Step 5: Install Exchange Online PowerShell Module
+### Step 4: Install Exchange Online PowerShell Module
 
 1. Open PowerShell as Administrator
 2. Install the Exchange Online Management module:
@@ -68,20 +59,20 @@ A comprehensive security assessment tool that evaluates your Microsoft 365 envir
    ```
 3. If prompted about installing from PSGallery, type `Y` and press Enter
 
-### Step 6: Configure Microsoft 365 Permissions
+### Step 5: Configure Microsoft 365 Permissions
 
-#### 6.1 Microsoft Graph Permissions
+#### 5.1 Microsoft Graph Permissions
 Ensure your account has the following Microsoft Graph permissions:
 - `Policy.Read.All` (for Conditional Access policies)
 - `Policy.Read.AuthorizationPolicy` (for Authorization policies)
 - `DeviceManagementConfiguration.Read.All` (for Defender for Endpoint)
 
-#### 6.2 Entra Role Permissions
+#### 5.2 Entra Role Permissions
 Your account needs both of the following roles:
 - **Global Reader**
 - **Security Reader**
 
-### Step 7: Run the Tool
+### Step 6: Run the Tool
 
 1. In VS Code Terminal, run:
    ```powershell
@@ -93,7 +84,7 @@ Your account needs both of the following roles:
 3. Wait for the assessment to complete
 4. Find your HTML report in the `Reports/` folder
 
-### Step 8: View Results
+### Step 7: View Results
 
 1. Navigate to the `Reports/` folder in your project
 2. Open the latest HTML report file (timestamped filename)
