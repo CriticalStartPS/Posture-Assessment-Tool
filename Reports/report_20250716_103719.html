@@ -379,6 +379,119 @@
             background: var(--primary-dark);
         }
         
+        /* Filter Controls */
+        .filter-controls {
+            background: var(--surface-dark);
+            padding: 20px 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+            border: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .filter-controls h3 {
+            margin: 0 0 20px 0;
+            color: var(--primary-color);
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .filter-switches {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .filter-switch {
+            position: relative;
+        }
+        
+        .filter-switch input[type="radio"] {
+            display: none;
+        }
+        
+        .filter-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: var(--surface-light);
+            border: 2px solid var(--border-color);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            user-select: none;
+        }
+        
+        .filter-label:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+        
+        .filter-switch input[type="radio"]:checked + .filter-label {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            border-color: var(--primary-color);
+            color: var(--text-white);
+            box-shadow: 0 4px 8px rgba(0, 156, 222, 0.3);
+        }
+        
+        .filter-switch input[type="radio"]:checked + .filter-label.compliant-filter {
+            background: linear-gradient(135deg, var(--success-color) 0%, #1e6b2e 100%);
+            border-color: var(--success-color);
+            box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+        }
+        
+        .filter-switch input[type="radio"]:checked + .filter-label.non-compliant-filter {
+            background: linear-gradient(135deg, var(--danger-color) 0%, #a02622 100%);
+            border-color: var(--danger-color);
+            box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+        }
+        
+        .filter-icon {
+            font-size: 16px;
+        }
+        
+        .filter-count {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .filter-switch input[type="radio"]:checked + .filter-label .filter-count {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        /* Hidden items animation */
+        .policy-item.hidden {
+            display: none !important;
+        }
+        
+        .section-card.hidden {
+            display: none !important;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         /* Print Styles */
         @media print {
             body {
@@ -397,6 +510,10 @@
                 border: 1px solid #ddd !important;
                 color: black !important;
             }
+            
+            .filter-controls {
+                display: none !important;
+            }
         }
     </style>
 </head>
@@ -413,7 +530,7 @@
                 
             </div>
             
-            <div class="timestamp">📅 Generated: 2025-07-16 08:20:10</div>
+            <div class="timestamp">📅 Generated: 2025-07-16 10:37:19</div>
         </div>
     </div>
 
@@ -423,11 +540,11 @@
             
             <div class="summary-stats">
                 <div class="stat-item">
-                    <div class="stat-number total">285</div>
+                    <div class="stat-number total">286</div>
                     <div class="stat-label">Total Checks</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number compliant">255</div>
+                    <div class="stat-number compliant">256</div>
                     <div class="stat-label">Compliant</div>
                 </div>
                 <div class="stat-item">
@@ -588,13 +705,13 @@
                 <div class="compliance-indicator" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; margin-bottom: 12px; background: var(--surface-light); border-radius: 8px; border-left: 4px solid var(--danger-color);">
                     <div style="flex: 1;">
                         <span style="font-weight: 600; color: var(--text-white);">🌐 DNS Security Configurations</span>
-                        <div style="font-size: 12px; color: var(--text-light); margin-top: 4px;">(2/3 Passed)</div>
+                        <div style="font-size: 12px; color: var(--text-light); margin-top: 4px;">(3/4 Passed)</div>
                     </div>
                     <div style="text-align: right;">
                         <span class="status-expired" style="display: inline-block; margin-bottom: 5px;">
                             ❌ NON-COMPLIANT
                         </span>
-                        <div style="font-size: 14px; font-weight: bold; color: var(--text-white);">67%</div>
+                        <div style="font-size: 14px; font-weight: bold; color: var(--text-white);">75%</div>
                     </div>
                 </div>
                 
@@ -643,16 +760,48 @@
             </p>
         </div>
 
+        <!-- Filter Controls -->
+        <div class="filter-controls">
+            <h3><span class="filter-icon">🔍</span> Filter Results</h3>
+            <div class="filter-switches">
+                <div class="filter-switch">
+                    <input type="radio" id="filter-all" name="compliance-filter" value="all" checked>
+                    <label for="filter-all" class="filter-label">
+                        <span class="filter-icon">📋</span>
+                        <span>Show All</span>
+                        <span class="filter-count" id="count-all">0</span>
+                    </label>
+                </div>
+                <div class="filter-switch">
+                    <input type="radio" id="filter-compliant" name="compliance-filter" value="compliant">
+                    <label for="filter-compliant" class="filter-label compliant-filter">
+                        <span class="filter-icon">✅</span>
+                        <span>Compliant Only</span>
+                        <span class="filter-count" id="count-compliant">0</span>
+                    </label>
+                </div>
+                <div class="filter-switch">
+                    <input type="radio" id="filter-non-compliant" name="compliance-filter" value="non-compliant">
+                    <label for="filter-non-compliant" class="filter-label non-compliant-filter">
+                        <span class="filter-icon">❌</span>
+                        <span>Non-Compliant Only</span>
+                        <span class="filter-count" id="count-non-compliant">0</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
         <!-- Conditional Access Policies -->
         
-        <div class="section-card">
+        <div class="section-card" data-section="conditional-access">
             <div class="section-header">
                 <h3>🔐 Entra ID Conditional Access Policies</h3>
             </div>
             <div class="section-content">
                 
                 
-                <div class="policy-item pass">
+                
+                <div class="policy-item pass" data-compliance="compliant">
                     <div class="policy-status-banner pass">
                         ✅ COMPLIANT
                     </div>
@@ -670,7 +819,8 @@
                 </div>
                 
                 
-                <div class="policy-item pass">
+                
+                <div class="policy-item pass" data-compliance="compliant">
                     <div class="policy-status-banner pass">
                         ✅ COMPLIANT
                     </div>
@@ -688,7 +838,8 @@
                 </div>
                 
                 
-                <div class="policy-item pass">
+                
+                <div class="policy-item pass" data-compliance="compliant">
                     <div class="policy-status-banner pass">
                         ✅ COMPLIANT
                     </div>
@@ -706,7 +857,8 @@
                 </div>
                 
                 
-                <div class="policy-item pass">
+                
+                <div class="policy-item pass" data-compliance="compliant">
                     <div class="policy-status-banner pass">
                         ✅ COMPLIANT
                     </div>
@@ -724,7 +876,8 @@
                 </div>
                 
                 
-                <div class="policy-item pass">
+                
+                <div class="policy-item pass" data-compliance="compliant">
                     <div class="policy-status-banner pass">
                         ✅ COMPLIANT
                     </div>
@@ -742,7 +895,8 @@
                 </div>
                 
                 
-                <div class="policy-item pass">
+                
+                <div class="policy-item pass" data-compliance="compliant">
                     <div class="policy-status-banner pass">
                         ✅ COMPLIANT
                     </div>
@@ -760,7 +914,8 @@
                 </div>
                 
                 
-                <div class="policy-item pass">
+                
+                <div class="policy-item pass" data-compliance="compliant">
                     <div class="policy-status-banner pass">
                         ✅ COMPLIANT
                     </div>
@@ -778,7 +933,8 @@
                 </div>
                 
                 
-                <div class="policy-item pass">
+                
+                <div class="policy-item pass" data-compliance="compliant">
                     <div class="policy-status-banner pass">
                         ✅ COMPLIANT
                     </div>
@@ -796,7 +952,8 @@
                 </div>
                 
                 
-                <div class="policy-item pass">
+                
+                <div class="policy-item pass" data-compliance="compliant">
                     <div class="policy-status-banner pass">
                         ✅ COMPLIANT
                     </div>
@@ -814,7 +971,8 @@
                 </div>
                 
                 
-                <div class="policy-item pass">
+                
+                <div class="policy-item pass" data-compliance="compliant">
                     <div class="policy-status-banner pass">
                         ✅ COMPLIANT
                     </div>
@@ -832,7 +990,8 @@
                 </div>
                 
                 
-                <div class="policy-item pass">
+                
+                <div class="policy-item pass" data-compliance="compliant">
                     <div class="policy-status-banner pass">
                         ✅ COMPLIANT
                     </div>
@@ -850,7 +1009,8 @@
                 </div>
                 
                 
-                <div class="policy-item pass">
+                
+                <div class="policy-item pass" data-compliance="compliant">
                     <div class="policy-status-banner pass">
                         ✅ COMPLIANT
                     </div>
@@ -868,7 +1028,8 @@
                 </div>
                 
                 
-                <div class="policy-item pass">
+                
+                <div class="policy-item pass" data-compliance="compliant">
                     <div class="policy-status-banner pass">
                         ✅ COMPLIANT
                     </div>
@@ -886,7 +1047,8 @@
                 </div>
                 
                 
-                <div class="policy-item pass">
+                
+                <div class="policy-item pass" data-compliance="compliant">
                     <div class="policy-status-banner pass">
                         ✅ COMPLIANT
                     </div>
@@ -904,7 +1066,8 @@
                 </div>
                 
                 
-                <div class="policy-item pass">
+                
+                <div class="policy-item pass" data-compliance="compliant">
                     <div class="policy-status-banner pass">
                         ✅ COMPLIANT
                     </div>
@@ -922,7 +1085,8 @@
                 </div>
                 
                 
-                <div class="policy-item pass">
+                
+                <div class="policy-item pass" data-compliance="compliant">
                     <div class="policy-status-banner pass">
                         ✅ COMPLIANT
                     </div>
@@ -940,7 +1104,8 @@
                 </div>
                 
                 
-                <div class="policy-item pass">
+                
+                <div class="policy-item pass" data-compliance="compliant">
                     <div class="policy-status-banner pass">
                         ✅ COMPLIANT
                     </div>
@@ -958,7 +1123,8 @@
                 </div>
                 
                 
-                <div class="policy-item pass">
+                
+                <div class="policy-item pass" data-compliance="compliant">
                     <div class="policy-status-banner pass">
                         ✅ COMPLIANT
                     </div>
@@ -976,7 +1142,8 @@
                 </div>
                 
                 
-                <div class="policy-item pass">
+                
+                <div class="policy-item pass" data-compliance="compliant">
                     <div class="policy-status-banner pass">
                         ✅ COMPLIANT
                     </div>
@@ -994,7 +1161,8 @@
                 </div>
                 
                 
-                <div class="policy-item pass">
+                
+                <div class="policy-item pass" data-compliance="compliant">
                     <div class="policy-status-banner pass">
                         ✅ COMPLIANT
                     </div>
@@ -1012,7 +1180,8 @@
                 </div>
                 
                 
-                <div class="policy-item pass">
+                
+                <div class="policy-item pass" data-compliance="compliant">
                     <div class="policy-status-banner pass">
                         ✅ COMPLIANT
                     </div>
@@ -1035,7 +1204,7 @@
 
         <!-- Authorization Policy -->
         
-        <div class="section-card">
+        <div class="section-card" data-section="authorization">
             <div class="section-header">
                 <h3>🛡️ Entra ID Authorization Policies</h3>
             </div>
@@ -1045,7 +1214,7 @@
                 
                     
                 
-                <div class="policy-item fail">
+                <div class="policy-item fail" data-compliance="non-compliant">
                     <div class="policy-status-banner fail">
                         ❌ NON-COMPLIANT
                     </div>
@@ -1066,7 +1235,7 @@
                 
                     
                 
-                <div class="policy-item pass">
+                <div class="policy-item pass" data-compliance="compliant">
                     <div class="policy-status-banner pass">
                         ✅ COMPLIANT
                     </div>
@@ -1087,7 +1256,7 @@
                 
                     
                 
-                <div class="policy-item fail">
+                <div class="policy-item fail" data-compliance="non-compliant">
                     <div class="policy-status-banner fail">
                         ❌ NON-COMPLIANT
                     </div>
@@ -1108,7 +1277,7 @@
                 
                     
                 
-                <div class="policy-item fail">
+                <div class="policy-item fail" data-compliance="non-compliant">
                     <div class="policy-status-banner fail">
                         ❌ NON-COMPLIANT
                     </div>
@@ -1129,7 +1298,7 @@
                 
                     
                 
-                <div class="policy-item fail">
+                <div class="policy-item fail" data-compliance="non-compliant">
                     <div class="policy-status-banner fail">
                         ❌ NON-COMPLIANT
                     </div>
@@ -1150,7 +1319,7 @@
                 
                     
                 
-                <div class="policy-item pass">
+                <div class="policy-item pass" data-compliance="compliant">
                     <div class="policy-status-banner pass">
                         ✅ COMPLIANT
                     </div>
@@ -1171,7 +1340,7 @@
                 
                     
                 
-                <div class="policy-item fail">
+                <div class="policy-item fail" data-compliance="non-compliant">
                     <div class="policy-status-banner fail">
                         ❌ NON-COMPLIANT
                     </div>
@@ -12712,6 +12881,46 @@
                     </div>
                 </div>
                 
+                
+                
+                <div class="policy-item pass">
+                    <div class="policy-status-banner pass">
+                        ✅ COMPLIANT
+                    </div>
+                    <h4>9.4 - MX Provider Detection - CriticalStartLab.com</h4>
+                    <div class="policy-details pass">
+                        <p><strong>Status:</strong> <span class="status-text pass">DETECTED - New EOP MX Record Detected - Host: criticalstartlab-com.mail.protection.outlook.com., Preference: 0</span></p>
+                        <p><strong>Configuration Found:</strong> True</p>
+                        
+                        <p><strong>Expected Configuration:</strong> Automated detection of email security provider</p>
+                        
+                        
+                        <p><strong>Current Configuration:</strong> 
+                            
+                                <ul style="margin: 5px 0; padding-left: 20px;">
+                                
+                                    <li><strong>domain:</strong> CriticalStartLab.com</li>
+                                
+                                    <li><strong>provider:</strong> Microsoft Exchange Online Protection</li>
+                                
+                                    <li><strong>mx_records:</strong> [{'host': 'criticalstartlab-com.mail.protection.outlook.com.', 'preference': 0}]</li>
+                                
+                                </ul>
+                            
+                        </p>
+                        
+                        
+                        <div class="policy-breakdown">
+                            <h4>DNS Record Details:</h4>
+                            
+                            
+                            <p><strong>DNS Status:</strong> SUCCESS</p>
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+                
             </div>
         </div>
         
@@ -15035,5 +15244,183 @@
         </div>
         
     </div>
+    
+    <script>
+        // Enhanced Compliance Filter System
+        class ComplianceFilter {
+            constructor() {
+                this.init();
+            }
+            
+            init() {
+                this.addDataAttributes();
+                this.updateCounts();
+                this.bindEventListeners();
+                this.showAll(); // Start with all items visible
+            }
+            
+            // Add data attributes to all policy items based on their status
+            addDataAttributes() {
+                const policyItems = document.querySelectorAll('.policy-item');
+                const sectionCards = document.querySelectorAll('.section-card');
+                
+                policyItems.forEach(item => {
+                    if (!item.hasAttribute('data-compliance')) {
+                        const isCompliant = item.classList.contains('pass');
+                        item.setAttribute('data-compliance', isCompliant ? 'compliant' : 'non-compliant');
+                    }
+                });
+                
+                // Add data-section attributes to section cards if they don't have them
+                sectionCards.forEach((section, index) => {
+                    if (!section.hasAttribute('data-section')) {
+                        const heading = section.querySelector('.section-header h3');
+                        if (heading) {
+                            const sectionName = heading.textContent.toLowerCase()
+                                .replace(/[^\w\s]/g, '') // Remove special characters
+                                .replace(/\s+/g, '-'); // Replace spaces with dashes
+                            section.setAttribute('data-section', sectionName);
+                        } else {
+                            section.setAttribute('data-section', `section-${index}`);
+                        }
+                    }
+                });
+            }
+            
+            // Update the count badges
+            updateCounts() {
+                const allItems = document.querySelectorAll('.policy-item').length;
+                const compliantItems = document.querySelectorAll('.policy-item[data-compliance="compliant"]').length;
+                const nonCompliantItems = allItems - compliantItems;
+                
+                document.getElementById('count-all').textContent = allItems;
+                document.getElementById('count-compliant').textContent = compliantItems;
+                document.getElementById('count-non-compliant').textContent = nonCompliantItems;
+            }
+            
+            // Bind filter event listeners
+            bindEventListeners() {
+                const filterInputs = document.querySelectorAll('input[name="compliance-filter"]');
+                filterInputs.forEach(input => {
+                    input.addEventListener('change', (e) => {
+                        const filterValue = e.target.value;
+                        this.applyFilter(filterValue);
+                    });
+                });
+            }
+            
+            // Apply the selected filter
+            applyFilter(filterValue) {
+                const policyItems = document.querySelectorAll('.policy-item');
+                const sectionCards = document.querySelectorAll('.section-card');
+                
+                // Filter policy items
+                policyItems.forEach(item => {
+                    const compliance = item.getAttribute('data-compliance');
+                    const shouldShow = filterValue === 'all' || compliance === filterValue;
+                    
+                    if (shouldShow) {
+                        item.classList.remove('hidden');
+                        item.classList.add('fade-in');
+                    } else {
+                        item.classList.add('hidden');
+                        item.classList.remove('fade-in');
+                    }
+                });
+                
+                // Hide sections that have no visible items
+                sectionCards.forEach(section => {
+                    const visibleItems = section.querySelectorAll('.policy-item:not(.hidden)');
+                    if (visibleItems.length === 0 && filterValue !== 'all') {
+                        section.classList.add('hidden');
+                    } else {
+                        section.classList.remove('hidden');
+                        section.classList.add('fade-in');
+                    }
+                });
+                
+                this.updateFilteredCounts(filterValue);
+                this.updateScrollPosition();
+            }
+            
+            // Update counts based on currently visible items
+            updateFilteredCounts(activeFilter) {
+                const visibleItems = document.querySelectorAll('.policy-item:not(.hidden)');
+                const allItems = document.querySelectorAll('.policy-item').length;
+                const compliantItems = document.querySelectorAll('.policy-item[data-compliance="compliant"]').length;
+                const nonCompliantItems = allItems - compliantItems;
+                
+                // Update the active filter's count to show visible items
+                if (activeFilter === 'all') {
+                    document.getElementById('count-all').textContent = allItems;
+                } else if (activeFilter === 'compliant') {
+                    document.getElementById('count-compliant').textContent = compliantItems;
+                } else if (activeFilter === 'non-compliant') {
+                    document.getElementById('count-non-compliant').textContent = nonCompliantItems;
+                }
+            }
+            
+            // Smooth scroll to first visible item after filtering
+            updateScrollPosition() {
+                const firstVisibleItem = document.querySelector('.policy-item:not(.hidden)');
+                if (firstVisibleItem) {
+                    const filterControls = document.querySelector('.filter-controls');
+                    const offset = filterControls ? filterControls.offsetHeight + 20 : 20;
+                    
+                    setTimeout(() => {
+                        window.scrollTo({
+                            top: firstVisibleItem.offsetTop - offset,
+                            behavior: 'smooth'
+                        });
+                    }, 100);
+                }
+            }
+            
+            // Show all items (utility method)
+            showAll() {
+                this.applyFilter('all');
+                document.getElementById('filter-all').checked = true;
+            }
+            
+            // Show only compliant items (utility method)
+            showCompliant() {
+                this.applyFilter('compliant');
+                document.getElementById('filter-compliant').checked = true;
+            }
+            
+            // Show only non-compliant items (utility method)
+            showNonCompliant() {
+                this.applyFilter('non-compliant');
+                document.getElementById('filter-non-compliant').checked = true;
+            }
+        }
+        
+        // Initialize the filter system when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            window.complianceFilter = new ComplianceFilter();
+            
+            // Add keyboard shortcuts for power users
+            document.addEventListener('keydown', function(e) {
+                // Alt + A = Show All
+                if (e.altKey && e.key === 'a') {
+                    e.preventDefault();
+                    window.complianceFilter.showAll();
+                }
+                // Alt + C = Show Compliant
+                else if (e.altKey && e.key === 'c') {
+                    e.preventDefault();
+                    window.complianceFilter.showCompliant();
+                }
+                // Alt + N = Show Non-Compliant
+                else if (e.altKey && e.key === 'n') {
+                    e.preventDefault();
+                    window.complianceFilter.showNonCompliant();
+                }
+            });
+            
+            console.log('🔍 Compliance Filter System Initialized');
+            console.log('💡 Keyboard shortcuts: Alt+A (All), Alt+C (Compliant), Alt+N (Non-Compliant)');
+        });
+    </script>
 </body>
 </html>
