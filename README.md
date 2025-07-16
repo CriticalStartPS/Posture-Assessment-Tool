@@ -6,6 +6,40 @@ A comprehensive security assessment tool that evaluates your Microsoft 365 envir
 
 ### Step 1: Install Prerequisites
 
+#### Option 1: Recommended - Using Winget (Windows Package Manager)
+
+**Prerequisites**: Ensure you have Winget installed (included in Windows 11 and Windows 10 version 1809+)
+
+1. Open PowerShell or Command Prompt as Administrator
+2. Run the following commands to install all prerequisites:
+
+```powershell
+# Install Visual Studio Code
+winget install -e --id Microsoft.VisualStudioCode --accept-package-agreements --no-upgrade
+
+# Install Git
+winget install -e --id Git.Git --accept-package-agreements --no-upgrade
+
+# Install Python 3.13
+winget install -e --id Python.Python.3.13 --accept-package-agreements --no-upgrade
+
+# Install PowerShell 7
+winget install -e --id Microsoft.PowerShell --accept-package-agreements --no-upgrade
+```
+
+3. After installations complete, restart your terminal
+4. Install VS Code extensions using command line:
+
+```powershell
+# Install PowerShell extension
+code --install-extension ms-vscode.powershell
+
+# Install Python extension
+code --install-extension ms-python.python
+```
+
+#### Option 2: Manual Installation
+
 #### 1.1 Install Git
 1. Download and install [Git for Windows](https://git-scm.com/download/win)
 2. During installation, select "Use Git from the Windows Command Prompt"

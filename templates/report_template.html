@@ -1061,13 +1061,14 @@
             <div class="section-content">
                 {% for result in dns_results %}
                 {% set status = result.status %}
-                <div class="policy-item {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">
-                    <div class="policy-status-banner {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">
-                        {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}✅ COMPLIANT{% else %}❌ NON-COMPLIANT{% endif %}
+                {% set is_compliant = result.is_compliant if result.is_compliant is defined else (status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status)) %}
+                <div class="policy-item {% if is_compliant %}pass{% else %}fail{% endif %}">
+                    <div class="policy-status-banner {% if is_compliant %}pass{% else %}fail{% endif %}">
+                        {% if is_compliant %}✅ COMPLIANT{% else %}❌ NON-COMPLIANT{% endif %}
                     </div>
                     <h4>{{ result.check_id }} - {{ result.requirement_name }}</h4>
-                    <div class="policy-details {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">
-                        <p><strong>Status:</strong> <span class="status-text {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">{{ result.status }}</span></p>
+                    <div class="policy-details {% if is_compliant %}pass{% else %}fail{% endif %}">
+                        <p><strong>Status:</strong> <span class="status-text {% if is_compliant %}pass{% else %}fail{% endif %}">{{ result.status }}</span></p>
                         <p><strong>Configuration Found:</strong> {{ result.found }}</p>
                         {% if result.expected_value is defined %}
                         <p><strong>Expected Configuration:</strong> {{ result.expected_value }}</p>

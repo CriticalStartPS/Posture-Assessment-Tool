@@ -319,7 +319,7 @@ class ExchangeOnlineDNSConfigHandler:
             results.append({
                 'requirement_name': 'DMARC Record Configuration',
                 'found': dmarc_result['record_count'] > 0,
-                'status': f"PRESENT - {dmarc_result['status']}" if dmarc_result['record_count'] > 0 else f"MISSING - {dmarc_result['status']}",
+                'status': f"PRESENT - {dmarc_result['status']}" if dmarc_result['is_compliant'] else f"MISSING - {dmarc_result['status']}",
                 'policy_type': 'dns',
                 'current_value': {
                     'records': dmarc_result['records'],
