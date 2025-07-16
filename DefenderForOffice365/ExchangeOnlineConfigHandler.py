@@ -3,6 +3,7 @@ import json
 import yaml
 import os
 import tempfile
+import dns.resolver
 from typing import Dict, List, Any
 from .ExchangeOnlineSessionManager import ExchangeOnlineSessionManager
 

@@ -330,6 +330,27 @@ class ExchangeOnlineDNSConfigHandler:
                 'details': dmarc_result
             })
             
+            # Add MX Provider Detection
+            print("\n--- Detecting MX Provider for Domain ---")
+            mx_detection = self.detect_mx_provider(default_domain)
+            
+            results.append({
+                'check_id': '9.4',
+                'requirement_name': f'MX Provider Detection - {default_domain}',
+                'found': mx_detection['status'] == 'SUCCESS',
+                'status': f"DETECTED - {mx_detection['provider_details']}" if mx_detection['status'] == 'SUCCESS' else f"ERROR - {mx_detection['provider_details']}",
+                'policy_type': 'dns',
+                'current_value': {
+                    'domain': mx_detection['domain'],
+                    'provider': mx_detection['provider'],
+                    'mx_records': mx_detection['mx_records']
+                },
+                'expected_value': 'Automated detection of email security provider',
+                'is_compliant': mx_detection['status'] == 'SUCCESS',
+                'details': mx_detection
+            })
+            
+            print(f"  Domain: {default_domain} - Provider: {mx_detection['provider']}")
             print(f"✅ Completed DNS checks for domain: {default_domain}")
             return results
             
@@ -343,3 +364,59 @@ class ExchangeOnlineDNSConfigHandler:
                 'current_value': None,
                 'expected_value': 'DNS records should be checkable'
             }]
+
+    def detect_mx_provider(self, domain: str) -> dict:
+        """Detect the MX record provider for a given domain"""
+        try:
+            answers = dns.resolver.resolve(domain, 'MX')
+            mx_records = []
+            provider = "Unknown"
+            provider_details = ""
+            
+            for rdata in answers:
+                mx_record = {
+                    'host': str(rdata.exchange),
+                    'preference': rdata.preference
+                }
+                mx_records.append(mx_record)
+                mx_string = f"Host: {rdata.exchange}, Preference: {rdata.preference}"
+                
+                # Check for known providers
+                if "eo.outlook.com" in str(rdata.exchange).lower():
+                    provider = "Microsoft Forefront (Legacy)"
+                    provider_details = f"Old Microsoft Forefront MX Record Detected - {mx_string}"
+                elif "mail.protection.outlook.com" in str(rdata.exchange).lower():
+                    provider = "Microsoft Exchange Online Protection"
+                    provider_details = f"New EOP MX Record Detected - {mx_string}"
+                elif "barracudanetworks.com" in str(rdata.exchange).lower():
+                    provider = "Barracuda Networks"
+                    provider_details = f"Barracuda Spam Filter Detected - {mx_string}"
+                elif "aspmx.l.google.com" in str(rdata.exchange).lower():
+                    provider = "Google Gmail"
+                    provider_details = f"Gmail Detected - {mx_string}"
+                elif "mimecast.com" in str(rdata.exchange).lower():
+                    provider = "Mimecast"
+                    provider_details = f"Mimecast Detected - {mx_string}"
+                elif "pphosted.com" in str(rdata.exchange).lower():
+                    provider = "Proofpoint"
+                    provider_details = f"Proofpoint Detected - {mx_string}"
+                else:
+                    provider = "Other/Custom"
+                    provider_details = f"Other Mail Provider Detected - {mx_string}"
+            
+            return {
+                'domain': domain,
+                'provider': provider,
+                'provider_details': provider_details,
+                'mx_records': mx_records,
+                'status': 'SUCCESS'
+            }
+            
+        except Exception as e:
+            return {
+                'domain': domain,
+                'provider': "Error",
+                'provider_details': f"Failed to resolve MX records: {str(e)}",
+                'mx_records': [],
+                'status': 'ERROR'
+            }

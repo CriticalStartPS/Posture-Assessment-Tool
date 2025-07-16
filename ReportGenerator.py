@@ -25,8 +25,8 @@ class ReportGenerator:
         print(f"Found: {found}")
         print(f"Policy Type: {policy_type}")
 
-        # For antivirus, ASR, and authorization results, use the is_compliant field directly if available
-        if policy_type in ['antivirus', 'asr', 'authorization'] and 'is_compliant' in result:
+        # For antivirus, ASR, authorization, DNS, and mx_provider results, use the is_compliant field directly if available
+        if policy_type in ['antivirus', 'asr', 'authorization', 'dns', 'mx_provider'] and 'is_compliant' in result:
             is_compliant = result.get('is_compliant', False)
             print(f"{policy_type.upper()} result - is_compliant: {is_compliant}")
             return is_compliant
