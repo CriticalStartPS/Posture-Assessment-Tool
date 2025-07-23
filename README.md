@@ -67,12 +67,27 @@ code --install-extension ms-python.python
 
 ### Step 2: Clone the Repository
 
+**Prerequisites**: You will need a GitHub account and must be logged into VS Code with your GitHub account to clone this repository.
+
+#### 2.1 Create GitHub Account (if needed)
+1. Visit [GitHub.com](https://github.com) and create a free account if you don't have one
+2. Verify your email address as prompted
+
+#### 2.2 Sign in to VS Code with GitHub
 1. Open VS Code
-2. Press `Ctrl + Shift + P` to open Command Palette
-3. Type "Git: Clone" and select it
-4. Enter the repository URL: `https://github.com/JohnnyMonz93/Posture-Assessment-Tool.git`
-5. Choose a local folder to clone the repository
-6. Click "Open" when prompted to open the cloned repository
+2. Click on the Account icon in the bottom left corner (person silhouette)
+3. Select "Sign in with GitHub"
+4. Follow the prompts to authenticate with your GitHub account
+5. Grant VS Code the necessary permissions when prompted
+
+#### 2.3 Clone the Repository
+1. In VS Code, press `Ctrl + Shift + P` to open Command Palette
+2. Type "Git: Clone" and select it
+3. Enter the repository URL: `https://github.com/CriticalStartPS/Posture-Assessment-Tool.git`
+4. Choose a local folder to clone the repository
+5. Click "Open" when prompted to open the cloned repository
+
+**Note**: If you encounter permission issues, ensure you're signed into VS Code with your GitHub account and have access to the repository.
 
 ### Step 3: Set Up Python Environment
 
