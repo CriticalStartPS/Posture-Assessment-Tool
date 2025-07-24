@@ -19,7 +19,11 @@ class ExchangeOnlineDNSConfigHandler:
         
     def get_default_domain(self):
         """
-        Get the default accepted domain from Exchange Online using existing session data
+        Get the default accepted domain from Exchange Online using existing session data.
+        
+        This method first attempts to retrieve the true default accepted domain from 
+        Exchange Online's accepted domains configuration. If that fails, it falls back
+        to inferring the domain from DKIM configuration data.
         
         Returns:
             str: The default domain name or None if not found
@@ -27,9 +31,26 @@ class ExchangeOnlineDNSConfigHandler:
         try:
             print("Retrieving default accepted domain from cached Exchange Online data...")
             
-            # First, try to get domain from cached DKIM data if available
+            # First, try to get the true default accepted domain from cache
             cached_policies = self.exchange_session_manager.get_cached_policies()
             
+            if 'accepteddomain' in cached_policies and cached_policies['accepteddomain']:
+                print("Found default accepted domain in cache...")
+                domain_data = cached_policies['accepteddomain']
+                
+                # Handle both single object and array responses
+                if isinstance(domain_data, list) and len(domain_data) > 0:
+                    domain_data = domain_data[0]
+                
+                if isinstance(domain_data, dict) and 'DomainName' in domain_data:
+                    domain = domain_data['DomainName']
+                    print(f"✅ Found authoritative domain from Exchange Online: {domain}")
+                    self.default_domain = domain
+                    return domain
+                    
+            print("⚠️ No default accepted domain found in cache, falling back to DKIM data...")
+            
+            # Fallback: try to get domain from cached DKIM data if available
             if 'dkim' in cached_policies and cached_policies['dkim']:
                 print("Found DKIM data in cache, extracting domain...")
                 dkim_data = cached_policies['dkim']
@@ -38,14 +59,14 @@ class ExchangeOnlineDNSConfigHandler:
                     domain = dkim_entry.get('Domain', '')
                     # Look for the primary domain (not the .onmicrosoft.com domain)
                     if domain and not domain.endswith('.onmicrosoft.com'):
-                        print(f"✅ Found default domain from DKIM data: {domain}")
+                        print(f"✅ Found domain from DKIM data (fallback): {domain}")
                         self.default_domain = domain
                         return domain
                 
                 # If no primary domain found, use the first domain available
                 if dkim_data and 'Domain' in dkim_data[0]:
                     domain = dkim_data[0]['Domain']
-                    print(f"✅ Using first available domain from DKIM data: {domain}")
+                    print(f"✅ Using first available domain from DKIM data (fallback): {domain}")
                     self.default_domain = domain
                     return domain
             

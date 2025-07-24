@@ -484,6 +484,29 @@ try {
     Write-Output "[]"
     Write-Output "DKIM_DATA_END"
 }
+
+# Retrieve Default Accepted Domain for DNS checks
+Write-Output "Retrieving Default Accepted Domain..."
+try {
+    $defaultDomain = Get-AcceptedDomain | Where-Object {$_.Default -eq $true} | Select-Object DomainName | ConvertTo-Json -Depth 10 -Compress
+    
+    if ($defaultDomain) {
+        Write-Output "Found Default Accepted Domain"
+        Write-Output "ACCEPTED_DOMAIN_START"
+        Write-Output $defaultDomain
+        Write-Output "ACCEPTED_DOMAIN_END"
+    } else {
+        Write-Output "No Default Accepted Domain found"
+        Write-Output "ACCEPTED_DOMAIN_START"
+        Write-Output "{}"
+        Write-Output "ACCEPTED_DOMAIN_END"
+    }
+} catch {
+    Write-Error "Error retrieving Default Accepted Domain: $($_.Exception.Message)"
+    Write-Output "ACCEPTED_DOMAIN_START"
+    Write-Output "{}"
+    Write-Output "ACCEPTED_DOMAIN_END"
+}
 ''')
         
         # Script footer
@@ -552,6 +575,7 @@ exit 0
                 policies.update(self._extract_policy_data(lines, 'organizationconfig', 'ORGANIZATIONCONFIG_DATA_START', 'ORGANIZATIONCONFIG_DATA_END'))
                 policies.update(self._extract_policy_data(lines, 'reportsubmissionpolicy', 'REPORTSUBMISSIONPOLICY_DATA_START', 'REPORTSUBMISSIONPOLICY_DATA_END'))
                 policies.update(self._extract_policy_data(lines, 'dkim', 'DKIM_DATA_START', 'DKIM_DATA_END'))
+                policies.update(self._extract_policy_data(lines, 'accepteddomain', 'ACCEPTED_DOMAIN_START', 'ACCEPTED_DOMAIN_END'))
                 
             else:
                 print("✗ Failed to connect to Exchange Online or retrieve policies")
