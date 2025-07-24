@@ -111,15 +111,17 @@ code --install-extension ms-python.python
 ### Step 5: Configure Microsoft 365 Permissions
 
 #### 5.1 Microsoft Graph Permissions
-Ensure your account has the following Microsoft Graph permissions:
+When running the tool, you will be prompted to consent to the Microsoft Graph API service principal. **User consent is sufficient** - you do NOT need to check the option to "Consent on behalf of your organization" during the authentication process.
+
+The tool requires the following Microsoft Graph permissions:
 - `Policy.Read.All` (for Conditional Access policies)
-- `Policy.Read.AuthorizationPolicy` (for Authorization policies)
-- `DeviceManagementConfiguration.Read.All` (for Defender for Endpoint)
+- `DeviceManagementConfiguration.Read.All` (for Defender for Endpoint configurations)
+- `DeviceManagementManagedDevices.Read.All` (for Defender for Endpoint managed devices)
+
+**Note**: These permissions can be granted through individual user consent and do not require administrative consent for the entire organization.
 
 #### 5.2 Entra Role Permissions
-Your account needs both of the following roles:
-- **Global Reader**
-- **Security Reader**
+Your account needs the **Global Administrator** role to consent to the required Entra permissions, as most tenants restrict non-Global Administrators from consenting to Microsoft Graph API permissions.
 
 ### Step 6: Run the Tool
 

@@ -5,7 +5,8 @@ from pathlib import Path
 class GraphAuthenticator:
     def __init__(self):
         self.client_id = "14d82eec-204b-4c2f-b7e8-296a70dab67e"  # Microsoft's well-known client ID
-        self.scopes = ["https://graph.microsoft.com/.default"]
+        self.scopes = ["https://graph.microsoft.com/Policy.Read.All", "https://graph.microsoft.com/DeviceManagementConfiguration.Read.All","https://graph.microsoft.com/DeviceManagementManagedDevices.Read.All"] 
+        #self.scopes = ["https://graph.microsoft.com/.default"]  # Default scope for Microsoft Graph API this was changed to allow users to consent towards policy.read.all on a user level. Might need to change this in the future for other calls.
         
         # Set up cache file in user's home directory
         cache_dir = Path.home() / '.cache' / 'msgraph'
