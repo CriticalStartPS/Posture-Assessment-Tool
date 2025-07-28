@@ -84,8 +84,8 @@ Thumbs.db
 auth_cache/
 *.token
 
-# Reports (optional - uncomment if you don't want reports in git)
-# Reports/
+# Reports 
+ Reports/
 
 # Logs
 *.log
