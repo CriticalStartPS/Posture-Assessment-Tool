@@ -1,7 +1,7 @@
 antispam_inbound_standard_policies:
   # Core Anti-Spam Actions
   - name: "Bulk Email Threshold (Standard)"
-    description: "Set bulk email threshold to 7 or lower for standard protection"
+    description: "Set bulk email threshold to exactly 7 for standard protection"
     policy_type: "inbound_standard"
     setting: "BulkThreshold"
     expected_value: 7

@@ -1,7 +1,7 @@
 antispam_inbound_strict_policies:
   # Core Anti-Spam Actions (Strict - More Aggressive)
   - name: "Bulk Email Threshold (Strict)"
-    description: "Set bulk email threshold to 5 or lower for strict protection"
+    description: "Set bulk email threshold to exactly 5 for strict protection"
     policy_type: "inbound_strict"
     setting: "BulkThreshold"
     expected_value: 5

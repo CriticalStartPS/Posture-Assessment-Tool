@@ -142,7 +142,7 @@ class AntiSpamPolicyHandler:
                     is_compliant = current_bool == expected_value
                 elif isinstance(expected_value, (int, float)):
                     if setting == "BulkThreshold":
-                        # For bulk threshold, compliant if current value exactly matches expected (exact match required)
+                        # For bulk threshold, compliant if current value exactly matches expected (direct match required - 7 for standard, 5 for strict)
                         is_compliant = (current_value is not None and 
                                       isinstance(current_value, (int, float)) and 
                                       current_value == expected_value)
