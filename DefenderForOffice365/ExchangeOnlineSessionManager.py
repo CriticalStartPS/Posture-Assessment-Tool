@@ -484,8 +484,41 @@ try {
     Write-Output "[]"
     Write-Output "DKIM_DATA_END"
 }
+''')
 
-# Retrieve Default Accepted Domain for DNS checks
+        # Add Authoritative Domains retrieval if requested (for multi-domain DNS checks)
+        if 'authoritativedomains' in policy_types:
+            policy_sections.append('''
+# Retrieve All Authoritative Domains for DNS checks (excluding .onmicrosoft.com)
+Write-Output "Retrieving All Authoritative Domains for DNS checks..."
+try {
+    $authoritativeDomains = Get-AcceptedDomain | Where-Object {
+        $_.DomainType -eq "Authoritative" -and 
+        -not $_.DomainName.EndsWith(".onmicrosoft.com")
+    } | Select-Object DomainName | ConvertTo-Json -Depth 10 -Compress
+    
+    if ($authoritativeDomains) {
+        Write-Output "Found Authoritative Domains for DNS checking"
+        Write-Output "AUTHORITATIVE_DOMAINS_START"
+        Write-Output $authoritativeDomains
+        Write-Output "AUTHORITATIVE_DOMAINS_END"
+    } else {
+        Write-Output "No Authoritative Domains found (excluding .onmicrosoft.com)"
+        Write-Output "AUTHORITATIVE_DOMAINS_START"
+        Write-Output "[]"
+        Write-Output "AUTHORITATIVE_DOMAINS_END"
+    }
+} catch {
+    Write-Error "Error retrieving Authoritative Domains: $($_.Exception.Message)"
+    Write-Output "AUTHORITATIVE_DOMAINS_START"
+    Write-Output "[]"
+    Write-Output "AUTHORITATIVE_DOMAINS_END"
+}
+''')
+
+        # Always retrieve Default Accepted Domain for backward compatibility
+        policy_sections.append('''
+# Keep Default Accepted Domain for backward compatibility
 Write-Output "Retrieving Default Accepted Domain..."
 try {
     $defaultDomain = Get-AcceptedDomain | Where-Object {$_.Default -eq $true} | Select-Object DomainName | ConvertTo-Json -Depth 10 -Compress
@@ -576,6 +609,7 @@ exit 0
                 policies.update(self._extract_policy_data(lines, 'reportsubmissionpolicy', 'REPORTSUBMISSIONPOLICY_DATA_START', 'REPORTSUBMISSIONPOLICY_DATA_END'))
                 policies.update(self._extract_policy_data(lines, 'dkim', 'DKIM_DATA_START', 'DKIM_DATA_END'))
                 policies.update(self._extract_policy_data(lines, 'accepteddomain', 'ACCEPTED_DOMAIN_START', 'ACCEPTED_DOMAIN_END'))
+                policies.update(self._extract_policy_data(lines, 'authoritativedomains', 'AUTHORITATIVE_DOMAINS_START', 'AUTHORITATIVE_DOMAINS_END'))
                 
             else:
                 print("✗ Failed to connect to Exchange Online or retrieve policies")

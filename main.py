@@ -9,7 +9,7 @@ from DefenderForOffice365.SafeAttachmentsPolicyHandler import SafeAttachmentsPol
 from DefenderForOffice365.SafeLinksPolicyHandler import SafeLinksPolicyHandler
 from DefenderForOffice365.ExchangeOnlineConfigHandler import ExchangeOnlineConfigHandler
 from DefenderForOffice365.ExchangeOnlineSessionManager import ExchangeOnlineSessionManager
-from DefenderForOffice365.ExchangeOnlineDNSConfigHandler import ExchangeOnlineDNSConfigHandler
+from DefenderForOffice365.MultiDomainDNSConfigHandler import MultiDomainDNSConfigHandler
 from DefenderForEndpoint.AntivirusConfigHandler import AntivirusConfigHandler
 from DefenderForEndpoint.AttackSurfaceReductionConfigHandler import AttackSurfaceReductionConfigHandler
 from ReportGenerator import ReportGenerator
@@ -284,9 +284,11 @@ if ($module) {
                     defender_policy_types.append('dkim')
                 
                 if need_dns:
-                    # Add DKIM policy type to extract domain information for DNS checks
+                    # Add DKIM and authoritative domains for multi-domain DNS checks
                     if 'dkim' not in defender_policy_types:
                         defender_policy_types.append('dkim')
+                    if 'authoritativedomains' not in defender_policy_types:
+                        defender_policy_types.append('authoritativedomains')
                 
                 # Retrieve all needed Defender policies in a single authentication session
                 if defender_policy_types:
@@ -438,21 +440,23 @@ if ($module) {
                 # Process DNS configurations if needed
                 if need_dns:
                     try:
-                        print("\n=== Checking Exchange Online DNS Configurations ===")
+                        print("\n=== Checking DNS Configurations for All Authoritative Domains ===")
                         
-                        dns_handler = ExchangeOnlineDNSConfigHandler(
+                        # Use multi-domain DNS handler for comprehensive checking
+                        dns_handler = MultiDomainDNSConfigHandler(
                             exchange_session_manager=exchange_session_manager,
                             requirements_file_path=dns_file
                         )
                         
                         dns_results = dns_handler.check_policies()
                     except Exception as e:
-                        print(f"Error processing DNS configurations: {str(e)}")
+                        print(f"Error processing multi-domain DNS configurations: {str(e)}")
                         dns_results = [{
-                            'requirement_name': 'Error',
+                            'requirement_name': 'Multi-Domain DNS Check Error',
                             'found': False,
                             'status': f'ERROR - {str(e)}',
-                            'policy_type': 'dns'
+                            'policy_type': 'dns',
+                            'domain': 'N/A'
                         }]
                 else:
                     dns_results = []
