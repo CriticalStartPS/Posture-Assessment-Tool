@@ -87,7 +87,7 @@ auth_cache/
 # Reports (exclude all report files and directories)
 Reports/
 reports/
-*.html
+Reports/*.html
 report_*.html
 
 # Logs
