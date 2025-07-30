@@ -492,6 +492,35 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* Expected Value Expand/Collapse Styles */
+        .expected-value-container {
+            display: inline-block;
+        }
+        
+        .expand-btn, .collapse-btn {
+            background: var(--primary-color);
+            color: var(--text-white);
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            margin: 0 2px;
+        }
+        
+        .expand-btn:hover, .collapse-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .expected-value-full {
+            word-break: break-all;
+            line-height: 1.4;
+        }
+
         /* Print Styles */
         @media print {
             body {
@@ -886,9 +915,17 @@
                         <p><strong>Expected Value:</strong> 
                             {% if result.expected_value is iterable and result.expected_value is not string %}
                                 {% if result.expected_value|length > 5 %}
-                                    [{{ result.expected_value[:5]|join(', ') }}, ... ({{ result.expected_value|length - 5 }} more)]
+                                    <div class="expected-value-container">
+                                        <span class="expected-value-truncated">[{{ result.expected_value[:5]|join(', ') }}, ... ({{ result.expected_value|length - 5 }} more)] 
+                                            <button class="expand-btn" onclick="toggleExpectedValue(this)">Show More</button>
+                                        </span>
+                                        <span class="expected-value-full" style="display: none;">
+                                            [{{ result.expected_value|join(', ') }}] 
+                                            <button class="collapse-btn" onclick="toggleExpectedValue(this)">Show Less</button>
+                                        </span>
+                                    </div>
                                 {% else %}
-                                    {{ result.expected_value|join(', ') }}
+                                    [{{ result.expected_value|join(', ') }}]
                                 {% endif %}
                             {% else %}
                                 {{ result.expected_value }}
@@ -930,21 +967,29 @@
             <div class="section-content">
                 {% for result in antiphishing_results %}
                 {% set status = result.status %}
-                <div class="policy-item {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">
-                    <div class="policy-status-banner {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">
-                        {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}✅ COMPLIANT{% else %}❌ NON-COMPLIANT{% endif %}
+                <div class="policy-item {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}">
+                    <div class="policy-status-banner {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}">
+                        {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}✅ COMPLIANT{% else %}❌ NON-COMPLIANT{% endif %}
                     </div>
                     <h4>{{ result.check_id }} - {{ result.requirement_name }}</h4>
-                    <div class="policy-details {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">
-                        <p><strong>Status:</strong> <span class="status-text {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">{{ result.status }}</span></p>
+                    <div class="policy-details {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}">
+                        <p><strong>Status:</strong> <span class="status-text {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}">{{ result.status }}</span></p>
                         <p><strong>Policy Found:</strong> {{ result.found }}</p>
                         {% if result.expected_value is defined %}
                         <p><strong>Expected Value:</strong> 
                             {% if result.expected_value is iterable and result.expected_value is not string %}
                                 {% if result.expected_value|length > 5 %}
-                                    [{{ result.expected_value[:5]|join(', ') }}, ... ({{ result.expected_value|length - 5 }} more)]
+                                    <div class="expected-value-container">
+                                        <span class="expected-value-truncated">[{{ result.expected_value[:5]|join(', ') }}, ... ({{ result.expected_value|length - 5 }} more)] 
+                                            <button class="expand-btn" onclick="toggleExpectedValue(this)">Show More</button>
+                                        </span>
+                                        <span class="expected-value-full" style="display: none;">
+                                            [{{ result.expected_value|join(', ') }}] 
+                                            <button class="collapse-btn" onclick="toggleExpectedValue(this)">Show Less</button>
+                                        </span>
+                                    </div>
                                 {% else %}
-                                    {{ result.expected_value|join(', ') }}
+                                    [{{ result.expected_value|join(', ') }}]
                                 {% endif %}
                             {% else %}
                                 {{ result.expected_value }}
@@ -986,21 +1031,29 @@
             <div class="section-content">
                 {% for result in antimalware_results %}
                 {% set status = result.status %}
-                <div class="policy-item {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">
-                    <div class="policy-status-banner {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">
-                        {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}✅ COMPLIANT{% else %}❌ NON-COMPLIANT{% endif %}
+                <div class="policy-item {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}">
+                    <div class="policy-status-banner {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}">
+                        {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}✅ COMPLIANT{% else %}❌ NON-COMPLIANT{% endif %}
                     </div>
                     <h4>{{ result.check_id }} - {{ result.requirement_name }}</h4>
-                    <div class="policy-details {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">
-                        <p><strong>Status:</strong> <span class="status-text {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">{{ result.status }}</span></p>
+                    <div class="policy-details {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}">
+                        <p><strong>Status:</strong> <span class="status-text {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}">{{ result.status }}</span></p>
                         <p><strong>Policy Found:</strong> {{ result.found }}</p>
                         {% if result.expected_value is defined %}
                         <p><strong>Expected Value:</strong> 
                             {% if result.expected_value is iterable and result.expected_value is not string %}
                                 {% if result.expected_value|length > 5 %}
-                                    [{{ result.expected_value[:5]|join(', ') }}, ... ({{ result.expected_value|length - 5 }} more)]
+                                    <div class="expected-value-container">
+                                        <span class="expected-value-truncated">[{{ result.expected_value[:5]|join(', ') }}, ... ({{ result.expected_value|length - 5 }} more)] 
+                                            <button class="expand-btn" onclick="toggleExpectedValue(this)">Show More</button>
+                                        </span>
+                                        <span class="expected-value-full" style="display: none;">
+                                            [{{ result.expected_value|join(', ') }}] 
+                                            <button class="collapse-btn" onclick="toggleExpectedValue(this)">Show Less</button>
+                                        </span>
+                                    </div>
                                 {% else %}
-                                    {{ result.expected_value|join(', ') }}
+                                    [{{ result.expected_value|join(', ') }}]
                                 {% endif %}
                             {% else %}
                                 {{ result.expected_value }}
@@ -1042,21 +1095,29 @@
             <div class="section-content">
                 {% for result in safeattachments_results %}
                 {% set status = result.status %}
-                <div class="policy-item {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">
-                    <div class="policy-status-banner {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">
-                        {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}✅ COMPLIANT{% else %}❌ NON-COMPLIANT{% endif %}
+                <div class="policy-item {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}">
+                    <div class="policy-status-banner {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}">
+                        {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}✅ COMPLIANT{% else %}❌ NON-COMPLIANT{% endif %}
                     </div>
                     <h4>{{ result.check_id }} - {{ result.requirement_name }}</h4>
-                    <div class="policy-details {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">
-                        <p><strong>Status:</strong> <span class="status-text {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">{{ result.status }}</span></p>
+                    <div class="policy-details {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}">
+                        <p><strong>Status:</strong> <span class="status-text {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}">{{ result.status }}</span></p>
                         <p><strong>Policy Found:</strong> {{ result.found }}</p>
                         {% if result.expected_value is defined %}
                         <p><strong>Expected Value:</strong> 
                             {% if result.expected_value is iterable and result.expected_value is not string %}
                                 {% if result.expected_value|length > 5 %}
-                                    [{{ result.expected_value[:5]|join(', ') }}, ... ({{ result.expected_value|length - 5 }} more)]
+                                    <div class="expected-value-container">
+                                        <span class="expected-value-truncated">[{{ result.expected_value[:5]|join(', ') }}, ... ({{ result.expected_value|length - 5 }} more)] 
+                                            <button class="expand-btn" onclick="toggleExpectedValue(this)">Show More</button>
+                                        </span>
+                                        <span class="expected-value-full" style="display: none;">
+                                            [{{ result.expected_value|join(', ') }}] 
+                                            <button class="collapse-btn" onclick="toggleExpectedValue(this)">Show Less</button>
+                                        </span>
+                                    </div>
                                 {% else %}
-                                    {{ result.expected_value|join(', ') }}
+                                    [{{ result.expected_value|join(', ') }}]
                                 {% endif %}
                             {% else %}
                                 {{ result.expected_value }}
@@ -1098,21 +1159,29 @@
             <div class="section-content">
                 {% for result in safelinks_results %}
                 {% set status = result.status %}
-                <div class="policy-item {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">
-                    <div class="policy-status-banner {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">
-                        {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}✅ COMPLIANT{% else %}❌ NON-COMPLIANT{% endif %}
+                <div class="policy-item {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}">
+                    <div class="policy-status-banner {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}">
+                        {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}✅ COMPLIANT{% else %}❌ NON-COMPLIANT{% endif %}
                     </div>
                     <h4>{{ result.check_id }} - {{ result.requirement_name }}</h4>
-                    <div class="policy-details {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">
-                        <p><strong>Status:</strong> <span class="status-text {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">{{ result.status }}</span></p>
+                    <div class="policy-details {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}">
+                        <p><strong>Status:</strong> <span class="status-text {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}">{{ result.status }}</span></p>
                         <p><strong>Policy Found:</strong> {{ result.found }}</p>
                         {% if result.expected_value is defined %}
                         <p><strong>Expected Value:</strong> 
                             {% if result.expected_value is iterable and result.expected_value is not string %}
                                 {% if result.expected_value|length > 5 %}
-                                    [{{ result.expected_value[:5]|join(', ') }}, ... ({{ result.expected_value|length - 5 }} more)]
+                                    <div class="expected-value-container">
+                                        <span class="expected-value-truncated">[{{ result.expected_value[:5]|join(', ') }}, ... ({{ result.expected_value|length - 5 }} more)] 
+                                            <button class="expand-btn" onclick="toggleExpectedValue(this)">Show More</button>
+                                        </span>
+                                        <span class="expected-value-full" style="display: none;">
+                                            [{{ result.expected_value|join(', ') }}] 
+                                            <button class="collapse-btn" onclick="toggleExpectedValue(this)">Show Less</button>
+                                        </span>
+                                    </div>
                                 {% else %}
-                                    {{ result.expected_value|join(', ') }}
+                                    [{{ result.expected_value|join(', ') }}]
                                 {% endif %}
                             {% else %}
                                 {{ result.expected_value }}
@@ -1154,21 +1223,29 @@
             <div class="section-content">
                 {% for result in exchangeonline_results %}
                 {% set status = result.status %}
-                <div class="policy-item {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">
-                    <div class="policy-status-banner {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">
-                        {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}✅ COMPLIANT{% else %}❌ NON-COMPLIANT{% endif %}
+                <div class="policy-item {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}">
+                    <div class="policy-status-banner {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}">
+                        {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}✅ COMPLIANT{% else %}❌ NON-COMPLIANT{% endif %}
                     </div>
                     <h4>{{ result.check_id }} - {{ result.requirement_name }}</h4>
-                    <div class="policy-details {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">
-                        <p><strong>Status:</strong> <span class="status-text {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">{{ result.status }}</span></p>
+                    <div class="policy-details {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}">
+                        <p><strong>Status:</strong> <span class="status-text {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}">{{ result.status }}</span></p>
                         <p><strong>Policy Found:</strong> {{ result.found }}</p>
                         {% if result.expected_value is defined %}
                         <p><strong>Expected Value:</strong> 
                             {% if result.expected_value is iterable and result.expected_value is not string %}
                                 {% if result.expected_value|length > 5 %}
-                                    [{{ result.expected_value[:5]|join(', ') }}, ... ({{ result.expected_value|length - 5 }} more)]
+                                    <div class="expected-value-container">
+                                        <span class="expected-value-truncated">[{{ result.expected_value[:5]|join(', ') }}, ... ({{ result.expected_value|length - 5 }} more)] 
+                                            <button class="expand-btn" onclick="toggleExpectedValue(this)">Show More</button>
+                                        </span>
+                                        <span class="expected-value-full" style="display: none;">
+                                            [{{ result.expected_value|join(', ') }}] 
+                                            <button class="collapse-btn" onclick="toggleExpectedValue(this)">Show Less</button>
+                                        </span>
+                                    </div>
                                 {% else %}
-                                    {{ result.expected_value|join(', ') }}
+                                    [{{ result.expected_value|join(', ') }}]
                                 {% endif %}
                             {% else %}
                                 {{ result.expected_value }}
@@ -1272,21 +1349,29 @@
             <div class="section-content">
                 {% for result in antivirus_results %}
                 {% set status = result.status %}
-                <div class="policy-item {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">
-                    <div class="policy-status-banner {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">
-                        {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}✅ COMPLIANT{% else %}❌ NON-COMPLIANT{% endif %}
+                <div class="policy-item {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}">
+                    <div class="policy-status-banner {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}">
+                        {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}✅ COMPLIANT{% else %}❌ NON-COMPLIANT{% endif %}
                     </div>
                     <h4>{{ result.check_id }} - {{ result.requirement_name }}</h4>
-                    <div class="policy-details {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">
-                        <p><strong>Configuration Status:</strong> <span class="status-text {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">{{ result.status }}</span></p>
+                    <div class="policy-details {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}">
+                        <p><strong>Configuration Status:</strong> <span class="status-text {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}">{{ result.status }}</span></p>
                         <p><strong>Policy Found:</strong> {{ result.found }}</p>
                         {% if result.expected_value is defined %}
                         <p><strong>Expected Value:</strong> 
                             {% if result.expected_value is iterable and result.expected_value is not string %}
                                 {% if result.expected_value|length > 5 %}
-                                    [{{ result.expected_value[:5]|join(', ') }}, ... ({{ result.expected_value|length - 5 }} more)]
+                                    <div class="expected-value-container">
+                                        <span class="expected-value-truncated">[{{ result.expected_value[:5]|join(', ') }}, ... ({{ result.expected_value|length - 5 }} more)] 
+                                            <button class="expand-btn" onclick="toggleExpectedValue(this)">Show More</button>
+                                        </span>
+                                        <span class="expected-value-full" style="display: none;">
+                                            [{{ result.expected_value|join(', ') }}] 
+                                            <button class="collapse-btn" onclick="toggleExpectedValue(this)">Show Less</button>
+                                        </span>
+                                    </div>
                                 {% else %}
-                                    {{ result.expected_value|join(', ') }}
+                                    [{{ result.expected_value|join(', ') }}]
                                 {% endif %}
                             {% else %}
                                 {{ result.expected_value }}
@@ -1328,21 +1413,29 @@
             <div class="section-content">
                 {% for result in asr_results %}
                 {% set status = result.status %}
-                <div class="policy-item {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">
-                    <div class="policy-status-banner {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">
-                        {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}✅ COMPLIANT{% else %}❌ NON-COMPLIANT{% endif %}
+                <div class="policy-item {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}">
+                    <div class="policy-status-banner {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}">
+                        {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}✅ COMPLIANT{% else %}❌ NON-COMPLIANT{% endif %}
                     </div>
                     <h4>{{ result.check_id }} - {{ result.requirement_name }}</h4>
-                    <div class="policy-details {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">
-                        <p><strong>Configuration Status:</strong> <span class="status-text {% if status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status) %}pass{% else %}fail{% endif %}">{{ result.status }}</span></p>
+                    <div class="policy-details {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}">
+                        <p><strong>Configuration Status:</strong> <span class="status-text {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}">{{ result.status }}</span></p>
                         <p><strong>Policy Found:</strong> {{ result.found }}</p>
                         {% if result.expected_value is defined %}
                         <p><strong>Expected Value:</strong> 
                             {% if result.expected_value is iterable and result.expected_value is not string %}
                                 {% if result.expected_value|length > 5 %}
-                                    [{{ result.expected_value[:5]|join(', ') }}, ... ({{ result.expected_value|length - 5 }} more)]
+                                    <div class="expected-value-container">
+                                        <span class="expected-value-truncated">[{{ result.expected_value[:5]|join(', ') }}, ... ({{ result.expected_value|length - 5 }} more)] 
+                                            <button class="expand-btn" onclick="toggleExpectedValue(this)">Show More</button>
+                                        </span>
+                                        <span class="expected-value-full" style="display: none;">
+                                            [{{ result.expected_value|join(', ') }}] 
+                                            <button class="collapse-btn" onclick="toggleExpectedValue(this)">Show Less</button>
+                                        </span>
+                                    </div>
                                 {% else %}
-                                    {{ result.expected_value|join(', ') }}
+                                    [{{ result.expected_value|join(', ') }}]
                                 {% endif %}
                             {% else %}
                                 {{ result.expected_value }}
@@ -1377,6 +1470,25 @@
     </div>
     
     <script>
+        // Toggle Expected Value Display
+        function toggleExpectedValue(button) {
+            const container = button.closest('.expected-value-container');
+            const truncated = container.querySelector('.expected-value-truncated');
+            const full = container.querySelector('.expected-value-full');
+            
+            if (truncated && full) {
+                if (truncated.style.display === 'none') {
+                    // Show truncated, hide full
+                    truncated.style.display = 'inline';
+                    full.style.display = 'none';
+                } else {
+                    // Show full, hide truncated
+                    truncated.style.display = 'none';
+                    full.style.display = 'inline';
+                }
+            }
+        }
+
         // Enhanced Compliance Filter System
         class ComplianceFilter {
             constructor() {
