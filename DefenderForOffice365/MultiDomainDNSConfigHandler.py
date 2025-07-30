@@ -315,31 +315,89 @@ class MultiDomainDNSConfigHandler:
             print(f"Detecting MX provider for {domain}...")
             
             mx_records = dns.resolver.resolve(domain, 'MX')
-            mx_hosts = [str(mx.exchange).lower().rstrip('.') for mx in mx_records]
             
-            # Provider detection logic
+            # Create detailed MX record list with priorities
+            mx_details = []
+            for mx in mx_records:
+                mx_host = str(mx.exchange).lower().rstrip('.')
+                mx_details.append({
+                    'host': mx_host,
+                    'preference': mx.preference
+                })
+            
+            # Sort by priority (lower number = higher priority)
+            mx_details.sort(key=lambda x: x['preference'])
+            mx_hosts = [mx['host'] for mx in mx_details]
+            
+            # Enhanced provider detection logic with priority consideration
+            primary_mx = mx_details[0]['host'] if mx_details else ""
+            all_mx_hosts = " ".join(mx_hosts)
+            
+            # Microsoft 365 / Exchange Online
             if any('outlook.com' in mx or 'protection.outlook.com' in mx for mx in mx_hosts):
                 provider = "Microsoft 365"
                 provider_details = "Microsoft 365 / Exchange Online"
-            elif any('google.com' in mx or 'googlemail.com' in mx for mx in mx_hosts):
+            
+            # Google Workspace
+            elif any('google.com' in mx or 'googlemail.com' in mx or 'aspmx.l.google.com' in mx for mx in mx_hosts):
                 provider = "Google Workspace"
                 provider_details = "Google Workspace"
-            elif any('proofpoint.com' in mx for mx in mx_hosts):
+            
+            # Cisco IronPort (comprehensive detection)
+            elif any(ironport_domain in mx for mx in mx_hosts 
+                    for ironport_domain in ['iphmx.com', 'ironport.com', 'cisco.com', 'amp.cisco.com']):
+                provider = "Cisco IronPort"
+                # Check if it's primary or backup MX
+                ironport_hosts = [mx for mx in mx_details if any(ip_domain in mx['host'] 
+                                for ip_domain in ['iphmx.com', 'ironport.com', 'cisco.com', 'amp.cisco.com'])]
+                if ironport_hosts:
+                    min_priority = min(mx['preference'] for mx in ironport_hosts)
+                    if mx_details[0]['preference'] == min_priority and any(ip_domain in primary_mx 
+                                                                          for ip_domain in ['iphmx.com', 'ironport.com']):
+                        provider_details = f"Cisco IronPort (Primary MX at priority {min_priority})"
+                    else:
+                        provider_details = f"Cisco IronPort (Backup/Secondary MX at priority {min_priority})"
+                else:
+                    provider_details = "Cisco IronPort Email Security"
+            
+            # Proofpoint
+            elif any('proofpoint.com' in mx or 'pphosted.com' in mx for mx in mx_hosts):
                 provider = "Proofpoint"
                 provider_details = "Proofpoint Email Security"
+            
+            # Mimecast
             elif any('mimecast.com' in mx for mx in mx_hosts):
                 provider = "Mimecast"
                 provider_details = "Mimecast Email Security"
+            
+            # Barracuda
+            elif any('barracudanetworks.com' in mx or 'barracuda.com' in mx for mx in mx_hosts):
+                provider = "Barracuda"
+                provider_details = "Barracuda Email Security"
+            
+            # Symantec / Broadcom
+            elif any('messagelabs.com' in mx or 'symanteccloud.com' in mx for mx in mx_hosts):
+                provider = "Symantec/Broadcom"
+                provider_details = "Symantec/Broadcom Email Security"
+            
+            # Other/Custom with priority info
             else:
                 provider = "Other/Custom"
-                provider_details = f"Custom MX records: {', '.join(mx_hosts[:3])}"
+                if len(mx_details) > 1:
+                    priority_info = f"Primary: {primary_mx} (priority {mx_details[0]['preference']})"
+                    provider_details = f"Custom configuration - {priority_info}"
+                else:
+                    provider_details = f"Custom MX records: {', '.join(mx_hosts[:3])}"
             
             return {
                 'domain': domain,
                 'status': 'SUCCESS',
                 'provider': provider,
                 'provider_details': provider_details,
-                'mx_records': mx_hosts
+                'mx_records': mx_hosts,
+                'mx_details': mx_details,  # Include priority information
+                'primary_mx': primary_mx,
+                'primary_priority': mx_details[0]['preference'] if mx_details else None
             }
             
         except Exception as e:
@@ -348,7 +406,10 @@ class MultiDomainDNSConfigHandler:
                 'status': 'ERROR',
                 'provider': 'Unknown',
                 'provider_details': f'Error detecting MX provider: {str(e)}',
-                'mx_records': []
+                'mx_records': [],
+                'mx_details': [],
+                'primary_mx': None,
+                'primary_priority': None
             }
     
     def check_policies(self) -> List[Dict[str, Any]]:
