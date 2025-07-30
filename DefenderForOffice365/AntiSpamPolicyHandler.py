@@ -137,7 +137,10 @@ class AntiSpamPolicyHandler:
                 
                 # Determine compliance for this policy
                 is_compliant = False
-                if isinstance(expected_value, bool):
+                if expected_value == "not_null":
+                    # Special case: check if value is not null/None/empty
+                    is_compliant = current_value is not None and current_value != "" and current_value != []
+                elif isinstance(expected_value, bool):
                     current_bool = bool(current_value) if current_value is not None else False
                     is_compliant = current_bool == expected_value
                 elif isinstance(expected_value, (int, float)):
