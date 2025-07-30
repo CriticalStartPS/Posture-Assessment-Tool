@@ -84,8 +84,11 @@ Thumbs.db
 auth_cache/
 *.token
 
-# Reports 
- Reports/
+# Reports (exclude all report files and directories)
+Reports/
+reports/
+*.html
+report_*.html
 
 # Logs
 *.log
