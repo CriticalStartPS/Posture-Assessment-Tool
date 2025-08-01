@@ -479,7 +479,15 @@
             display: none !important;
         }
         
+        .policy-item.preset-hidden {
+            display: none !important;
+        }
+        
         .section-card.hidden {
+            display: none !important;
+        }
+        
+        .preset-hidden {
             display: none !important;
         }
         
@@ -521,6 +529,107 @@
             line-height: 1.4;
         }
 
+        /* Preset Policy Toggle Controls */
+        .preset-toggle-controls {
+            background: var(--surface-dark);
+            padding: 20px 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .preset-toggle-controls h3 {
+            margin: 0 0 20px 0;
+            color: var(--primary-color);
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .toggle-switches {
+            display: flex;
+            align-items: center;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .toggle-switch input[type="checkbox"] {
+            display: none;
+        }
+        
+        .toggle-label {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            user-select: none;
+            padding: 10px 0;
+        }
+        
+        .toggle-slider {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background: var(--border-color);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+        
+        .toggle-slider::before {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 24px;
+            height: 24px;
+            background: var(--text-white);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .toggle-switch input[type="checkbox"]:checked + .toggle-label .toggle-slider {
+            background: var(--primary-color);
+        }
+        
+        .toggle-switch input[type="checkbox"]:checked + .toggle-label .toggle-slider::before {
+            transform: translateX(30px);
+        }
+        
+        .toggle-text {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .toggle-text > span:first-child {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--text-white);
+        }
+        
+        .toggle-info {
+            font-size: 13px;
+            color: var(--text-light);
+            font-style: italic;
+            line-height: 1.3;
+        }
+        
+        .toggle-label:hover .toggle-slider {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
+
         /* Print Styles */
         @media print {
             body {
@@ -540,7 +649,7 @@
                 color: black !important;
             }
             
-            .filter-controls {
+            .filter-controls, .preset-toggle-controls {
                 display: none !important;
             }
         }
@@ -564,7 +673,41 @@
     </div>
 
     <div class="container">
-        <div class="summary-card">
+        <!-- Preset Policy Toggle Control -->
+        <div class="preset-toggle-controls">
+            <h3><span class="filter-icon">⚙️</span> Policy Display Options</h3>
+            <div style="margin-bottom: 15px; padding: 10px; background: var(--surface-light); border-radius: 6px; border-left: 3px solid var(--info-color);">
+                <p style="margin: 0; font-size: 14px; color: var(--text-light);">
+                    <strong>📊 Statistics Behavior:</strong> When you hide policy types, the statistics recalculate to show only visible policies. 
+                    If hidden policies are mostly compliant, the remaining visible set may show higher non-compliant numbers and lower percentages.
+                </p>
+            </div>
+            <div class="toggle-switches">
+                <div class="toggle-switch">
+                    <input type="checkbox" id="include-preset-policies" checked>
+                    <label for="include-preset-policies" class="toggle-label">
+                        <span class="toggle-slider"></span>
+                        <span class="toggle-text">
+                            <span>📋 Include Microsoft Preset Policies</span>
+                            <span class="toggle-info">(Standard & Strict Preset Security Policies in Anti-Spam, Anti-Phishing, Anti-Malware, Safe Links, Safe Attachments)</span>
+                        </span>
+                    </label>
+                </div>
+                &nbsp;&nbsp;&nbsp;
+                <div class="toggle-switch">
+                    <input type="checkbox" id="include-default-policies" checked>
+                    <label for="include-default-policies" class="toggle-label">
+                        <span class="toggle-slider"></span>
+                        <span class="toggle-text">
+                            <span>⚙️ Include Microsoft Default Policies</span>
+                            <span class="toggle-info">(Default, Anti-malware Default Policy, Office365 AntiPhish Default, Built-In Protection Policy)</span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="summary-card" id="executive-summary">
             <h2>📊 Executive Summary</h2>
             
             <div class="summary-stats">
@@ -903,7 +1046,7 @@
             <div class="section-content">
                 {% for result in antispam_results %}
                 {% set status = result.status %}
-                <div class="policy-item {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}">
+                <div class="policy-item {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}" data-compliance="{% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}compliant{% else %}non-compliant{% endif %}">
                     <div class="policy-status-banner {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}">
                         {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}✅ COMPLIANT{% else %}❌ NON-COMPLIANT{% endif %}
                     </div>
@@ -967,7 +1110,7 @@
             <div class="section-content">
                 {% for result in antiphishing_results %}
                 {% set status = result.status %}
-                <div class="policy-item {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}">
+                <div class="policy-item {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}" data-compliance="{% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}compliant{% else %}non-compliant{% endif %}">
                     <div class="policy-status-banner {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}">
                         {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}✅ COMPLIANT{% else %}❌ NON-COMPLIANT{% endif %}
                     </div>
@@ -1031,7 +1174,7 @@
             <div class="section-content">
                 {% for result in antimalware_results %}
                 {% set status = result.status %}
-                <div class="policy-item {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}">
+                <div class="policy-item {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}" data-compliance="{% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}compliant{% else %}non-compliant{% endif %}">
                     <div class="policy-status-banner {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}">
                         {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}✅ COMPLIANT{% else %}❌ NON-COMPLIANT{% endif %}
                     </div>
@@ -1095,7 +1238,7 @@
             <div class="section-content">
                 {% for result in safeattachments_results %}
                 {% set status = result.status %}
-                <div class="policy-item {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}">
+                <div class="policy-item {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}" data-compliance="{% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}compliant{% else %}non-compliant{% endif %}">
                     <div class="policy-status-banner {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}">
                         {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}✅ COMPLIANT{% else %}❌ NON-COMPLIANT{% endif %}
                     </div>
@@ -1159,7 +1302,7 @@
             <div class="section-content">
                 {% for result in safelinks_results %}
                 {% set status = result.status %}
-                <div class="policy-item {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}">
+                <div class="policy-item {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}" data-compliance="{% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}compliant{% else %}non-compliant{% endif %}">
                     <div class="policy-status-banner {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}">
                         {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}✅ COMPLIANT{% else %}❌ NON-COMPLIANT{% endif %}
                     </div>
@@ -1223,7 +1366,7 @@
             <div class="section-content">
                 {% for result in exchangeonline_results %}
                 {% set status = result.status %}
-                <div class="policy-item {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}">
+                <div class="policy-item {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}" data-compliance="{% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}compliant{% else %}non-compliant{% endif %}">
                     <div class="policy-status-banner {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}">
                         {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}✅ COMPLIANT{% else %}❌ NON-COMPLIANT{% endif %}
                     </div>
@@ -1288,7 +1431,7 @@
                 {% for result in dns_results %}
                 {% set status = result.status %}
                 {% set is_compliant = result.is_compliant if result.is_compliant is defined else (status.startswith('COMPLIANT') or (result.found and not status.startswith('NON-COMPLIANT') and 'ERROR' not in status)) %}
-                <div class="policy-item {% if is_compliant %}pass{% else %}fail{% endif %}">
+                <div class="policy-item {% if is_compliant %}pass{% else %}fail{% endif %}" data-compliance="{% if is_compliant %}compliant{% else %}non-compliant{% endif %}">
                     <div class="policy-status-banner {% if is_compliant %}pass{% else %}fail{% endif %}">
                         {% if is_compliant %}✅ COMPLIANT{% else %}❌ NON-COMPLIANT{% endif %}
                     </div>
@@ -1349,7 +1492,7 @@
             <div class="section-content">
                 {% for result in antivirus_results %}
                 {% set status = result.status %}
-                <div class="policy-item {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}">
+                <div class="policy-item {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}" data-compliance="{% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}compliant{% else %}non-compliant{% endif %}">
                     <div class="policy-status-banner {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}">
                         {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}✅ COMPLIANT{% else %}❌ NON-COMPLIANT{% endif %}
                     </div>
@@ -1413,7 +1556,7 @@
             <div class="section-content">
                 {% for result in asr_results %}
                 {% set status = result.status %}
-                <div class="policy-item {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}">
+                <div class="policy-item {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}" data-compliance="{% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}compliant{% else %}non-compliant{% endif %}">
                     <div class="policy-status-banner {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}pass{% else %}fail{% endif %}">
                         {% if status.startswith('PRESENT') or status.startswith('COMPLIANT') %}✅ COMPLIANT{% else %}❌ NON-COMPLIANT{% endif %}
                     </div>
@@ -1638,9 +1781,511 @@
             }
         }
         
+        // Preset Policy Filter Class  
+        class PresetPolicyFilter {
+            constructor() {
+                this.presetPolicyNames = [
+                    // Microsoft's actual default preset policies
+                    'Standard Preset Security Policy',
+                    'Strict Preset Security Policy'
+                    // Note: These can have random numbers appended in older tenants
+                    // e.g., 'Standard Preset Security Policy1629904359847'
+                    // Our detection logic handles both cases
+                ];
+                
+                this.defaultPolicyNames = [
+                    // Microsoft's default policies
+                    'Default',
+                    'Anti-malware Default Policy',
+                    'Office365 AntiPhish Default',
+                    'Built-In Protection Policy'
+                ];
+                
+                this.originalStats = {
+                    total: 0,
+                    compliant: 0,
+                    nonCompliant: 0,
+                    percentage: 0
+                };
+                
+                // Store original status texts
+                this.originalStatusTexts = new Map();
+                
+                this.init();
+            }
+            
+            init() {
+                const presetToggle = document.getElementById('include-preset-policies');
+                const defaultToggle = document.getElementById('include-default-policies');
+                
+                if (presetToggle) {
+                    presetToggle.addEventListener('change', () => this.handleToggle());
+                }
+                if (defaultToggle) {
+                    defaultToggle.addEventListener('change', () => this.handleToggle());
+                }
+                
+                // Store original stats on first load
+                this.storeOriginalStats();
+            }
+            
+            storeOriginalStats() {
+                // Store original executive summary stats - use more specific selectors
+                const statItems = document.querySelectorAll('.summary-stats .stat-item');
+                const totalElement = statItems[0]?.querySelector('.stat-number');
+                const compliantElement = statItems[1]?.querySelector('.stat-number');
+                const nonCompliantElement = statItems[2]?.querySelector('.stat-number');
+                const percentageElement = statItems[3]?.querySelector('.stat-number');
+                
+                if (totalElement) this.originalStats.total = parseInt(totalElement.textContent);
+                if (compliantElement) this.originalStats.compliant = parseInt(compliantElement.textContent);
+                if (nonCompliantElement) this.originalStats.nonCompliant = parseInt(nonCompliantElement.textContent);
+                if (percentageElement) this.originalStats.percentage = parseInt(percentageElement.textContent.replace('%', ''));
+                
+                // Store original status texts
+                document.querySelectorAll('.status-text').forEach((span, index) => {
+                    if (span.textContent.includes('Found in policies:')) {
+                        this.originalStatusTexts.set(index, span.textContent);
+                    }
+                });
+            }
+            
+            handleToggle() {
+                const includePresets = document.getElementById('include-preset-policies').checked;
+                const includeDefaults = document.getElementById('include-default-policies').checked;
+                
+                // Show all policies first
+                this.showAllPolicies();
+                
+                // Then hide based on toggle states
+                if (!includePresets) {
+                    this.hidePresetPolicies();
+                }
+                if (!includeDefaults) {
+                    this.hideDefaultPolicies();
+                }
+                
+                this.recalculateStats(includePresets, includeDefaults);
+                this.updateStatusTexts(includePresets, includeDefaults);
+                
+                // Update filter button counts to stay synchronized
+                if (window.complianceFilter) {
+                    window.complianceFilter.updateCounts();
+                    console.log('🔧 Updated filter button counts after toggle change');
+                }
+                
+                console.log(`🔧 Policies: Presets ${includePresets ? 'shown' : 'hidden'}, Defaults ${includeDefaults ? 'shown' : 'hidden'}`);
+            }
+            
+            showAllPolicies() {
+                // Show all previously hidden elements
+                document.querySelectorAll('.preset-hidden, .default-hidden').forEach(element => {
+                    element.style.display = '';
+                    element.classList.remove('preset-hidden', 'default-hidden');
+                });
+                console.log('🔧 Showing all policies');
+            }
+            
+            hidePresetPolicies() {
+                let hiddenCount = 0;
+                let hiddenPolicyItems = 0;
+                
+                // First, hide individual preset policy list items
+                document.querySelectorAll('.policy-breakdown li').forEach(li => {
+                    // Skip if already hidden
+                    if (li.style.display === 'none') {
+                        return;
+                    }
+                    
+                    const text = li.textContent;
+                    if (this.isPresetPolicy(text)) {
+                        li.style.display = 'none';
+                        li.classList.add('preset-hidden');
+                        hiddenCount++;
+                        console.log(`🔧 Hiding preset policy: ${text.substring(0, 50)}...`);
+                    }
+                });
+                
+                // Second, check main policy items by their titles
+                document.querySelectorAll('.policy-item').forEach(item => {
+                    // Skip if already hidden
+                    if (item.style.display === 'none') {
+                        return;
+                    }
+                    
+                    const titleElement = item.querySelector('h4');
+                    if (titleElement) {
+                        const policyTitle = titleElement.textContent;
+                        if (this.isPresetPolicy(policyTitle)) {
+                            item.style.display = 'none';
+                            item.classList.add('preset-hidden');
+                            hiddenPolicyItems++;
+                            console.log(`🔧 Hiding preset policy item: ${policyTitle}`);
+                        }
+                    }
+                });
+                
+                // Third, hide entire policy-item divs that contain only preset policies
+                this.hideEmptyPolicyItems('preset-hidden');
+                
+                console.log(`🔧 Hidden ${hiddenCount} individual preset policies and ${hiddenPolicyItems} preset policy items`);
+            }
+            
+            hideDefaultPolicies() {
+                let hiddenCount = 0;
+                let hiddenPolicyItems = 0;
+                
+                // First, hide individual default policy list items
+                document.querySelectorAll('.policy-breakdown li').forEach(li => {
+                    // Skip if already hidden
+                    if (li.style.display === 'none') {
+                        return;
+                    }
+                    
+                    const text = li.textContent;
+                    if (this.isDefaultPolicy(text)) {
+                        li.style.display = 'none';
+                        li.classList.add('default-hidden');
+                        hiddenCount++;
+                        console.log(`🔧 Hiding default policy: ${text.substring(0, 50)}...`);
+                    }
+                });
+                
+                // Second, check main policy items by their titles
+                document.querySelectorAll('.policy-item').forEach(item => {
+                    // Skip if already hidden
+                    if (item.style.display === 'none') {
+                        return;
+                    }
+                    
+                    const titleElement = item.querySelector('h4');
+                    if (titleElement) {
+                        const policyTitle = titleElement.textContent;
+                        if (this.isDefaultPolicy(policyTitle)) {
+                            item.style.display = 'none';
+                            item.classList.add('default-hidden');
+                            hiddenPolicyItems++;
+                            console.log(`🔧 Hiding default policy item: ${policyTitle}`);
+                        }
+                    }
+                });
+                
+                // Third, hide entire policy-item divs that contain only default policies
+                this.hideEmptyPolicyItems('default-hidden');
+                
+                console.log(`🔧 Hidden ${hiddenCount} individual default policies and ${hiddenPolicyItems} default policy items`);
+            }
+            
+            hideEmptyPolicyItems(hiddenClass) {
+                let hiddenPolicyItems = 0;
+                
+                document.querySelectorAll('.policy-item').forEach(item => {
+                    const breakdown = item.querySelector('.policy-breakdown ul');
+                    if (breakdown) {
+                        const allLis = breakdown.querySelectorAll('li');
+                        const visibleLis = Array.from(allLis).filter(li => 
+                            li.style.display !== 'none' && 
+                            !li.classList.contains('preset-hidden') && 
+                            !li.classList.contains('default-hidden')
+                        );
+                        
+                        // If no policies are visible, hide the entire policy-item
+                        if (allLis.length > 0 && visibleLis.length === 0) {
+                            item.style.display = 'none';
+                            item.classList.add(hiddenClass);
+                            hiddenPolicyItems++;
+                            const title = item.querySelector('h4');
+                            if (title) {
+                                console.log(`🔧 Hiding entire policy item: ${title.textContent}`);
+                            }
+                        }
+                    }
+                });
+                
+                return hiddenPolicyItems;
+            }
+            
+            isPresetPolicy(text) {
+                // Check for Microsoft's actual default preset policies only
+                const lowerText = text.toLowerCase().trim();
+                
+                // Standard Preset Security Policy (with or without numbers)
+                if (lowerText.includes('standard preset security policy')) {
+                    return true;
+                }
+                
+                // Strict Preset Security Policy (with or without numbers)  
+                if (lowerText.includes('strict preset security policy')) {
+                    return true;
+                }
+                
+                return false;
+            }
+            
+            isDefaultPolicy(text) {
+                // Check for Microsoft's actual built-in default policies only
+                const lowerText = text.toLowerCase().trim();
+                
+                // Exact match for "Default" followed by colon or end of string (for generic defaults)
+                if (lowerText === 'default' || lowerText.startsWith('default:')) {
+                    return true;
+                }
+                
+                // Anti-malware Default Policy (Microsoft's built-in)
+                if (lowerText.includes('anti-malware default policy')) {
+                    return true;
+                }
+                
+                // Office365 AntiPhish Default (Anti-phishing default policy)
+                if (lowerText.includes('office365 antiphish default')) {
+                    return true;
+                }
+                
+                // Built-In Protection Policy (Safe Links & Safe Attachments default) - This is the key one!
+                if (lowerText.includes('built-in protection policy')) {
+                    return true;
+                }
+                
+                // DO NOT include "Default Safe Links Policy" or "Default Safe Attachments Policy" 
+                // as these are user-created policies that happen to have "default" in the name
+                
+                return false;
+            }
+            
+            updateStatusTexts(includePresets, includeDefaults) {
+                console.log(`🔄 Updating status texts: Presets=${includePresets}, Defaults=${includeDefaults}`);
+                
+                // If including both, restore original status texts
+                if (includePresets && includeDefaults) {
+                    document.querySelectorAll('.status-text').forEach((span, index) => {
+                        if (this.originalStatusTexts.has(index)) {
+                            span.textContent = this.originalStatusTexts.get(index);
+                        }
+                    });
+                    return;
+                }
+                
+                // Find all status text spans that mention policies
+                document.querySelectorAll('.status-text').forEach((span, index) => {
+                    // Start with original text if available
+                    const originalText = this.originalStatusTexts.get(index) || span.textContent;
+                    
+                    if (originalText.includes('Found in policies:') || originalText.includes('COMPLIANT - Found in policies:')) {
+                        
+                        // Extract the policy list part
+                        const parts = originalText.split('Found in policies:');
+                        if (parts.length === 2) {
+                            const beforeText = parts[0] + 'Found in policies:';
+                            const policiesText = parts[1].trim();
+                            
+                            // Split policies by comma and filter them
+                            const policies = policiesText.split(',').map(p => p.trim());
+                            const filteredPolicies = policies.filter(policy => {
+                                const lowerPolicy = policy.toLowerCase();
+                                
+                                // Check if this policy should be filtered out
+                                if (!includePresets && this.isPresetPolicy(lowerPolicy)) {
+                                    console.log(`🔄 Filtering preset policy from status: ${policy}`);
+                                    return false;
+                                }
+                                
+                                if (!includeDefaults && this.isDefaultPolicy(lowerPolicy)) {
+                                    console.log(`🔄 Filtering default policy from status: ${policy}`);
+                                    return false;
+                                }
+                                
+                                return true;
+                            });
+                            
+                            // Update the text
+                            const newText = beforeText + ' ' + filteredPolicies.join(', ');
+                            span.textContent = newText;
+                            if (filteredPolicies.length !== policies.length) {
+                                console.log(`🔄 Updated status text: ${newText}`);
+                            }
+                        }
+                    }
+                });
+            }
+            
+            recalculateStats(includePresets, includeDefaults) {
+                console.log(`📊 Recalculating stats: Presets=${includePresets}, Defaults=${includeDefaults}`);
+                
+                if (includePresets && includeDefaults) {
+                    // If including both, restore original stats
+                    this.updateStatDisplay('.stat-number.total', this.originalStats.total);
+                    this.updateStatDisplay('.stat-number.compliant', this.originalStats.compliant);
+                    this.updateStatDisplay('.stat-number.non-compliant', this.originalStats.nonCompliant);
+                    
+                    // Update percentage
+                    const percentageElement = document.querySelector('.summary-stats .stat-item:last-child .stat-number');
+                    if (percentageElement) {
+                        percentageElement.textContent = this.originalStats.percentage + '%';
+                        this.updatePercentageColor(percentageElement, this.originalStats.percentage);
+                    }
+                    
+                    // Update compliance bar
+                    const complianceFill = document.querySelector('.compliance-fill');
+                    if (complianceFill) {
+                        complianceFill.style.width = this.originalStats.percentage + '%';
+                    }
+                    
+                    console.log(`📊 Stats restored: ${this.originalStats.compliant}/${this.originalStats.total} (${this.originalStats.percentage}%)`);
+                    
+                    // Update filter status indicator (no filtering active)
+                    this.updateFilterStatusIndicator(includePresets, includeDefaults, 0);
+                } else {
+                    // Simple approach: count only visible policy items (not hidden by preset/default filters)
+                    let totalChecks = 0;
+                    let compliantChecks = 0;
+                    let hiddenItems = 0;
+                    
+                    document.querySelectorAll('.policy-item').forEach(item => {
+                        // Skip items that are completely hidden
+                        if (item.style.display === 'none' || 
+                            item.classList.contains('preset-hidden') || 
+                            item.classList.contains('default-hidden') ||
+                            item.classList.contains('hidden')) {
+                            hiddenItems++;
+                            return;
+                        }
+                        
+                        // Count this policy item
+                        totalChecks++;
+                        const isCompliant = item.classList.contains('pass') || item.getAttribute('data-compliance') === 'compliant';
+                        if (isCompliant) {
+                            compliantChecks++;
+                        }
+                        
+                        // Debug logging for first few items
+                        if (totalChecks <= 5) {
+                            const title = item.querySelector('h4')?.textContent || 'Unknown';
+                            console.log(`📊 Counting item ${totalChecks}: "${title}" - Compliant: ${isCompliant}`);
+                        }
+                    });
+                    
+                    const nonCompliantChecks = totalChecks - compliantChecks;
+                    const percentage = totalChecks > 0 ? Math.round((compliantChecks / totalChecks) * 100) : 0;
+                    
+                    // Calculate what was hidden for better understanding
+                    const hiddenTotal = this.originalStats.total - totalChecks;
+                    const hiddenCompliant = this.originalStats.compliant - compliantChecks;
+                    const hiddenNonCompliant = this.originalStats.nonCompliant - nonCompliantChecks;
+                    
+                    console.log(`📊 Final counts: Total=${totalChecks}, Compliant=${compliantChecks}, Non-compliant=${nonCompliantChecks}, Hidden=${hiddenItems}`);
+                    console.log(`🔍 Hidden analysis: ${hiddenTotal} total hidden (${hiddenCompliant} compliant, ${hiddenNonCompliant} non-compliant)`);
+                    if (hiddenTotal > 0) {
+                        const hiddenComplianceRate = Math.round((hiddenCompliant / hiddenTotal) * 100);
+                        console.log(`📈 Hidden policies were ${hiddenComplianceRate}% compliant, visible policies are ${percentage}% compliant`);
+                    }
+                    
+                    // Update executive summary stats
+                    this.updateStatDisplay('.stat-number.total', totalChecks);
+                    this.updateStatDisplay('.stat-number.compliant', compliantChecks);
+                    this.updateStatDisplay('.stat-number.non-compliant', nonCompliantChecks);
+                    
+                    // Update percentage with color coding
+                    const percentageElement = document.querySelector('.summary-stats .stat-item:last-child .stat-number');
+                    if (percentageElement) {
+                        percentageElement.textContent = percentage + '%';
+                        this.updatePercentageColor(percentageElement, percentage);
+                    }
+                    
+                    // Update compliance bar
+                    const complianceFill = document.querySelector('.compliance-fill');
+                    if (complianceFill) {
+                        complianceFill.style.width = percentage + '%';
+                    }
+                    
+                    console.log(`📊 Stats recalculated: ${compliantChecks}/${totalChecks} (${percentage}%) - Non-compliant: ${nonCompliantChecks}`);
+                    console.log(`📊 Filtered items: ${document.querySelectorAll('.policy-item.preset-hidden, .policy-item.default-hidden').length}`);
+                    
+                    // Update filter status indicator
+                    this.updateFilterStatusIndicator(includePresets, includeDefaults, hiddenTotal);
+                }
+            }
+            
+            updatePercentageColor(element, percentage) {
+                // Update percentage color class
+                element.className = element.className.replace(/compliant|total|non-compliant/g, '');
+                if (percentage >= 80) {
+                    element.classList.add('compliant');
+                } else if (percentage >= 60) {
+                    element.classList.add('total');
+                } else {
+                    element.classList.add('non-compliant');
+                }
+            }
+            
+            updateStatDisplay(selector, value) {
+                const element = document.querySelector(selector);
+                if (element) {
+                    element.textContent = value;
+                }
+            }
+            
+            updateFilterStatusIndicator(includePresets, includeDefaults, hiddenCount) {
+                // Add or update a filter status indicator
+                let indicator = document.querySelector('.filter-status-indicator');
+                if (!indicator) {
+                    indicator = document.createElement('div');
+                    indicator.className = 'filter-status-indicator';
+                    indicator.style.cssText = `
+                        margin-top: 15px; 
+                        padding: 10px 15px; 
+                        background: var(--info-color); 
+                        color: var(--text-white); 
+                        border-radius: 6px; 
+                        font-size: 13px; 
+                        text-align: center;
+                        font-weight: 600;
+                    `;
+                    const summaryCard = document.querySelector('.summary-card');
+                    if (summaryCard) summaryCard.appendChild(indicator);
+                }
+                
+                if (includePresets && includeDefaults) {
+                    indicator.style.display = 'none';
+                } else {
+                    indicator.style.display = 'block';
+                    const filterTypes = [];
+                    if (!includePresets) filterTypes.push('Preset Policies');
+                    if (!includeDefaults) filterTypes.push('Default Policies');
+                    
+                    indicator.innerHTML = `🔍 <strong>Filtered View:</strong> ${hiddenCount} policies hidden (${filterTypes.join(' + ')}). Statistics show only visible policies.`;
+                }
+            }
+        }
+        
         // Initialize the filter system when the page loads
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 Starting filter system initialization...');
+            
+            // Force add toggle text if missing (emergency fix)
+            const presetToggleText = document.querySelector('#include-preset-policies + label .toggle-text');
+            const defaultToggleText = document.querySelector('#include-default-policies + label .toggle-text');
+            
+            if (presetToggleText && presetToggleText.innerHTML.trim() === '') {
+                presetToggleText.innerHTML = '<span>📋 Include Microsoft Preset Policies</span><span class="toggle-info">(Standard & Strict Preset Security Policies)</span>';
+                console.log('🔧 Fixed preset toggle text');
+            }
+            
+            if (defaultToggleText && defaultToggleText.innerHTML.trim() === '') {
+                defaultToggleText.innerHTML = '<span>⚙️ Include Microsoft Default Policies</span><span class="toggle-info">(Default, Anti-malware Default Policy, Office365 AntiPhish Default, Built-In Protection Policy)</span>';
+                console.log('🔧 Fixed default toggle text');
+            }
+            
+            // Initialize filter systems
             window.complianceFilter = new ComplianceFilter();
+            window.presetPolicyFilter = new PresetPolicyFilter();
+            
+            // Force update counts immediately
+            setTimeout(() => {
+                if (window.complianceFilter) {
+                    window.complianceFilter.updateCounts();
+                    console.log('🔧 Forced count update');
+                }
+            }, 100);
             
             // Add keyboard shortcuts for power users
             document.addEventListener('keydown', function(e) {
@@ -1659,11 +2304,31 @@
                     e.preventDefault();
                     window.complianceFilter.showNonCompliant();
                 }
+                // Alt + P = Toggle Preset Policies
+                else if (e.altKey && e.key === 'p') {
+                    e.preventDefault();
+                    const toggle = document.getElementById('include-preset-policies');
+                    if (toggle) {
+                        toggle.checked = !toggle.checked;
+                        toggle.dispatchEvent(new Event('change'));
+                    }
+                }
+                // Alt + D = Toggle Default Policies
+                else if (e.altKey && e.key === 'd') {
+                    e.preventDefault();
+                    const toggle = document.getElementById('include-default-policies');
+                    if (toggle) {
+                        toggle.checked = !toggle.checked;
+                        toggle.dispatchEvent(new Event('change'));
+                    }
+                }
             });
             
             console.log('🔍 Compliance Filter System Initialized');
-            console.log('💡 Keyboard shortcuts: Alt+A (All), Alt+C (Compliant), Alt+N (Non-Compliant)');
+            console.log('🔧 Preset Policy Filter System Initialized');
+            console.log('💡 Keyboard shortcuts: Alt+A (All), Alt+C (Compliant), Alt+N (Non-Compliant), Alt+P (Toggle Presets), Alt+D (Toggle Defaults)');
         });
     </script>
 </body>
 </html>
+

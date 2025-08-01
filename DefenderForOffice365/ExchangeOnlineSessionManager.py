@@ -571,6 +571,17 @@ exit 0
         try:
             # Execute using PowerShell
             print("Executing combined Defender policy retrieval script...")
+            print("\n" + "="*80)
+            print("📢 IMPORTANT: Exchange Online Authentication Required")
+            print("="*80)
+            print("🔐 A PowerShell window will open for Exchange Online authentication.")
+            print("🖥️  If you don't see it, it may be hidden behind VS Code or other windows.")
+            print("📝 ACTION REQUIRED:")
+            print("   1. Minimize VS Code or other applications to find the PowerShell window")
+            print("   2. Complete the Exchange Online login process in PowerShell")
+            print("   3. Wait for the script to complete and return here")
+            print("⏱️  This process may take a few minutes to complete...")
+            print("="*80 + "\n")
             
             powershell_exe = self._determine_powershell_executable()
             
