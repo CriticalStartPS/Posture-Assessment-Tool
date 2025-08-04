@@ -74,8 +74,11 @@ requirements:
   - name: "Cloud block level set to high"
     check_id: "ANTIVIRUS_013"
     setting_definition_id: "device_vendor_msft_policy_config_defender_cloudblocklevel"
-    expected_value: "device_vendor_msft_policy_config_defender_cloudblocklevel_2"
-    description: "Set cloud block level to high for enhanced protection"
+    expected_value: 
+      - "device_vendor_msft_policy_config_defender_cloudblocklevel_2"
+      - "device_vendor_msft_policy_config_defender_cloudblocklevel_4"
+      - "device_vendor_msft_policy_config_defender_cloudblocklevel_6"
+    description: "Set cloud block level to High (2), High Plus (4), or Zero Tolerance (6) for enhanced protection (this is different from basic cloud-delivered protection - it sets the aggressiveness level)"
     
   - name: "Cloud extended timeout configured"
     check_id: "ANTIVIRUS_014"
@@ -119,11 +122,13 @@ requirements:
     expected_value: "device_vendor_msft_policy_config_defender_realtimescandirection_0"
     description: "Set real-time scan direction to monitor both incoming and outgoing files"
     
-  - name: "Scan parameter set to quick scan"
+  - name: "Scan parameter set to quick scan or full scan"
     check_id: "ANTIVIRUS_021"
     setting_definition_id: "device_vendor_msft_policy_config_defender_scanparameter"
-    expected_value: "device_vendor_msft_policy_config_defender_scanparameter_1"
-    description: "Set default scan parameter to quick scan"
+    expected_value: 
+      - "device_vendor_msft_policy_config_defender_scanparameter_1"
+      - "device_vendor_msft_policy_config_defender_scanparameter_2"
+    description: "Set default scan parameter to quick scan (1) or full scan (2)"
     
   - name: "Daily quick scan time configured"
     check_id: "ANTIVIRUS_022"
@@ -147,7 +152,7 @@ requirements:
     check_id: "ANTIVIRUS_025"
     setting_definition_id: "device_vendor_msft_policy_config_defender_submitsamplesconsent"
     expected_value: "device_vendor_msft_policy_config_defender_submitsamplesconsent_1"
-    description: "Enable automatic submission of safe samples for analysis"
+    description: "Enable automatic submission of safe samples for analysis - required for cloud-delivered protection to work effectively (complements ANTIVIRUS_003)"
     
   - name: "Disable local admin merge enabled"
     check_id: "ANTIVIRUS_026"

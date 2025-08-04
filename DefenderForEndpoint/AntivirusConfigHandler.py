@@ -183,6 +183,7 @@ class AntivirusConfigHandler:
             setting_definition_id = requirement.get('setting_definition_id', '')
             expected_value = requirement.get('expected_value')
             check_id = requirement.get('check_id', '')
+            description = requirement.get('description', '')
             
             # Extract the current setting value from this policy
             current_value = self.extract_setting_value(settings, setting_definition_id)
@@ -194,8 +195,11 @@ class AntivirusConfigHandler:
             
             if current_value is not None:
                 if expected_value is not None:
+                    # Handle list-based expected values (multiple acceptable values)
+                    if isinstance(expected_value, list):
+                        is_compliant = current_value in expected_value
                     # Special handling for threat severity actions
-                    if setting_definition_id == 'device_vendor_msft_policy_config_defender_threatseveritydefaultaction':
+                    elif setting_definition_id == 'device_vendor_msft_policy_config_defender_threatseveritydefaultaction':
                         is_compliant = current_value == expected_value
                     else:
                         is_compliant = current_value == expected_value
@@ -207,6 +211,9 @@ class AntivirusConfigHandler:
             else:
                 status = "NOT CONFIGURED"
             
+            # Create human-readable expected value for display
+            display_expected_value = self._create_display_expected_value(expected_value, description, setting_definition_id)
+            
             result = {
                 'requirement_name': requirement_name,
                 'check_id': check_id,
@@ -214,7 +221,9 @@ class AntivirusConfigHandler:
                 'policy_id': policy_id,
                 'setting_definition_id': setting_definition_id,
                 'current_value': current_value,
-                'expected_value': expected_value,
+                'expected_value': display_expected_value,
+                'raw_expected_value': expected_value,  # Keep original for logic
+                'description': description,
                 'is_compliant': is_compliant,
                 'status': status,
                 'found': found,
@@ -330,3 +339,94 @@ class AntivirusConfigHandler:
         
         print(f"Completed antivirus policy compliance check. Found {len(all_results)} results across {total_policies} policies.")
         return all_results
+    
+    def _create_display_expected_value(self, expected_value: Any, description: str, setting_definition_id: str) -> str:
+        """Create human-readable expected value for display in reports"""
+        if expected_value is None:
+            return "Any configured value"
+        
+        # Handle list-based expected values
+        if isinstance(expected_value, list):
+            if setting_definition_id == 'device_vendor_msft_policy_config_defender_scanparameter':
+                readable_values = []
+                for value in expected_value:
+                    if value == 'device_vendor_msft_policy_config_defender_scanparameter_1':
+                        readable_values.append('Quick Scan (1)')
+                    elif value == 'device_vendor_msft_policy_config_defender_scanparameter_2':
+                        readable_values.append('Full Scan (2)')
+                    else:
+                        readable_values.append(value)
+                return f"One of: {' or '.join(readable_values)}"
+            elif setting_definition_id == 'device_vendor_msft_policy_config_defender_cloudblocklevel':
+                readable_values = []
+                for value in expected_value:
+                    if value == 'device_vendor_msft_policy_config_defender_cloudblocklevel_2':
+                        readable_values.append('High (2)')
+                    elif value == 'device_vendor_msft_policy_config_defender_cloudblocklevel_4':
+                        readable_values.append('High Plus (4)')
+                    elif value == 'device_vendor_msft_policy_config_defender_cloudblocklevel_6':
+                        readable_values.append('Zero Tolerance (6)')
+                    else:
+                        readable_values.append(value)
+                return f"One of: {', '.join(readable_values)}"
+            else:
+                return f"One of: {', '.join(map(str, expected_value))}"
+        
+        # Handle specific setting mappings for better readability
+        if setting_definition_id == 'device_vendor_msft_policy_config_defender_scanparameter':
+            if expected_value == 'device_vendor_msft_policy_config_defender_scanparameter_1':
+                return 'Quick Scan (1)'
+            elif expected_value == 'device_vendor_msft_policy_config_defender_scanparameter_2':
+                return 'Full Scan (2)'
+        
+        # Handle enable/disable settings
+        if setting_definition_id.endswith('_1'):
+            return 'Enabled'
+        elif setting_definition_id.endswith('_0'):
+            return 'Disabled'
+        
+        # Handle cloud block level (single values)
+        if setting_definition_id == 'device_vendor_msft_policy_config_defender_cloudblocklevel':
+            if expected_value == 'device_vendor_msft_policy_config_defender_cloudblocklevel_6':
+                return 'Zero Tolerance (6)'
+            elif expected_value == 'device_vendor_msft_policy_config_defender_cloudblocklevel_4':
+                return 'High Plus (4)'
+            elif expected_value == 'device_vendor_msft_policy_config_defender_cloudblocklevel_2':
+                return 'High (2)'
+            elif expected_value == 'device_vendor_msft_policy_config_defender_cloudblocklevel_1':
+                return 'Medium (1)'
+            elif expected_value == 'device_vendor_msft_policy_config_defender_cloudblocklevel_0':
+                return 'Low (0)'
+        
+        # Handle real-time scan direction
+        if setting_definition_id == 'device_vendor_msft_policy_config_defender_realtimescandirection':
+            if expected_value == 'device_vendor_msft_policy_config_defender_realtimescandirection_0':
+                return 'Monitor incoming and outgoing files (both directions)'
+            elif expected_value == 'device_vendor_msft_policy_config_defender_realtimescandirection_1':
+                return 'Monitor incoming files only'
+            elif expected_value == 'device_vendor_msft_policy_config_defender_realtimescandirection_2':
+                return 'Monitor outgoing files only'
+        
+        # Handle submission consent
+        if setting_definition_id == 'device_vendor_msft_policy_config_defender_submitsamplesconsent':
+            if expected_value == 'device_vendor_msft_policy_config_defender_submitsamplesconsent_1':
+                return 'Send safe samples automatically'
+            elif expected_value == 'device_vendor_msft_policy_config_defender_submitsamplesconsent_2':
+                return 'Prompt before sending samples'
+            elif expected_value == 'device_vendor_msft_policy_config_defender_submitsamplesconsent_3':
+                return 'Never send samples'
+        
+        # For threat severity default action
+        if setting_definition_id == 'device_vendor_msft_policy_config_defender_threatseveritydefaultaction':
+            if expected_value == 'quarantine':
+                return 'Quarantine threats'
+            elif expected_value == 'remove':
+                return 'Remove threats'
+            elif expected_value == 'allow':
+                return 'Allow threats'
+        
+        # Fallback to description if available, otherwise show the raw value
+        if description:
+            return f"{description} ({expected_value})"
+        
+        return str(expected_value)
