@@ -412,6 +412,64 @@ class MultiDomainDNSConfigHandler:
                 'primary_priority': None
             }
     
+    def check_domain_mail_enabled(self, domain: str) -> Dict[str, Any]:
+        """
+        Check if a domain has MX records (is mail-enabled) before running other DNS checks.
+        
+        Args:
+            domain: Domain name to check for MX records
+            
+        Returns:
+            Dictionary with MX validation results
+        """
+        try:
+            print(f"Checking if {domain} is mail-enabled (has MX records)...")
+            
+            mx_records = dns.resolver.resolve(domain, 'MX')
+            mx_hosts = [str(mx.exchange).lower().rstrip('.') for mx in mx_records]
+            
+            if mx_hosts:
+                return {
+                    'domain': domain,
+                    'is_mail_enabled': True,
+                    'mx_count': len(mx_hosts),
+                    'mx_records': mx_hosts,
+                    'status': f'Mail-enabled domain with {len(mx_hosts)} MX record(s)'
+                }
+            else:
+                return {
+                    'domain': domain,
+                    'is_mail_enabled': False,
+                    'mx_count': 0,
+                    'mx_records': [],
+                    'status': 'No MX records found - domain not mail-enabled'
+                }
+                
+        except dns.resolver.NXDOMAIN:
+            return {
+                'domain': domain,
+                'is_mail_enabled': False,
+                'mx_count': 0,
+                'mx_records': [],
+                'status': 'Domain does not exist (NXDOMAIN)'
+            }
+        except dns.resolver.NoAnswer:
+            return {
+                'domain': domain,
+                'is_mail_enabled': False,
+                'mx_count': 0,
+                'mx_records': [],
+                'status': 'No MX records found - domain not mail-enabled'
+            }
+        except Exception as e:
+            return {
+                'domain': domain,
+                'is_mail_enabled': False,
+                'mx_count': 0,
+                'mx_records': [],
+                'status': f'Error checking MX records: {str(e)}'
+            }
+    
     def check_policies(self) -> List[Dict[str, Any]]:
         """
         Check DNS policies for all authoritative domains.
@@ -438,10 +496,40 @@ class MultiDomainDNSConfigHandler:
                 }]
             
             all_results = []
+            mail_enabled_domains = []
             
-            # Check each domain
+            # First pass: Check which domains are mail-enabled
+            print(f"\n--- Checking mail-enabled status for {len(domains)} domains ---")
             for domain in domains:
-                print(f"\n--- Checking DNS for domain: {domain} ---")
+                mx_check = self.check_domain_mail_enabled(domain)
+                
+                # Add MX check result
+                all_results.append({
+                    'requirement_name': f'Mail-Enabled Check - {domain}',
+                    'found': mx_check['is_mail_enabled'],
+                    'status': f"{domain} - {mx_check['status']}",
+                    'policy_type': 'dns',
+                    'domain': domain,
+                    'current_value': {
+                        'mx_records': mx_check['mx_records'],
+                        'mx_count': mx_check['mx_count']
+                    },
+                    'expected_value': 'Domain should have MX records if mail-enabled',
+                    'is_compliant': mx_check['is_mail_enabled'],
+                    'details': mx_check
+                })
+                
+                if mx_check['is_mail_enabled']:
+                    mail_enabled_domains.append(domain)
+                    print(f"✅ {domain} is mail-enabled ({mx_check['mx_count']} MX records)")
+                else:
+                    print(f"⚠️ {domain} is not mail-enabled - skipping SPF/DKIM/DMARC checks")
+            
+            print(f"\nFound {len(mail_enabled_domains)} mail-enabled domains out of {len(domains)} total domains")
+            
+            # Second pass: Check SPF, DKIM, DMARC only for mail-enabled domains
+            for domain in mail_enabled_domains:
+                print(f"\n--- Checking DNS security records for mail-enabled domain: {domain} ---")
                 
                 # SPF Check
                 spf_result = self.check_spf_record(domain)
@@ -493,7 +581,7 @@ class MultiDomainDNSConfigHandler:
                     'details': dmarc_result
                 })
                 
-                # MX Provider Detection
+                # MX Provider Detection (enhanced from the existing MX check)
                 mx_detection = self.detect_mx_provider(domain)
                 all_results.append({
                     'requirement_name': f'MX Provider Detection - {domain}',
@@ -510,7 +598,7 @@ class MultiDomainDNSConfigHandler:
                     'details': mx_detection
                 })
                 
-                print(f"✅ Completed DNS checks for domain: {domain}")
+                print(f"✅ Completed DNS security checks for mail-enabled domain: {domain}")
             
             # Summary
             total_domains = len(domains)
@@ -518,10 +606,15 @@ class MultiDomainDNSConfigHandler:
             compliant_checks = sum(1 for result in all_results if result.get('is_compliant', False))
             
             print(f"\n=== DNS Check Summary ===")
-            print(f"Domains checked: {total_domains}")
+            print(f"Total domains: {total_domains}")
+            print(f"Mail-enabled domains: {len(mail_enabled_domains)}")
+            print(f"Non-mail-enabled domains: {total_domains - len(mail_enabled_domains)}")
             print(f"Total DNS checks: {total_checks}")
             print(f"Compliant checks: {compliant_checks}/{total_checks}")
             print(f"Overall compliance rate: {(compliant_checks/total_checks)*100:.1f}%")
+            
+            if total_domains - len(mail_enabled_domains) > 0:
+                print(f"ℹ️  Note: {total_domains - len(mail_enabled_domains)} domain(s) skipped DNS security checks (not mail-enabled)")
             
             return all_results
             

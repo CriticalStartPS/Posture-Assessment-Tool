@@ -78,7 +78,7 @@ requirements:
       - "device_vendor_msft_policy_config_defender_cloudblocklevel_2"
       - "device_vendor_msft_policy_config_defender_cloudblocklevel_4"
       - "device_vendor_msft_policy_config_defender_cloudblocklevel_6"
-    description: "Set cloud block level to High (2), High Plus (4), or Zero Tolerance (6) for enhanced protection (this is different from basic cloud-delivered protection - it sets the aggressiveness level)"
+    description: "Set cloud block level to High (2) - generally suggested, though higher levels High Plus (4) and Zero Tolerance (6) are also acceptable for enhanced protection (this is different from basic cloud-delivered protection - it sets the aggressiveness level)"
     
   - name: "Cloud extended timeout configured"
     check_id: "ANTIVIRUS_014"
@@ -128,7 +128,7 @@ requirements:
     expected_value: 
       - "device_vendor_msft_policy_config_defender_scanparameter_1"
       - "device_vendor_msft_policy_config_defender_scanparameter_2"
-    description: "Set default scan parameter to quick scan (1) or full scan (2)"
+    description: "Set default scan parameter to Quick Scan (1) - recommended for performance, though Full Scan (2) is also acceptable for enhanced coverage"
     
   - name: "Daily quick scan time configured"
     check_id: "ANTIVIRUS_022"
