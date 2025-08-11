@@ -15,6 +15,17 @@ class MultiDomainDNSConfigHandler:
         self.exchange_session_manager = exchange_session_manager
         self.requirements_file_path = requirements_file_path
         self.requirements = self._load_requirements()
+        
+        # Configure DNS resolver with reliable nameservers and timeout settings
+        self.resolver = dns.resolver.Resolver()
+        self.resolver.nameservers = [
+            '8.8.8.8',      # Google DNS
+            '8.8.4.4',      # Google DNS Secondary
+            '1.1.1.1',      # Cloudflare DNS
+            '208.67.222.222' # OpenDNS
+        ]
+        self.resolver.timeout = 10
+        self.resolver.lifetime = 30
     
     def _load_requirements(self) -> Dict:
         """Load DNS requirements from YAML file"""
@@ -80,8 +91,8 @@ class MultiDomainDNSConfigHandler:
         try:
             print(f"Checking SPF record for {domain}...")
             
-            # Query TXT records for the domain
-            txt_records = dns.resolver.resolve(domain, 'TXT')
+            # Query TXT records for the domain using configured resolver
+            txt_records = self.resolver.resolve(domain, 'TXT')
             spf_records = []
             has_hard_fail = False
             has_soft_fail = False
@@ -91,6 +102,7 @@ class MultiDomainDNSConfigHandler:
                 record_text = str(record).strip('"')
                 if record_text.startswith('v=spf1'):
                     spf_records.append(record_text)
+                    print(f"Found SPF record: {record_text}")
                     
                     # Check for policy mechanisms
                     if record_text.endswith(' -all'):
@@ -167,7 +179,7 @@ class MultiDomainDNSConfigHandler:
                     
                     # First try TXT records (for Google Workspace and direct DKIM)
                     try:
-                        txt_records = dns.resolver.resolve(dkim_domain, 'TXT')
+                        txt_records = self.resolver.resolve(dkim_domain, 'TXT')
                         for record in txt_records:
                             record_text = str(record).strip('"')
                             if 'v=DKIM1' in record_text or 'k=' in record_text:
@@ -177,6 +189,7 @@ class MultiDomainDNSConfigHandler:
                                     'type': 'TXT'
                                 })
                                 found_selectors.append(selector)
+                                print(f"Found DKIM TXT record for selector {selector}")
                                 break
                     except (dns.resolver.NXDOMAIN, dns.resolver.NoAnswer):
                         pass
@@ -184,7 +197,7 @@ class MultiDomainDNSConfigHandler:
                     # If no TXT record found, try CNAME (for Office 365)
                     if selector not in found_selectors:
                         try:
-                            cname_records = dns.resolver.resolve(dkim_domain, 'CNAME')
+                            cname_records = self.resolver.resolve(dkim_domain, 'CNAME')
                             for record in cname_records:
                                 cname_target = str(record).rstrip('.')
                                 # Office 365 DKIM CNAME found
@@ -194,6 +207,7 @@ class MultiDomainDNSConfigHandler:
                                     'type': 'CNAME'
                                 })
                                 found_selectors.append(selector)
+                                print(f"Found DKIM CNAME record for selector {selector}")
                                 break
                         except (dns.resolver.NXDOMAIN, dns.resolver.NoAnswer):
                             pass
@@ -250,9 +264,9 @@ class MultiDomainDNSConfigHandler:
         try:
             print(f"Checking DMARC record for {domain}...")
             
-            # Query DMARC record
+            # Query DMARC record using configured resolver
             dmarc_domain = f"_dmarc.{domain}"
-            txt_records = dns.resolver.resolve(dmarc_domain, 'TXT')
+            txt_records = self.resolver.resolve(dmarc_domain, 'TXT')
             dmarc_records = []
             policy = "none"
             dmarc_status = "No DMARC Record Found"
@@ -261,6 +275,7 @@ class MultiDomainDNSConfigHandler:
                 record_text = str(record).strip('"')
                 if record_text.startswith('v=DMARC1'):
                     dmarc_records.append(record_text)
+                    print(f"Found DMARC record: {record_text}")
                     
                     # Extract policy
                     if 'p=reject' in record_text:
@@ -314,7 +329,7 @@ class MultiDomainDNSConfigHandler:
         try:
             print(f"Detecting MX provider for {domain}...")
             
-            mx_records = dns.resolver.resolve(domain, 'MX')
+            mx_records = self.resolver.resolve(domain, 'MX')
             
             # Create detailed MX record list with priorities
             mx_details = []
@@ -425,7 +440,7 @@ class MultiDomainDNSConfigHandler:
         try:
             print(f"Checking if {domain} is mail-enabled (has MX records)...")
             
-            mx_records = dns.resolver.resolve(domain, 'MX')
+            mx_records = self.resolver.resolve(domain, 'MX')
             mx_hosts = [str(mx.exchange).lower().rstrip('.') for mx in mx_records]
             
             if mx_hosts:
