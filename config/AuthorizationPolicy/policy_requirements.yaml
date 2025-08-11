@@ -12,7 +12,7 @@ authorization_policies:
   - name: "Prevent User Consent for Risky Apps"
     description: "Ensure that users cannot consent to risky applications"
     setting: "allowUserConsentForRiskyApps"
-    expected_value: true  
+    expected_value: false  
     
   - name: "Restrict Guest Invitations"
     description: "Ensure guest invitations are restricted appropriately"
